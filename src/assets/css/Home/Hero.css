@@ -1,0 +1,284 @@
+.sorath-hero {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    background-image: url('../../images/slider.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 50px;
+}
+
+.sorath-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, #77a5a3de, #000000);
+}
+
+.sorath-hero-content {
+    z-index: 2;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+
+.sorath-hero-logo {
+    width: 355px;
+    height: 120px;
+    padding: 10px 20px;
+    background: var(--black-sorath-color);
+    border-radius: 14px;
+}
+
+.sorath-hero-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Badge */
+
+.sorath-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 20px;
+    background: var(--primary-sorath-color);
+    color: var(--white-sorath-color);
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.sorath-hero-badge .sorath-hero-badge-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--white-sorath-color);
+    border-radius: 50%;
+    animation: herodot 2s ease-out infinite;
+}
+
+.sorath-hero-badge .sorath-hero-badge-rectangle {
+       position: absolute;
+    top: 0;
+    left: -60%;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(100deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .45) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-20deg);
+    pointer-events: none;
+    z-index: 1;
+    animation: subHeadingShine 3.5s ease-in-out infinite;
+}
+
+/* Heading */
+
+.sorath-hero-title {
+    color: var(--black-sorath-color);
+    font-size: clamp(40px, 4vw, 58px);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.sorath-hero-title strong {
+    color: var(--white-sorath-color);
+    font-weight: 800;
+}
+
+/* Description */
+
+.sorath-hero-description {
+    color: var(--white-sorath-color);
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+/* Compass */
+.sorath-hero-compass {
+           position: absolute;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    }
+
+    .design-float-icon {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-sorath-color), #5e8c8a);
+        color: var(--white-sorath-color);
+        font-size: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 25px rgba(119, 165, 163, .45);
+        transition: transform .3s ease;
+        z-index: 1;
+        border: 1px solid var(--white-sorath-color);
+    }
+
+    .design-float-icon:before,
+    .design-float-icon:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--primary-sorath-color);
+        z-index: -1;
+        animation: designPulse 2.4s ease-out infinite;
+    }
+
+    .design-float-icon:after {
+        animation-delay: 1.2s;
+    }
+
+    .design-float-icon i {
+        animation: designShake 4s ease-in-out infinite;
+    }
+
+    .design-float-label {
+        margin-left: -30px;
+        padding: 10px 18px 10px 40px;
+        background: var(--white-sorath-color);
+        color: var(--primary-sorath-color);
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        border-radius: 0 30px 30px 0;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+        opacity: 0;
+        transform: translateX(-20px);
+        pointer-events: none;
+        transition: opacity .3s ease, transform .3s ease;
+    }
+
+    .sorath-hero-compass:hover .design-float-icon {
+        transform: scale(1.08) rotate(-8deg);
+    }
+
+    .sorath-hero-compass:hover .design-float-label {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+/* Shop Button */
+
+
+
+.sorath-hero-shop-btn {
+    border-color: var(--white-sorath-color);
+    color: var(--white-sorath-color);
+}
+
+
+
+.sorath-hero-shop-arrow {
+    background-color: var(--primary-sorath-color);
+    color: var(--white-sorath-color);
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    font-size: 16px;
+    transform: rotate(45deg);
+    transition: all .3s ease-in-out;
+}
+
+.sorath-primary-btn:hover .sorath-hero-shop-arrow {
+    transform: rotate(90deg);
+}
+
+/* Right Images */
+
+.sorath-hero-images {
+    margin-top: 80px;
+}
+
+.sorath-hero-image {
+    width: 220px;
+    height: 260px;
+    overflow: hidden;
+    border-radius: 24px;
+}
+
+
+.sorath-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Tablet */
+
+@media (max-width: 991px) {
+
+    .sorath-hero {
+        min-height: auto;
+    }
+
+    .sorath-hero-content {
+        padding-top: 70px;
+        padding-bottom: 60px;
+    }
+
+    .sorath-hero-images {
+        margin-top: 50px;
+    }
+
+    .sorath-hero-image {
+        width: 45%;
+        height: 280px;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 575px) {
+
+    .sorath-hero-logo {
+        width: 250px;
+        height: 90px;
+    }
+
+    .sorath-hero-title {
+        font-size: 32px;
+    }
+
+    .sorath-hero-description {
+        font-size: 16px;
+    }
+
+    .sorath-hero-compass {
+        width: 70px;
+        height: 70px;
+    }
+
+    .sorath-hero-shop-btn {
+        height: 58px;
+        font-size: 16px;
+    }
+
+    .sorath-hero-shop-arrow {
+        width: 44px;
+        height: 44px;
+    }
+
+    .sorath-hero-images {
+        gap: 10px !important;
+    }
+
+    .sorath-hero-image {
+        width: 50%;
+        height: 220px;
+    }
+}

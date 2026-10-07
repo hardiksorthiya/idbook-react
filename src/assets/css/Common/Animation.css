@@ -1,0 +1,56 @@
+@keyframes herodot {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, .7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 7px rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+
+}
+
+@keyframes subHeadingShine {
+    0% { left: -60%; }
+    45%, 100% { left: 130%; }
+}
+
+@keyframes designPulse {
+    0% {
+        transform: scale(1);
+        opacity: .6;
+    }
+
+    100% {
+        transform: scale(1.9);
+        opacity: 0;
+    }
+}
+
+@keyframes designShake {
+
+    0%,
+    80%,
+    100% {
+        transform: rotate(0);
+    }
+
+    84% {
+        transform: rotate(-15deg);
+    }
+
+    88% {
+        transform: rotate(15deg);
+    }
+
+    92% {
+        transform: rotate(-10deg);
+    }
+
+    96% {
+        transform: rotate(10deg);
+    }
+}

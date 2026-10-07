@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root{
+
+    --primary-sorath-color: #83b9b7;
+    --white-sorath-color: #fff;
+    --black-sorath-color: #000;
+    --body-sorath-font-family: 'Poppins', sans-serif;
+    --container-side: 120px;
+
+
+}
+
+body{
+    font-family: var(--body-sorath-font-family);
+    color: var(--black-sorath-color);
+}
+
+a{
+    text-decoration: none;
+    color: var(--black-sorath-color);
+}
+
+.sorath-primary-btn{
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--white-sorath-color);
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
+    padding: 10px 15px 10px 25px;
+    border-radius: 100px;
+    transition: all .3s ease-in-out;
+    overflow: hidden;
+    text-transform: capitalize;
+    position: relative;
+    z-index: 1;
+    border: 1px solid;
+    gap: 10px;
+}
+.sorath-primary-btn:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: var(--primary-sorath-color);
+    transform-origin: right center;
+    transform: scale(0, 1);
+    transition: transform .4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+}
+
+.sorath-primary-btn:hover:before {
+    transform-origin: left center;
+    transform: scale(1, 1);
+}
+
+@media (min-width: 580px){
+.sorath-container-fluid {
+    padding: 0 var(--container-side);
+}
+}
