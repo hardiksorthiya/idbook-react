@@ -1,0 +1,358 @@
+.sorath-header-buttons {
+  padding-top: 10px;
+}
+
+.sorath-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  z-index: 1000;
+
+  transition:
+    background 0.35s ease,
+    box-shadow 0.35s ease,
+    padding 0.35s ease;
+}
+
+/* =====================================
+   HEADER INNER
+===================================== */
+
+.sorath-header-inner {
+  min-height: 80px;
+
+  padding: 10px 0;
+
+  transition: min-height 0.35s ease;
+}
+
+
+/* =====================================
+   LOGO
+===================================== */
+
+.sorath-header-logo {
+  display: block;
+
+  width: 145px;
+  height: 50px;
+
+  text-decoration: none;
+
+  opacity: 0;
+
+  transform: translateY(-10px);
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.sorath-header-logo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+
+/* =====================================
+   SCROLLED HEADER
+===================================== */
+
+.sorath-header-scrolled {
+  position: fixed;
+
+  background: rgba(12, 25, 25, 0.96);
+
+  backdrop-filter: blur(12px);
+
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+}
+
+.sorath-header-scrolled .sorath-header-inner {
+  min-height: 70px;
+
+  padding: 7px 0;
+}
+
+.sorath-header-scrolled .sorath-header-logo {
+  opacity: 1;
+
+  transform: translateY(0);
+
+  pointer-events: auto;
+}
+
+/* =====================================
+   HEADER BUTTONS
+===================================== */
+
+.sorath-header-actions {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+.sorath-header-btn {
+  width: 61px;
+  height: 61px;
+
+  flex-shrink: 0;
+
+  padding: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+
+  background: rgba(40, 44, 44, 0.85);
+
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  position: relative;
+  z-index: 2;
+
+  transition: all 0.3s ease;
+}
+
+.sorath-header-actions .sorath-header-btn + .sorath-header-btn {
+  margin-left: 10px;
+}
+
+.sorath-header-btn:hover {
+  background: #83b9b7;
+  border-color: #83b9b7;
+}
+
+.sorath-header-btn-active {
+  background: #83b9b7;
+  border-color: #83b9b7;
+}
+
+
+/* =====================================
+   SEARCH
+===================================== */
+
+.sorath-search-wrapper {
+  width: 0;
+  margin-right: 0;
+
+  overflow: hidden;
+
+  opacity: 0;
+
+  flex: none;
+
+  transition:
+    width 0.45s ease,
+    margin-right 0.45s ease,
+    opacity 0.3s ease;
+}
+
+.sorath-search-open {
+  width: 320px;
+  margin-right: -61px;
+
+  opacity: 1;
+}
+
+.sorath-search-input {
+  display: block;
+
+  width: 320px;
+  height: 61px;
+
+  padding: 0 74px 0 24px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50px;
+
+  background: #191919;
+
+  color: #fff;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  outline: none;
+}
+
+.sorath-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+
+/* =====================================
+   MENU DROPDOWN
+===================================== */
+
+.sorath-menu-dropdown {
+  position: absolute;
+
+  top: calc(100% + 14px);
+  right: 0;
+
+  width: 270px;
+
+  padding: 8px 22px 18px;
+
+  background: #141414;
+
+  border-radius: 18px;
+
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+
+  transform-origin: top right;
+
+  transform: scale(0.85) translateY(-15px);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  clip-path: ellipse(20% 10% at 90% 0%);
+
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease,
+    clip-path 0.5s ease,
+    visibility 0.45s ease;
+}
+
+
+/* Open */
+
+.sorath-menu-dropdown-open {
+  transform: scale(1) translateY(0);
+
+  opacity: 1;
+
+  visibility: visible;
+
+  clip-path: ellipse(100% 100% at 50% 50%);
+}
+
+
+/* =====================================
+   MENU LINKS
+===================================== */
+
+.sorath-menu-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sorath-menu-list a {
+  padding: 14px 0;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+  color: #fff;
+
+  text-decoration: none;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  transition: color 0.25s ease;
+}
+
+.sorath-menu-list a:first-child {
+  color: #83b9b7;
+}
+
+.sorath-menu-list a:hover {
+  color: #83b9b7;
+}
+
+
+/* =====================================
+   BOTTOM ICONS
+===================================== */
+
+.sorath-menu-bottom {
+  padding-top: 16px;
+}
+
+.sorath-menu-icon {
+  width: 42px;
+  height: 42px;
+
+  padding: 0;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  background: #252525;
+
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.sorath-menu-icon:hover {
+  background: #83b9b7;
+  border-color: #83b9b7;
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 575px) {
+
+  .sorath-header-buttons {
+    padding-right: 5px;
+  }
+
+  .sorath-header-btn {
+    width: 48px;
+    height: 48px;
+
+    font-size: 16px;
+  }
+
+  .sorath-search-open {
+    width: 190px;
+    margin-right: -48px;
+  }
+
+  .sorath-search-input {
+    width: 190px;
+    height: 48px;
+
+    padding-right: 58px;
+
+    font-size: 15px;
+  }
+
+  .sorath-menu-dropdown {
+    width: 240px;
+  }
+}

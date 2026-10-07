@@ -58,7 +58,8 @@ a{
 }
 
 @media (min-width: 580px){
-.sorath-container-fluid {
-    padding: 0 var(--container-side);
-}
+    .sorath-container-fluid {
+        padding-left: var(--container-side);
+        padding-right: var(--container-side);
+    }
 }

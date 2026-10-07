@@ -1,0 +1,138 @@
+.sorath-preloader {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 99999;
+  overflow: hidden;
+  background: #111;
+  pointer-events: auto;
+}
+
+/* Logo */
+.sorath-site-name {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.sorath-site-logo {
+  display: block;
+  width: min(320px, 60vw);
+  height: auto;
+  object-fit: contain;
+  animation: sorath-preloader-logo 1.6s ease-in-out infinite;
+}
+
+@keyframes sorath-preloader-logo {
+  0% {
+    opacity: 0.65;
+    transform: scale(0.96);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0.65;
+    transform: scale(0.96);
+  }
+}
+
+/* Bars */
+.sorath-preloader-gutters {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.sorath-preloader-bar {
+  position: relative;
+  width: 12.5%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+}
+
+.sorath-preloader-inner-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #fff;
+  animation: sorath-preloader-bar-animation 1.8s
+    cubic-bezier(0.77, 0, 0.18, 1) forwards;
+}
+
+.sorath-preloader-bar:nth-child(1) .sorath-preloader-inner-bar {
+  animation-delay: 0s;
+}
+
+.sorath-preloader-bar:nth-child(2) .sorath-preloader-inner-bar {
+  animation-delay: 0.08s;
+}
+
+.sorath-preloader-bar:nth-child(3) .sorath-preloader-inner-bar {
+  animation-delay: 0.16s;
+}
+
+.sorath-preloader-bar:nth-child(4) .sorath-preloader-inner-bar {
+  animation-delay: 0.24s;
+}
+
+.sorath-preloader-bar:nth-child(5) .sorath-preloader-inner-bar {
+  animation-delay: 0.32s;
+}
+
+.sorath-preloader-bar:nth-child(6) .sorath-preloader-inner-bar {
+  animation-delay: 0.4s;
+}
+
+.sorath-preloader-bar:nth-child(7) .sorath-preloader-inner-bar {
+  animation-delay: 0.48s;
+}
+
+.sorath-preloader-bar:nth-child(8) .sorath-preloader-inner-bar {
+  animation-delay: 0.56s;
+}
+
+@keyframes sorath-preloader-bar-animation {
+  0% {
+    width: 0;
+  }
+
+  45% {
+    width: 100%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@media (max-width: 575px) {
+  .sorath-site-logo {
+    width: min(260px, 70vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sorath-site-logo,
+  .sorath-preloader-inner-bar {
+    animation: none;
+  }
+}

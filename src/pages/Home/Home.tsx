@@ -1,9 +1,13 @@
-import Hero from '../Home/components/Hero';
+import Header from '../../components/Header/Header';
+import Hero from './components/Hero';
+import Process from './components/Process';
 
 const Home = () => {
   return (
     <>
+    <Header />
     <Hero />
+    <Process />
     </>
   )
 }
