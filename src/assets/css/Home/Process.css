@@ -1,521 +1,1438 @@
 .sorath-process {
+  --sorath-main: var(--tl-color-theme-primary, #77a5a3);
+  --sorath-light: #b8dcd9;
+  --sorath-bg: #101214;
+  --sorath-muted: #9aa3a8;
+  --sorath-line: rgba(119, 165, 163, 0.25);
+  --sorath-green: #38e89b;
+
+  position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: #0b0f10;
+  color: #fff;
+
+  background:
+    radial-gradient(
+      circle at 72% 50%,
+      rgba(119, 165, 163, 0.14),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 18% 82%,
+      rgba(119, 165, 163, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(
+      120deg,
+      #0b0d0f,
+      var(--sorath-bg) 55%,
+      #0b0d0f
+    );
+}
+
+/* ================================
+   BACKGROUND
+================================ */
+
+.sorath-process-grid {
+  position: absolute;
+  inset: -20%;
+  opacity: 0.3;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(119, 165, 163, 0.07) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(119, 165, 163, 0.07) 1px,
+      transparent 1px
+    );
+
+  background-size: 70px 70px;
+
+  transform:
+    perspective(700px)
+    rotateX(62deg)
+    translateY(16%);
+
+  transform-origin: center bottom;
+}
+
+.sorath-process-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle,
+      transparent 40%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+}
+
+/* ================================
+   HUD
+================================ */
+
+.sorath-process-hud {
+  position: absolute;
+  top: 110px;
+  left: 0;
+  right: 0;
+  z-index: 20;
+}
+
+.sorath-process-kicker {
+  position: relative;
+  display: inline-block;
+
+  padding: 8px 22px 8px 34px;
+
+  overflow: hidden;
+
+  font-family: var(--tl-ff-heading);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+
+  color: #fff;
+  background: var(--sorath-main);
+  border: 1px solid var(--sorath-main);
+  border-radius: 100px;
+
+  box-shadow:
+    0 6px 20px rgba(119, 165, 163, 0.35);
+}
+
+.sorath-process-kicker::before {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+  left: 17px;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+  background: #fff;
+
+  transform: translateY(-50%);
+
+  animation: sorath-kicker-pulse 2s ease-out infinite;
+}
+
+.sorath-process-kicker::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -60%;
+
+  width: 45%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      100deg,
+      transparent,
+      rgba(255, 255, 255, 0.45),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  animation: sorath-kicker-shine 3.5s ease-in-out infinite;
+}
+
+@keyframes sorath-kicker-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 0 7px rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes sorath-kicker-shine {
+  0%,
+  25% {
+    left: -60%;
+  }
+
+  65%,
+  100% {
+    left: 120%;
+  }
+}
+
+/* ================================
+   COUNTER
+================================ */
+
+.sorath-process-counter {
+  font-family: var(--tl-ff-heading);
+  color: #dfe7e6;
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.sorath-cube-scene {
+  --sorath-cube-size: 58px;
+
+  width: var(--sorath-cube-size);
+  height: var(--sorath-cube-size);
+
+  perspective: 600px;
+}
+
+.sorath-cube {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  transform-style: preserve-3d;
+
+  animation: sorath-cube-rotate 10s linear infinite;
+}
+
+.sorath-cube-face {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(119, 165, 163, 0.75);
+
+  background:
+    linear-gradient(
+      rgba(119, 165, 163, 0.14) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(119, 165, 163, 0.14) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      145deg,
+      rgba(36, 46, 48, 0.96),
+      rgba(14, 18, 20, 0.96)
+    );
+
+  background-size:
+    9px 9px,
+    9px 9px,
+    100% 100%;
+
+  box-shadow:
+    inset 0 0 14px rgba(119, 165, 163, 0.25);
+
+  font-family: var(--tl-ff-heading);
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--sorath-light);
+
+  backface-visibility: hidden;
+}
+
+.sorath-cube-front {
+  transform:
+    translateZ(
+      calc(var(--sorath-cube-size) / 2)
+    );
+}
+
+.sorath-cube-back {
+  transform:
+    rotateY(180deg)
+    translateZ(
+      calc(var(--sorath-cube-size) / 2)
+    );
+}
+
+.sorath-cube-right {
+  transform:
+    rotateY(90deg)
+    translateZ(
+      calc(var(--sorath-cube-size) / 2)
+    );
+}
+
+.sorath-cube-left {
+  transform:
+    rotateY(-90deg)
+    translateZ(
+      calc(var(--sorath-cube-size) / 2)
+    );
+}
+
+.sorath-cube-top {
+  transform:
+    rotateX(90deg)
+    translateZ(
+      calc(var(--sorath-cube-size) / 2)
+    );
+}
+
+.sorath-cube-bottom {
+  transform:
+    rotateX(-90deg)
+    translateZ(
+      calc(var(--sorath-cube-size) / 2)
+    );
+}
+
+.sorath-cube-front b {
+  position: relative;
+  z-index: 2;
+
+  font-size: 18px;
   color: #fff;
 }
 
-.sorath-process-swiper {
-  width: 100%;
-  height: 100vh;
+.sorath-cube-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: rgba(119, 165, 163, 0.5);
+
+  transition: height 0.6s ease;
 }
 
-.sorath-process .swiper-slide {
+@keyframes sorath-cube-rotate {
+  from {
+    transform: rotateX(-12deg) rotateY(0);
+  }
+
+  to {
+    transform: rotateX(-12deg) rotateY(360deg);
+  }
+}
+
+.sorath-process-line {
+  width: 110px;
+  height: 2px;
+
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.sorath-process-line i {
+  display: block;
+
   width: 100%;
-  height: 100vh;
+  height: 100%;
+
+  background: var(--sorath-main);
+
+  transform-origin: left center;
+
+  transition: transform 0.5s ease;
+}
+
+/* ================================
+   DOTS / FOOTER
+================================ */
+
+.sorath-process-dots {
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  z-index: 20;
+
+  transform: translateY(-50%);
+}
+
+.sorath-process-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #4b5559;
+
+  cursor: pointer;
+
+  transition: 0.35s ease;
+}
+
+.sorath-process-dot-active {
+  height: 28px;
+
+  border-radius: 5px;
+
+  background: var(--sorath-main);
+
+  box-shadow:
+    0 0 14px rgba(119, 165, 163, 0.6);
+}
+
+.sorath-process-foot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 28px;
+  z-index: 20;
+}
+
+.sorath-process-label {
+  color: #7d8a8f;
+
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ================================
+   SWIPER
+================================ */
+
+.sorath-process-swiper {
+  position: relative;
+  z-index: 5;
+
+  width: 100%;
+  height: 100%;
 }
 
 .sorath-process-slide {
   position: relative;
+
   width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
+  height: 100%;
+
   overflow: hidden;
 }
 
-
-/* =====================================
-   CONTENT
-===================================== */
-
-.sorath-process-content {
-  width: 42%;
-  padding-left: 8%;
-  position: relative;
-  z-index: 2;
+.sorath-process-slide > .container {
+  height: 100%;
+  padding-top: 170px;
+  padding-bottom: 40px;
 }
 
-.sorath-process-content small {
-  display: block;
-  margin-bottom: 25px;
-  color: #80b8b8;
+/* ================================
+   TEXT
+================================ */
+
+.sorath-process-copy {
+  position: relative;
+  z-index: 10;
+}
+
+.sorath-process-step {
+  margin-bottom: 18px;
+
+  font-family: var(--tl-ff-heading);
+  color: var(--sorath-main);
+
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
-.sorath-process-content h2 {
-  margin: 0 0 25px;
-  font-size: clamp(50px, 5vw, 76px);
-  line-height: 0.95;
-  font-weight: 700;
-}
-
-.sorath-process-content h2 span {
-  color: #80b8b8;
-}
-
-.sorath-process-content p {
-  max-width: 500px;
+.sorath-process-title {
   margin: 0;
-  color: #a5adae;
-  font-size: 17px;
-  line-height: 1.7;
+
+  font-family: var(--tl-ff-heading);
+  font-size: clamp(34px, 3.6vw, 60px);
+  font-weight: 700;
+  line-height: 1.08;
+
+  color: #fff;
 }
 
+.sorath-process-title span {
+  color: var(--sorath-main);
+}
 
-/* =====================================
-   ANIMATION AREA
-===================================== */
+.sorath-process-desc {
+  max-width: 430px;
+  margin: 22px 0 0;
 
-.sorath-process-animation {
-  width: 58%;
-  height: 100%;
+  color: var(--sorath-muted);
+
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.sorath-process-pill {
+  display: inline-flex;
+
+  margin-top: 24px;
+  padding: 8px 14px;
+
+  border: 1px solid var(--sorath-line);
+  border-radius: 100px;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  color: #c9d6d5;
+  font-size: 12px;
+}
+
+/* ================================
+   VISUAL
+================================ */
+
+.sorath-process-visual {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+  height: min(
+    calc(100vh - 230px),
+    720px
+  );
 }
 
-
-/* =====================================
-   SLIDE 1
-===================================== */
-
-.sorath-process-animation-one {
-  perspective: 1000px;
-}
-
-.sorath-process-animation-one img {
+.sorath-process-glow {
   position: absolute;
+  top: 50%;
+  right: 8%;
+
   width: 520px;
-  height: 460px;
-  object-fit: cover;
-  border-radius: 8px;
+  height: 520px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(119, 165, 163, 0.22),
+      transparent 67%
+    );
+
+  filter: blur(10px);
+
+  transform: translateY(-50%);
+}
+
+/* ================================
+   STEP 01
+================================ */
+
+.sorath-flip-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: min(560px, 90%);
+  height: 400px;
+
+  perspective: 1200px;
+
+  transform: translate(-50%, -50%);
+}
+
+.sorath-flip {
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+
+  transform-style: preserve-3d;
+
+  animation: sorath-flip 12s ease-in-out infinite;
+}
+
+.sorath-flip img {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  border-radius: 16px;
+
   backface-visibility: hidden;
 }
 
-.sorath-process-animation-one img:first-child {
-  animation: sorath-process-image-one 6s infinite;
+.sorath-flip img + img {
+  transform: rotateY(180deg);
 }
 
-.sorath-process-animation-one img:last-child {
-  animation: sorath-process-image-two 6s infinite;
-}
-
-@keyframes sorath-process-image-one {
+@keyframes sorath-flip {
   0%,
-  42% {
-    opacity: 1;
+  38% {
     transform: rotateY(0);
   }
 
   50%,
-  92% {
-    opacity: 0;
+  88% {
     transform: rotateY(180deg);
   }
 
   100% {
-    opacity: 1;
-    transform: rotateY(0);
+    transform: rotateY(360deg);
   }
 }
 
-@keyframes sorath-process-image-two {
-  0%,
-  42% {
-    opacity: 0;
-    transform: rotateY(-180deg);
-  }
-
-  50%,
-  92% {
-    opacity: 1;
-    transform: rotateY(0);
-  }
-
-  100% {
-    opacity: 0;
-    transform: rotateY(-180deg);
-  }
-}
-
-
-/* =====================================
-   SLIDE 2
-===================================== */
-
-.sorath-process-animation-two {
-  width: 600px;
-  height: 500px;
-}
-
-.sorath-process-animation-two img {
+.sorath-process-note {
   position: absolute;
-  width: 230px;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 15px;
+  right: 5%;
+  bottom: 8%;
+
+  width: 185px;
+  padding: 18px;
+
+  border: 1px solid rgba(119, 165, 163, 0.32);
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(36, 46, 48, 0.86),
+      rgba(14, 18, 20, 0.86)
+    );
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.35);
+
+  backdrop-filter: blur(16px);
 }
 
-.sorath-process-animation-two img:nth-child(1) {
-  top: 100px;
-  left: 60px;
-  animation: sorath-process-move-one 4s infinite;
+.sorath-process-mini {
+  color: #93a3a6;
+
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
 
-.sorath-process-animation-two img:nth-child(2) {
-  top: 100px;
-  right: 40px;
-  animation: sorath-process-move-two 4s infinite;
-}
+.sorath-process-note strong {
+  display: block;
 
-.sorath-process-animation-two img:nth-child(3) {
-  bottom: 80px;
-  left: 130px;
-  animation: sorath-process-move-three 4s infinite;
-}
-
-.sorath-process-animation-two img:nth-child(4) {
-  bottom: 80px;
-  right: 90px;
-  animation: sorath-process-move-four 4s infinite;
-}
-
-@keyframes sorath-process-move-one {
-  50% {
-    transform: translateY(-25px);
-  }
-}
-
-@keyframes sorath-process-move-two {
-  50% {
-    transform: translateY(25px);
-  }
-}
-
-@keyframes sorath-process-move-three {
-  50% {
-    transform: translateX(-25px);
-  }
-}
-
-@keyframes sorath-process-move-four {
-  50% {
-    transform: translateX(25px);
-  }
-}
-
-
-/* =====================================
-   SLIDE 3
-===================================== */
-
-.sorath-process-animation-three {
-  gap: 15px;
-}
-
-.sorath-process-card {
-  width: 190px;
-  min-height: 230px;
-  padding: 15px;
-  border: 1px solid #344849;
-  border-radius: 15px;
-  background: #172021;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  animation: sorath-process-card-animation 3s infinite;
-}
-
-.sorath-process-card:nth-child(3) {
-  animation-delay: 0.5s;
-}
-
-.sorath-process-card:nth-child(5) {
-  animation-delay: 1s;
-}
-
-.sorath-process-card-image {
-  height: 90px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  background: #344849;
-}
-
-.sorath-process-card span {
   margin-top: 8px;
-  color: #879394;
-  font-size: 13px;
-}
 
-.sorath-process-card button {
-  margin-top: 15px;
-  padding: 10px;
-  border: 0;
-  border-radius: 7px;
-  background: #80b8b8;
   color: #fff;
 }
 
-.sorath-process-arrow {
-  color: #80b8b8;
-  font-size: 30px;
+/* ================================
+   STEP 02
+================================ */
+
+.sorath-process-gallery {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: min(640px, 95%);
+  height: 470px;
+
+  transform: translate(-50%, -50%);
 }
 
-.sorath-payment {
+.sorath-gallery-card {
+  position: absolute;
+
+  width: 250px;
+  height: 165px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(119, 165, 163, 0.45);
+  border-radius: 14px;
+
+  background: #141a1c;
+}
+
+.sorath-gallery-card img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  animation:
+    sorath-gallery-pan 8s ease-in-out infinite alternate;
+}
+
+.sorath-gallery-1 {
+  left: 0;
+  top: 20px;
+}
+
+.sorath-gallery-2 {
+  right: 0;
+  top: 0;
+}
+
+.sorath-gallery-3 {
+  left: 65px;
+  bottom: 0;
+}
+
+.sorath-gallery-4 {
+  right: 40px;
+  bottom: 35px;
+}
+
+.sorath-gallery-2 img {
+  animation-delay: -2s;
+}
+
+.sorath-gallery-3 img {
+  animation-delay: -4s;
+}
+
+.sorath-gallery-4 img {
+  animation-delay: -6s;
+}
+
+@keyframes sorath-gallery-pan {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.12) translateY(-8px);
+  }
+}
+
+/* ================================
+   STEP 03
+================================ */
+
+.sorath-payment-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  display: flex;
   align-items: center;
+  gap: 10px;
+
+  width: min(760px, 100%);
+  height: 320px;
+
+  transform: translate(-50%, -50%);
+}
+
+.sorath-design-card,
+.sorath-checkout-card {
+  position: relative;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(119, 165, 163, 0.32);
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(36, 46, 48, 0.92),
+      rgba(14, 18, 20, 0.92)
+    );
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.35);
+
+  backdrop-filter: blur(16px);
+}
+
+.sorath-design-card {
+  width: 210px;
+  padding: 12px;
+
+  animation:
+    sorath-payment-add 10s ease infinite;
+}
+
+.sorath-design-card img {
+  width: 100%;
+  height: 100px;
+
+  object-fit: cover;
+
+  border-radius: 10px;
+}
+
+.sorath-design-card h4 {
+  margin: 12px 2px 5px;
+
+  font-size: 16px;
+  color: #fff;
+}
+
+.sorath-design-card small {
+  color: #93a3a6;
+}
+
+.sorath-design-card button {
+  width: 100%;
+  margin-top: 13px;
+  padding: 11px;
+
+  border: 0;
+  border-radius: 7px;
+
+  background: var(--sorath-main);
+  color: #fff;
+}
+
+.sorath-payment-arrow {
+  position: relative;
+
+  flex: 0 0 48px;
+
+  height: 2px;
+
+  background: var(--sorath-main);
+
+  transform-origin: left center;
+}
+
+.sorath-payment-arrow::after {
+  content: "";
+
+  position: absolute;
+  right: 0;
+  top: -5px;
+
+  padding: 4px;
+
+  border: solid var(--sorath-main);
+  border-width: 0 2px 2px 0;
+
+  transform: rotate(-45deg);
+}
+
+.sorath-payment-arrow-1 {
+  animation: sorath-arrow-one 10s ease infinite;
+}
+
+.sorath-payment-arrow-2 {
+  animation: sorath-arrow-two 10s ease infinite;
+}
+
+.sorath-checkout-card {
+  width: 230px;
+  padding: 16px;
+
+  animation:
+    sorath-payment-buy 10s ease infinite;
+}
+
+.sorath-checkout-head {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sorath-checkout-head span {
+  color: #7d8a8f;
+}
+
+.sorath-checkout-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+
+  padding: 10px 0;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  font-size: 11px;
+}
+
+.sorath-checkout-total {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 8px;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sorath-checkout-card button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 11px;
+
+  border: 0;
+  border-radius: 7px;
+
+  background: var(--sorath-main);
+  color: #fff;
+}
+
+.sorath-payment-phone {
+  position: relative;
+
+  width: 160px;
+  height: 290px;
+
+  flex-shrink: 0;
+
+  border: 5px solid #161c1e;
+  border-radius: 36px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #1b2729,
+      #070a0b
+    );
+
+  box-shadow:
+    0 35px 80px rgba(0, 0, 0, 0.65);
+
+  animation:
+    sorath-payment-success 10s ease infinite;
+}
+
+.sorath-payment-phone::before {
+  content: "";
+
+  position: absolute;
+  top: 7px;
+  left: 50%;
+
+  width: 64px;
+  height: 14px;
+
+  background: #060809;
+
+  border-radius: 0 0 15px 15px;
+
+  transform: translateX(-50%);
+}
+
+.sorath-payment-success {
+  position: absolute;
+  top: 56px;
+  left: 18px;
+  right: 18px;
+
   text-align: center;
 }
 
-.sorath-process-check {
-  width: 55px;
-  height: 55px;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #20c98a;
+.sorath-payment-check {
+  width: 62px;
+  height: 62px;
+  margin: auto;
+
+  display: grid;
+  place-items: center;
+
+  border: 2px solid rgba(56, 232, 155, 0.7);
   border-radius: 50%;
-  color: #20c98a;
-  font-size: 25px;
+
+  color: var(--sorath-green);
+  font-size: 30px;
 }
 
-@keyframes sorath-process-card-animation {
+.sorath-payment-success h3 {
+  margin-top: 14px;
+
+  font-size: 16px;
+}
+
+.sorath-payment-success p {
+  margin-top: 9px;
+
+  color: #93a3a6;
+  font-size: 11px;
+}
+
+@keyframes sorath-payment-add {
   0%,
+  8% {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+
+  16%,
+  90% {
+    opacity: 1;
+    transform: none;
+  }
+
   100% {
-    transform: translateY(0);
-    opacity: 0.6;
-  }
-
-  30%,
-  50% {
-    transform: translateY(-15px);
-    opacity: 1;
-  }
-}
-
-
-/* =====================================
-   SLIDE 4
-===================================== */
-
-.sorath-process-animation-four {
-  width: 600px;
-  height: 400px;
-}
-
-.sorath-process-line {
-  position: absolute;
-  width: 80%;
-  height: 2px;
-  background: #6f9999;
-  transform: rotate(-8deg);
-}
-
-.sorath-process-package {
-  position: absolute;
-  left: 10%;
-  padding: 10px;
-  background: #f5811f;
-  color: #111;
-  font-size: 10px;
-  font-weight: 700;
-  animation: sorath-process-package 5s infinite;
-}
-
-.sorath-process-mail {
-  position: absolute;
-  right: 5%;
-  font-size: 75px;
-  color: #a9d3d3;
-}
-
-@keyframes sorath-process-package {
-  0% {
-    left: 10%;
-    opacity: 1;
-  }
-
-  65% {
-    left: 75%;
-    opacity: 1;
-  }
-
-  80%,
-  100% {
-    left: 80%;
     opacity: 0;
   }
 }
 
+@keyframes sorath-arrow-one {
+  0%,
+  16% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
 
-/* =====================================
-   SLIDE 5
-===================================== */
+  26%,
+  90% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
 
-.sorath-process-animation-five {
-  width: 600px;
-  height: 500px;
+  100% {
+    opacity: 0;
+  }
 }
 
-.sorath-process-zip {
-  width: 120px;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@keyframes sorath-payment-buy {
+  0%,
+  28% {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+
+  38%,
+  90% {
+    opacity: 1;
+    transform: none;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes sorath-arrow-two {
+  0%,
+  46% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  56%,
+  90% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes sorath-payment-success {
+  0%,
+  58% {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+
+  70%,
+  90% {
+    opacity: 1;
+    transform: none;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ================================
+   STEP 04
+================================ */
+
+.sorath-send-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 460px;
+  height: 240px;
+
+  transform: translate(-50%, -50%);
+}
+
+.sorath-send-path {
+  position: absolute;
+  inset: 0;
+
+  border-top: 3px solid var(--sorath-main);
+  border-radius: 50%;
+
+  transform:
+    rotate(-15deg)
+    translateY(20px);
+
+  opacity: 0.7;
+}
+
+.sorath-send-box {
+  position: absolute;
+  left: 20px;
+  bottom: 15px;
+
+  width: 96px;
+  height: 52px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid #d9954d;
+  border-radius: 8px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #a96e30,
+      #6e431f
+    );
+
+  color: #12202b;
+  font-weight: 800;
+
+  animation: sorath-send-box 4.8s ease infinite;
+}
+
+.sorath-send-mailbox {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+
+  color: var(--sorath-light);
+  font-size: 76px;
+
+  animation: sorath-mailbox 4.8s ease infinite;
+}
+
+@keyframes sorath-send-box {
+  0%,
+  8% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1.4);
+  }
+
+  52% {
+    opacity: 1;
+    transform: translate(280px, -130px) scale(0.25);
+  }
+
+  66%,
+  100% {
+    opacity: 0;
+    transform: translate(300px, -140px) scale(0.1);
+  }
+}
+
+@keyframes sorath-mailbox {
+  0%,
+  16% {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+
+  32%,
+  80% {
+    opacity: 1;
+    transform: none;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ================================
+   STEP 05
+================================ */
+
+.sorath-files-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: min(700px, 95%);
+  height: 510px;
+
+  transform: translate(-50%, -50%);
+}
+
+.sorath-zip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 135px;
+  height: 135px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(119, 165, 163, 0.85);
   border-radius: 20px;
-  background: #294343;
-  border: 1px solid #679090;
-  font-size: 28px;
-  font-weight: 700;
-  z-index: 2;
+
+  background:
+    linear-gradient(
+      145deg,
+      #3f6664,
+      #111a1b
+    );
+
+  font-family: var(--tl-ff-heading);
+  font-size: 26px;
+  font-weight: 800;
+
+  box-shadow:
+    0 0 55px rgba(119, 165, 163, 0.32);
+
+  animation: sorath-zip 5s ease infinite;
 }
 
-.sorath-process-file {
+.sorath-file-card {
   position: absolute;
+
   width: 180px;
-  height: 130px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #344849;
-  border-radius: 15px;
-  background: #172021;
-  opacity: 0;
+  padding: 22px;
+
+  border: 1px solid rgba(119, 165, 163, 0.32);
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(36, 46, 48, 0.86),
+      rgba(14, 18, 20, 0.86)
+    );
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.35);
+
+  text-align: center;
+
+  backdrop-filter: blur(16px);
 }
 
-.sorath-process-file strong {
-  color: #a9d3d3;
-  font-size: 25px;
+.sorath-file-icon {
+  color: var(--sorath-light);
+  font-size: 40px;
 }
 
-.sorath-process-file b {
-  margin-top: 10px;
+.sorath-file-card h4 {
+  margin: 12px 0 0;
+
+  color: #fff;
+  font-size: 16px;
 }
 
-.sorath-file-one {
-  left: 5%;
-  top: 15%;
-  animation: sorath-process-file-one 5s infinite;
+.sorath-file-card p {
+  margin: 5px 0 0;
+
+  color: #8a9699;
+  font-size: 10px;
+  line-height: 1.5;
 }
 
-.sorath-file-two {
-  right: 5%;
-  top: 15%;
-  animation: sorath-process-file-two 5s infinite 0.7s;
+.sorath-file-1 {
+  left: 0;
+  top: 45px;
+
+  animation: sorath-file-one 5s ease infinite;
 }
 
-.sorath-file-three {
-  bottom: 5%;
-  left: 40%;
-  animation: sorath-process-file-three 5s infinite 1.4s;
+.sorath-file-2 {
+  right: 0;
+  top: 45px;
+
+  animation: sorath-file-two 5s ease infinite;
 }
 
-@keyframes sorath-process-file-one {
+.sorath-file-3 {
+  left: 50%;
+  bottom: 10px;
+
+  animation: sorath-file-three 5s ease infinite;
+}
+
+@keyframes sorath-zip {
   0%,
-  15% {
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  14%,
+  32%,
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+@keyframes sorath-file-one {
+  0%,
+  6% {
     opacity: 0;
-    transform: translate(180px, 150px) scale(0.5);
+    transform: translate(230px, 120px) scale(0.15);
   }
 
-  30%,
-  75% {
+  20%,
+  80% {
     opacity: 1;
-    transform: translate(0) scale(1);
+    transform: none;
   }
 
-  90%,
   100% {
     opacity: 0;
+    transform: translate(230px, 120px) scale(0.15);
   }
 }
 
-@keyframes sorath-process-file-two {
+@keyframes sorath-file-two {
   0%,
-  15% {
+  24% {
     opacity: 0;
-    transform: translate(-180px, 150px) scale(0.5);
+    transform: translate(-230px, 120px) scale(0.15);
   }
 
-  30%,
-  75% {
+  38%,
+  80% {
     opacity: 1;
-    transform: translate(0) scale(1);
+    transform: none;
   }
 
-  90%,
   100% {
     opacity: 0;
+    transform: translate(-230px, 120px) scale(0.15);
   }
 }
 
-@keyframes sorath-process-file-three {
+@keyframes sorath-file-three {
   0%,
-  15% {
+  42% {
     opacity: 0;
-    transform: translateY(-150px) scale(0.5);
+    transform: translate(-50%, -140px) scale(0.15);
   }
 
-  30%,
-  75% {
+  56%,
+  80% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate(-50%, 0);
   }
 
-  90%,
   100% {
     opacity: 0;
+    transform: translate(-50%, -140px) scale(0.15);
   }
 }
 
+/* ================================
+   RESPONSIVE
+================================ */
 
-/* =====================================
-   MOBILE
-===================================== */
+@media (max-width: 1199px) {
+  .sorath-process-desc {
+    font-size: 15px;
+  }
+}
 
 @media (max-width: 991px) {
-
-  .sorath-process-slide {
-    flex-direction: column;
-    justify-content: center;
+  .sorath-process-hud {
+    top: 90px;
   }
 
-  .sorath-process-content {
-    width: 100%;
-    padding: 100px 30px 20px;
-    text-align: center;
+  .sorath-process-slide > .container {
+    padding-top: 150px;
+    padding-bottom: 24px;
   }
 
-  .sorath-process-content p {
-    margin: auto;
+  .sorath-process-visual {
+    height: 50vh;
+    margin-top: 20px;
   }
 
-  .sorath-process-animation {
-    width: 100%;
-    height: 50%;
-    transform: scale(0.7);
+  .sorath-process-desc {
+    margin-top: 14px;
   }
 
+  .sorath-process-title {
+    font-size: 42px;
+  }
 }
 
 @media (max-width: 575px) {
-
-  .sorath-process-content h2 {
-    font-size: 40px;
+  .sorath-process-counter .sorath-process-line {
+    width: 60px;
   }
 
-  .sorath-process-content p {
+  .sorath-cube-scene {
+    --sorath-cube-size: 44px;
+  }
+
+  .sorath-cube-front b {
     font-size: 14px;
   }
 
-  .sorath-process-animation {
-    transform: scale(0.5);
+  .sorath-process-slide > .container {
+    padding-top: 140px;
   }
 
+  .sorath-process-visual {
+    height: 46vh;
+  }
+
+  .sorath-process-title {
+    font-size: 28px;
+  }
+
+  .sorath-process-desc {
+    font-size: 14px;
+  }
+
+  .sorath-flip-wrap {
+    width: 100%;
+    height: 280px;
+  }
+
+  .sorath-process-gallery {
+    width: 100%;
+    height: 350px;
+  }
+
+  .sorath-gallery-card {
+    width: 46%;
+    height: 120px;
+  }
+
+  .sorath-payment-animation {
+    transform:
+      translate(-50%, -50%)
+      scale(0.55);
+  }
+
+  .sorath-send-animation {
+    transform:
+      translate(-50%, -50%)
+      scale(0.7);
+  }
+
+  .sorath-files-animation {
+    transform:
+      translate(-50%, -50%)
+      scale(0.65);
+  }
+}
+
+@media (max-width: 575px) and (max-height: 700px) {
+  .sorath-process-visual {
+    height: 38vh;
+  }
+
+  .sorath-process-desc {
+    font-size: 13px;
+    line-height: 1.6;
+  }
 }

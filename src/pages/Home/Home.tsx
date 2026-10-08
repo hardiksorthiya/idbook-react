@@ -1,6 +1,7 @@
 import Header from '../../components/Header/Header';
 import Hero from './components/Hero';
 import Process from './components/Process';
+import Services from './components/Services';
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
     <Header />
     <Hero />
     <Process />
+    <Services />
     </>
   )
 }

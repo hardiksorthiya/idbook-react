@@ -1,0 +1,358 @@
+/* ========================================
+   SERVICES SECTION
+======================================== */
+
+.sorath-services {
+    position: relative;
+  
+    padding: 120px 0 110px;
+  
+    overflow: hidden;
+  
+    background: #f7f7f7;
+  
+    color: #17191b;
+  }
+  
+  /* ========================================
+     SERVICES HEADING SPACING
+  ======================================== */
+  
+  .sorath-services .sorath-section-heading {
+    margin-bottom: 75px;
+  }
+
+  .sorath-services .sorath-section-badge {
+    position: relative;
+    display: inline-block;
+    padding: 8px 22px 8px 34px;
+    overflow: hidden;
+    font-weight: 500;
+    border: 1px solid var(--tl-color-theme-primary, #77a5a3);
+    border-radius: 100px;
+    box-shadow: 0 6px 20px rgba(119, 165, 163, 0.35);
+  }
+
+  .sorath-services .sorath-section-badge span {
+    position: absolute;
+    top: 50%;
+    left: 17px;
+    width: 6px;
+    height: 6px;
+    border: 0;
+    background: #fff;
+    transform: translateY(-50%);
+    animation: sorath-kicker-pulse 2s ease-out infinite;
+  }
+
+  .sorath-services .sorath-section-badge::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(
+      100deg,
+      transparent,
+      rgba(255, 255, 255, 0.45),
+      transparent
+    );
+    transform: skewX(-20deg);
+    animation: sorath-kicker-shine 3.5s ease-in-out infinite;
+  }
+  
+  /* ========================================
+     SERVICES CONTENT
+  ======================================== */
+  
+  .sorath-services-content {
+    position: relative;
+  }
+  
+  /* ========================================
+     SERVICE IMAGE
+  ======================================== */
+  
+  .sorath-service-image {
+    position: relative;
+  
+    width: 100%;
+    max-width: 720px;
+    height: 520px;
+  
+    overflow: hidden;
+  
+    border-radius: 24px;
+  }
+  
+  .sorath-service-image img {
+    display: block;
+  
+    width: 100%;
+    height: 100%;
+  
+    object-fit: cover;
+  
+    border-radius: 24px;
+  
+    animation: sorath-service-image 0.45s ease;
+  }
+  
+  @keyframes sorath-service-image {
+    from {
+      opacity: 0.6;
+      transform: scale(1.02);
+    }
+  
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* ========================================
+     IMAGE GLASS CONTENT
+  ======================================== */
+  
+  .sorath-service-image-content {
+    position: absolute;
+  
+    left: 20px;
+    bottom: 20px;
+  
+    width: calc(100% - 40px);
+    max-width: 520px;
+  
+    padding: 30px;
+  
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  
+    border-radius: 24px;
+  
+    background: rgba(21, 24, 31, 0.46);
+  
+    backdrop-filter: blur(29px);
+    -webkit-backdrop-filter: blur(29px);
+  }
+  
+  .sorath-service-image-content p {
+    margin: 0;
+  
+    color: #fff;
+  
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+  
+  /* ========================================
+     SERVICE LIST
+  ======================================== */
+  
+  .sorath-service-list {
+    width: 100%;
+    max-width: 640px;
+  
+    margin-left: auto;
+  }
+  
+  .sorath-service-item {
+    position: relative;
+  
+    display: flex;
+    align-items: center;
+  
+    min-height: 100px;
+  
+    padding: 28px 70px 28px 0;
+  
+    border-bottom: 1px solid rgba(30, 35, 38, 0.09);
+  
+    cursor: pointer;
+  
+    transition: opacity 0.3s ease;
+  }
+  
+  .sorath-service-item:first-child {
+    border-top: 1px solid rgba(30, 35, 38, 0.09);
+  }
+  
+  /* ========================================
+     NUMBER
+  ======================================== */
+  
+  .sorath-service-number {
+    display: block;
+  
+    width: 54px;
+  
+    flex-shrink: 0;
+  
+    color: #b2b3b5;
+  
+    font-family: var(--tl-ff-heading);
+    font-size: 16px;
+    font-weight: 400;
+  
+    transition: color 0.3s ease;
+  }
+  
+  /* ========================================
+     TITLE
+  ======================================== */
+  
+  .sorath-service-title {
+    margin: 0;
+  
+    color: #a6a6a8;
+  
+    font-family: var(--tl-ff-heading);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.25;
+  
+    transition: color 0.3s ease;
+  }
+  
+  /* ========================================
+     ACTIVE SERVICE
+  ======================================== */
+  
+  .sorath-service-item-active .sorath-service-number {
+    color: var(
+      --tl-color-theme-primary,
+      #77a5a3
+    );
+  }
+  
+  .sorath-service-item-active .sorath-service-title {
+    color: var(
+      --tl-color-theme-primary,
+      #77a5a3
+    );
+  }
+  
+  /* ========================================
+     ARROW
+  ======================================== */
+  
+  .sorath-service-arrow {
+    position: absolute;
+  
+    top: 50%;
+    right: 0;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    width: 54px;
+    height: 54px;
+  
+    border-radius: 50%;
+  
+    background: rgba(119, 165, 163, 0.35);
+  
+    color: #fff;
+  
+    font-size: 26px;
+    text-decoration: none;
+  
+    transform: translateY(-50%);
+  
+    transition:
+      background 0.3s ease,
+      transform 0.3s ease;
+  }
+  
+  .sorath-service-item:hover .sorath-service-arrow,
+  .sorath-service-item-active .sorath-service-arrow {
+    background: var(
+      --tl-color-theme-primary,
+      #77a5a3
+    );
+  
+    transform:
+      translateY(-50%)
+      rotate(45deg);
+  }
+  
+  /* ========================================
+     RESPONSIVE
+  ======================================== */
+  
+  @media (max-width: 991px) {
+    .sorath-services {
+      padding: 90px 0;
+    }
+  
+    .sorath-services .sorath-section-heading {
+      margin-bottom: 50px;
+    }
+  
+    .sorath-service-image {
+      max-width: 100%;
+      height: 500px;
+    }
+  
+    .sorath-service-list {
+      max-width: 100%;
+  
+      margin-top: 50px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .sorath-services {
+      padding: 70px 0;
+    }
+  
+    .sorath-service-image {
+      height: 400px;
+  
+      border-radius: 20px;
+    }
+  
+    .sorath-service-image img {
+      border-radius: 20px;
+    }
+  
+    .sorath-service-image-content {
+      left: 10px;
+      bottom: 10px;
+  
+      width: calc(100% - 20px);
+  
+      padding: 22px;
+  
+      border-radius: 18px;
+    }
+  
+    .sorath-service-image-content p {
+      font-size: 14px;
+    }
+  
+    .sorath-service-item {
+      min-height: 80px;
+  
+      padding: 22px 50px 22px 0;
+    }
+  
+    .sorath-service-number {
+      width: 45px;
+  
+      font-size: 14px;
+    }
+  
+    .sorath-service-title {
+      font-size: 17px;
+    }
+  
+    .sorath-service-arrow {
+      width: 36px;
+      height: 36px;
+  
+      font-size: 18px;
+    }
+  }

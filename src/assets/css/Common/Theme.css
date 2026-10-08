@@ -57,6 +57,111 @@ a{
     transform: scale(1, 1);
 }
 
+/* ========================================
+   COMMON SECTION HEADING
+======================================== */
+
+.sorath-section-heading {
+    position: relative;
+  }
+  
+  .sorath-section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  
+    padding: 12px 24px;
+  
+    border-radius: 50px;
+  
+    background: var(
+      --tl-color-theme-primary,
+      #77a5a3
+    );
+  
+    color: #fff;
+  
+    font-family: var(--tl-ff-heading);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    line-height: 1;
+    text-transform: uppercase;
+  
+    box-shadow:
+      0 10px 30px rgba(119, 165, 163, 0.25);
+  }
+  
+  .sorath-section-badge span {
+    width: 8px;
+    height: 8px;
+  
+    flex-shrink: 0;
+  
+    border: 2px solid #fff;
+    border-radius: 50%;
+  }
+  
+  .sorath-section-heading-content {
+    max-width: 850px;
+    margin-left: auto;
+  }
+  
+  .sorath-section-title {
+    margin: 0;
+  
+    font-family: var(--tl-ff-heading);
+    font-size: clamp(40px, 3.5vw, 54px);
+    font-weight: 700;
+    line-height: 1;
+  
+    color: #17191b;
+  }
+  
+  .sorath-section-title span {
+    color: var(
+      --tl-color-theme-primary,
+      #77a5a3
+    );
+  }
+  
+  .sorath-section-description {
+    max-width: 800px;
+  
+    margin: 30px 0 0;
+  
+    color: #55575b;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+  
+  /* ========================================
+     RESPONSIVE
+  ======================================== */
+  
+  @media (max-width: 991px) {
+    .sorath-section-badge {
+      margin-bottom: 30px;
+    }
+  
+    .sorath-section-heading-content {
+      margin-left: 0;
+    }
+  }
+  
+  @media (max-width: 767px) {
+   
+  
+    .sorath-section-description {
+      margin-top: 20px;
+    }
+  
+    .sorath-section-badge {
+      padding: 11px 20px;
+      font-size: 13px;
+    }
+  }
+
 @media (min-width: 580px){
     .sorath-container-fluid {
         padding-left: var(--container-side);
