@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { FiArrowUpRight } from 'react-icons/fi';
 
+import Heading from '../../Common/Heading';
+
 import '../../../assets/css/Home/Services.css';
 
 import ServiceImage1 from '../../../assets/images/step1.webp';
@@ -48,40 +50,17 @@ const Services = () => {
   const activeItem = services[activeService];
 
   return (
+    <>
     <section className="sorath-services">
       <div className="container-fluid sorath-container-fluid">
-        {/* ================================
-            COMMON SECTION HEADING
-        ================================= */}
-
-        <div className="row sorath-section-heading">
-          <div className="col-lg-4 col-md-12">
-            <div className="sorath-section-badge">
-              <span />
-              Our Services
-            </div>
-          </div>
-
-          <div className="col-lg-8 col-md-12">
-            <div className="sorath-section-heading-content">
-              <h2 className="sorath-section-title">
-                Explore our{' '}
-                <span>
-                  comprehensive
-                  <br />
-                  interior design
-                </span>{' '}
-                services
-              </h2>
-
-              <p className="sorath-section-description">
-                From private homes to offices, retail, and outdoor
-                spaces, we design interiors that are practical,
-                refined, and built around how you live and work.
-              </p>
-            </div>
-          </div>
-        </div>
+      {/* Section Heading */}
+        <Heading
+          badge="Our Services"
+          title="Explore our"
+          highlight="comprehensive interior design "
+          afterHighlight="services"
+          description="From private homes to offices, retail, and outdoor spaces, we design interiors that are practical, refined, and built around how you live and work."
+        />
 
         {/* ================================
             SERVICES CONTENT
@@ -142,6 +121,7 @@ const Services = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

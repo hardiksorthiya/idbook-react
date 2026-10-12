@@ -1,0 +1,122 @@
+.sorath-newsletter {
+  padding: 80px 0 55px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+.sorath-newsletter .sorath-container-fluid {
+  padding-right: 5%;
+  padding-left: 5%;
+}
+
+.sorath-newsletter-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.sorath-newsletter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  background: #78a7a5;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.sorath-newsletter-badge span {
+  width: 7px;
+  height: 7px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
+.sorath-newsletter-content h2 {
+  margin: 0 0 18px;
+  color: #1b1b1b;
+  font-size: clamp(30px, 3vw, 38px);
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.sorath-newsletter-content h2 span {
+  color: #78a7a5;
+}
+
+.sorath-newsletter-content p {
+  margin: 0 auto 42px;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.sorath-newsletter-form {
+  display: flex;
+  align-items: center;
+  max-width: 375px;
+  margin: 0 auto;
+  border-bottom: 1px solid #777;
+}
+
+.sorath-newsletter-form input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: 12px 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #222;
+  font-size: 13px;
+}
+
+.sorath-newsletter-form input::placeholder {
+  color: #777;
+}
+
+.sorath-newsletter-form button {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 6px;
+  border: 0;
+  border-radius: 50%;
+  background: #78a7a5;
+  color: #fff;
+  font-size: 19px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.sorath-newsletter-form button:hover {
+  transform: translateY(-2px);
+  background: #527f7d;
+}
+
+@media (max-width: 575px) {
+  .sorath-newsletter {
+    padding: 55px 0 40px;
+  }
+
+  .sorath-newsletter-content h2 {
+    font-size: 29px;
+  }
+
+  .sorath-newsletter-content p {
+    margin-bottom: 30px;
+    font-size: 13px;
+  }
+
+  .sorath-newsletter-form {
+    max-width: 100%;
+  }
+}

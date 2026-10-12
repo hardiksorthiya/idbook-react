@@ -1,0 +1,142 @@
+.sorath-gallery {
+  padding: 100px 0 70px;
+  overflow: hidden;
+  background: #f7f7f7;
+}
+
+.sorath-gallery .sorath-section-heading {
+  margin-bottom: 55px;
+}
+
+.sorath-gallery-viewport {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.6vw, 22px);
+}
+
+.sorath-gallery-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.4vw, 20px);
+  width: max-content;
+  will-change: transform;
+}
+
+.sorath-gallery-row-top {
+  margin-left: -4vw;
+}
+
+.sorath-gallery-row-bottom {
+  margin-left: -9vw;
+}
+
+.sorath-gallery-item {
+  flex: none;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.sorath-gallery-item.is-sm {
+  width: clamp(120px, 14vw, 210px);
+  height: clamp(96px, 11vw, 158px);
+}
+
+.sorath-gallery-item.is-md {
+  width: clamp(150px, 18vw, 270px);
+  height: clamp(116px, 13.5vw, 196px);
+}
+
+.sorath-gallery-item.is-lg {
+  width: clamp(210px, 26vw, 400px);
+  height: clamp(150px, 17.5vw, 258px);
+}
+
+.sorath-gallery-item.is-xl {
+  width: clamp(230px, 31vw, 460px);
+  height: clamp(140px, 15.5vw, 230px);
+}
+
+.sorath-gallery-item.align-start {
+  align-self: flex-start;
+}
+
+.sorath-gallery-item.align-center {
+  align-self: center;
+}
+
+.sorath-gallery-item.align-end {
+  align-self: flex-end;
+}
+
+.sorath-gallery-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.sorath-gallery-item:hover img {
+  transform: scale(1.04);
+}
+
+.sorath-gallery-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 42px;
+}
+
+.sorath-gallery-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 7px 6px 22px;
+  border: 1px solid #d5d5d5;
+  border-radius: 50px;
+  background: #fff;
+  color: #2a2a2a;
+  font-size: 14px;
+  text-decoration: none;
+  transition: border-color 0.3s ease;
+}
+
+.sorath-gallery-button:hover {
+  border-color: var(--primary-sorath-color, #83b9b7);
+  color: #2a2a2a;
+}
+
+.sorath-gallery-button span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-sorath-color, #83b9b7);
+  color: #fff;
+  font-size: 18px;
+}
+
+@media (max-width: 767px) {
+  .sorath-gallery {
+    padding: 70px 0 45px;
+  }
+
+  .sorath-gallery .sorath-section-heading {
+    margin-bottom: 32px;
+  }
+
+  .sorath-gallery-footer {
+    margin-top: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sorath-gallery-row {
+    will-change: auto;
+  }
+
+  .sorath-gallery-item img {
+    transition: none;
+  }
+}

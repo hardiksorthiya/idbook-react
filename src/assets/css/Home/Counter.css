@@ -1,0 +1,52 @@
+.sorath-counter {
+  padding: 80px 0;
+  background: #f7f7f7;
+}
+
+
+.sorath-counter-item {
+  height: 100%;
+}
+
+.sorath-counter-number {
+  padding-bottom: 24px;
+  border-bottom: 1px solid #d0d0d0;
+  color: #202020;
+  font-size: clamp(36px, 3vw, 50px);
+  font-weight: 400;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.sorath-counter-content {
+  padding-top: 17px;
+}
+
+.sorath-counter-content h3 {
+  margin: 0 0 10px;
+  color: #202020;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.sorath-counter-content p {
+  max-width: 250px;
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@media (max-width: 767px) {
+  .sorath-counter {
+    padding: 50px 0;
+  }
+
+  .sorath-counter-number {
+    padding-bottom: 16px;
+  }
+
+  .sorath-counter-content {
+    padding-top: 12px;
+  }
+}

@@ -1,0 +1,133 @@
+.sorath-testimonials {
+  padding: 80px 0 60px;
+  background: #fff;
+}
+
+.sorath-testimonials-swiper {
+  padding: 10px 0 20px;
+}
+
+.sorath-testimonial-card {
+  height: 100%;
+  min-height: 188px;
+  padding: 25px;
+  border: 1px solid #e2e2e2;
+  border-radius: 20px;
+  background: #f6f6f5;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.sorath-testimonial-card:hover {
+  transform: translateY(-8px);
+  border-color: #78a7a5;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
+}
+
+.sorath-testimonial-review {
+  min-height: 50px;
+  margin-bottom: 20px;
+  color: #222;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.sorath-testimonial-client {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid #e2e2e2;
+}
+
+.sorath-testimonial-client img {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.sorath-testimonial-card:hover .sorath-testimonial-client img {
+  transform: scale(1.1);
+}
+
+.sorath-testimonial-client h3 {
+  margin: 0 0 3px;
+  color: #222;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.sorath-testimonial-client span {
+  color: #666;
+  font-size: 12px;
+}
+
+.sorath-testimonials-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 12px;
+}
+
+.sorath-testimonials-controls > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #78a7a5;
+  border-radius: 50%;
+  background: transparent;
+  color: #78a7a5;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.sorath-testimonials-controls > button:hover {
+  background: #78a7a5;
+  color: #fff;
+}
+
+.sorath-testimonials-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sorath-testimonials-pagination button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: #cbdcdb;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.sorath-testimonials-pagination button.is-active {
+  width: 20px;
+  background: #78a7a5;
+}
+
+@media (max-width: 767px) {
+  .sorath-testimonials {
+    padding: 50px 0 35px;
+  }
+
+  .sorath-testimonial-card {
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sorath-testimonial-card,
+  .sorath-testimonial-client img,
+  .sorath-testimonials-controls > button,
+  .sorath-testimonials-pagination button {
+    transition: none;
+  }
+}
