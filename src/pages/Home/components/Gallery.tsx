@@ -129,13 +129,16 @@ const Gallery = () => {
       </div>
 
       <div className="sorath-gallery-footer">
-        <a href="/shop" className="sorath-primary-btn sorath-hero-shop-btn primary-btn-2">
-                        <span>Shop Now</span>
-        
-                        <span className="sorath-hero-shop-arrow">
-                          <FaArrowUp />
-                        </span>
-                      </a>
+        <a
+          href="/shop"
+          className="sorath-primary-btn sorath-hero-shop-btn primary-btn-2"
+        >
+          <span>Shop Now</span>
+
+          <span className="sorath-hero-shop-arrow">
+            <FaArrowUp />
+          </span>
+        </a>
       </div>
     </section>
   );

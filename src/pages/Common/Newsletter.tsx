@@ -1,8 +1,8 @@
 import { FiArrowUpRight } from "react-icons/fi";
 
-import "../../../assets/css/Home/Newsletter.css";
+import "../../assets/css/Common/Newsletter.css";
 
-// import NewsletterBg from "../../../assets/images/newsletter-bg.webp";
+import NewsletterBg from "../../assets/images/shapes/newsletter-shape.png";
 
 const Newsletter = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -14,7 +14,7 @@ const Newsletter = () => {
   return (
     <section
       className="sorath-newsletter"
-      //   style={{ backgroundImage: `url(${NewsletterBg})` }}
+        style={{ backgroundImage: `url(${NewsletterBg})` }}
     >
       <div className="container-fluid sorath-container-fluid">
         <div className="sorath-newsletter-content">

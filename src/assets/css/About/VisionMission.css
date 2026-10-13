@@ -1,0 +1,79 @@
+.sorath-vision-mission {
+  padding: 80px 0;
+  background: #f6f6f6;
+}
+
+.sorath-vision-mission .sorath-vm-content {
+  margin-top: 30px;
+}
+
+.sorath-vm-card {
+  padding: 32px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 22px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sorath-vm-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+.sorath-vm-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+  color: #78a7a5;
+  background: #edf4f4;
+  border-radius: 50%;
+  font-size: 26px;
+}
+
+.sorath-vm-card h4 {
+  margin-bottom: 12px;
+  color: #1c1c1c;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.sorath-vm-card p {
+  margin-bottom: 0;
+  color: #626268;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.sorath-vm-card .sorath-vm-quote {
+  color: #78a7a5;
+}
+
+.sorath-vm-card .sorath-vm-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.sorath-vm-point svg {
+  flex-shrink: 0;
+  margin-top: 5px;
+  color: #78a7a5;
+}
+
+@media (max-width: 767px) {
+  .sorath-vision-mission {
+    padding: 50px 0;
+  }
+
+  .sorath-vm-card {
+    padding: 24px;
+    border-radius: 16px;
+  }
+
+  .sorath-vm-card h4 {
+    font-size: 20px;
+  }
+}

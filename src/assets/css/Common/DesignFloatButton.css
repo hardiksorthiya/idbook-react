@@ -1,0 +1,85 @@
+.sorath-design-float {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50px;
+  background: rgba(119, 165, 163, 0.2);
+  text-decoration: none;
+  transition: width 0.4s ease;
+}
+
+.sorath-design-float-icon {
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--primary-sorath-color);
+  color: #fff;
+  font-size: 25px;
+  box-shadow: 0 5px 20px rgba(119, 165, 163, 0.35);
+  transition: transform 0.4s ease;
+}
+
+.sorath-design-float-label {
+  position: absolute;
+  left: 48px;
+  z-index: 1;
+  padding: 12px 18px 12px 24px;
+  border-radius: 0 30px 30px 0;
+  background: #fff;
+  color: var(--primary-sorath-color);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-12px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.4s ease;
+}
+
+.sorath-design-float:hover {
+  width: 190px;
+}
+
+.sorath-design-float:hover .sorath-design-float-icon {
+  transform: rotate(-8deg) scale(1.05);
+}
+
+.sorath-design-float:hover .sorath-design-float-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sorath-design-float:focus-visible {
+  outline: 3px solid var(--primary-sorath-color);
+  outline-offset: 4px;
+}
+
+@media (max-width: 576px) {
+  .sorath-design-float {
+    bottom: 18px;
+    left: 18px;
+    width: 58px;
+    height: 58px;
+  }
+
+  .sorath-design-float-icon {
+    width: 58px;
+    height: 58px;
+    font-size: 22px;
+  }
+
+  .sorath-design-float:hover {
+    width: 180px;
+  }
+}

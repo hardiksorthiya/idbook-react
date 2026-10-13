@@ -1,0 +1,67 @@
+.sorath-breadcrumb {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  padding: 70px 0 40px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+.sorath-breadcrumb .sorath-container-fluid {
+  position: relative;
+  z-index: 1;
+  padding-right: 5%;
+  padding-left: 5%;
+}
+
+.sorath-breadcrumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.sorath-breadcrumb-content {
+  text-align: center;
+}
+
+.sorath-breadcrumb-content h1 {
+  margin: 0 0 12px;
+  font-size: clamp(36px, 4vw, 60px);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.sorath-breadcrumb .breadcrumb {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.sorath-breadcrumb .breadcrumb-item a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.sorath-breadcrumb .breadcrumb-item a:hover {
+  color: #78a7a5;
+}
+
+.sorath-breadcrumb .breadcrumb-item.active {
+  color: #78a7a5;
+}
+
+.sorath-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  color: #fff;
+  content: "-";
+}
+
+@media (max-width: 575px) {
+  .sorath-breadcrumb {
+    min-height: 200px;
+    padding: 90px 0 30px;
+  }
+}

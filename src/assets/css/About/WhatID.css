@@ -1,0 +1,92 @@
+.sorath-about-feature {
+  padding: 30px 26px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 22px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sorath-about-feature:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+.sorath-about-feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 20px;
+  color: #79a9a7;
+  background: #edf4f3;
+  border-radius: 50%;
+  font-size: 24px;
+}
+
+.sorath-about-feature h4 {
+  margin-bottom: 10px;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.sorath-about-feature p,
+.sorath-about-bottom {
+  margin-bottom: 0;
+  color: #626268;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.sorath-about-highlight {
+  margin-top: 24px;
+  padding: 30px 34px;
+  color: #fff;
+  background: #1c1c1c;
+  border-radius: 22px;
+}
+
+.sorath-about-highlight h3 {
+  margin-bottom: 10px;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.sorath-about-highlight p {
+  max-width: 580px;
+  margin-bottom: 0;
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.sorath-about-audience span {
+  min-width: 135px;
+  padding: 8px 16px;
+  border: 1px solid #505050;
+  border-radius: 30px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.sorath-about-bottom {
+  max-width: 650px;
+  margin-top: 22px;
+  color: #292929;
+}
+
+@media (max-width: 767px) {
+  .sorath-about-highlight {
+    align-items: flex-start !important;
+    flex-direction: column;
+    padding: 25px;
+  }
+
+  .sorath-about-audience {
+    width: 100%;
+  }
+
+  .sorath-about-audience span {
+    width: 100%;
+  }
+}

@@ -21,6 +21,16 @@ a {
   color: var(--black-sorath-color);
 }
 
+.py-50 {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.py-100 {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
 .sorath-primary-btn {
   background-color: rgba(0, 0, 0, 0);
   color: var(--white-sorath-color);
@@ -70,7 +80,6 @@ color: var(--white-sorath-color);
 /* ========================================
    COMMON SECTION HEADING
 ======================================== */
-
 .sorath-section-heading {
   position: relative;
 }
@@ -78,9 +87,9 @@ color: var(--white-sorath-color);
 .sorath-section-badge {
   display: inline-flex;
   align-items: center;
-  gap: 20px;
   position: relative;
-  padding: 12px 24px;
+  gap: 0;
+  padding: 12px 24px 12px 38px;
   border-radius: 50px;
   background: var(--primary-sorath-color);
   color: var(--white-sorath-color);
@@ -89,39 +98,41 @@ color: var(--white-sorath-color);
   letter-spacing: 1.2px;
   line-height: 1;
   text-transform: uppercase;
-  box-shadow:
-    0 10px 30px rgba(119, 165, 163, 0.25);
+  box-shadow: 0 10px 30px rgba(119, 165, 163, 0.25);
+  overflow: hidden;
 }
 
 .sorath-section-badge span {
   position: absolute;
-  border-radius: 50%;
   top: 50%;
   left: 17px;
   width: 6px;
   height: 6px;
-  border: 0;
+  border-radius: 50%;
   background: #fff;
+  border: 0;
   transform: translateY(-50%);
   animation: sorath-kicker-pulse 2s ease-out infinite;
+  z-index: 1;
 }
 
-
- .sorath-section-badge::after {
+.sorath-section-badge::after {
   content: "";
   position: absolute;
   top: 0;
   left: -60%;
   width: 45%;
   height: 100%;
-  background: linear-gradient(100deg,
-      transparent,
-      rgba(255, 255, 255, 0.45),
-      transparent);
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
   transform: skewX(-20deg);
   animation: sorath-kicker-shine 3.5s ease-in-out infinite;
+  pointer-events: none;
 }
-
 
 .sorath-section-heading-content {
   max-width: 850px;

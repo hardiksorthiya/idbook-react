@@ -8,7 +8,7 @@ import Counter from './components/Counter';
 import CTA from './components/CTA';
 import Testimonials from './components/Testimonials';
 import Blog from './components/Blog';
-import Newsletter from './components/Newsletter';
+import Newsletter from '../Common/Newsletter';
 import Footer from '../../components/Footer/Footer';
 
 const Home = () => {

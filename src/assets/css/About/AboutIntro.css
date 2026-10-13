@@ -1,0 +1,153 @@
+.sorath-about-intro {
+  padding: 80px 0;
+  background: #f6f6f6;
+}
+
+
+.sorath-about-intro .sorath-section-badge {
+  margin-bottom: 20px;
+}
+
+.sorath-about-intro .sorath-section-badge span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.sorath-about-title {
+  margin-bottom: 30px;
+  color: #191919;
+  font-size: clamp(32px, 3vw, 50px);
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.sorath-about-title span {
+  color: #79a8a6;
+}
+
+.sorath-about-lead,
+.sorath-about-description {
+  color: #555;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.sorath-about-lead {
+  margin-top: 65px;
+  color: #242424;
+}
+
+.sorath-about-description {
+  margin-bottom: 30px;
+}
+
+.sorath-about-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding: 7px 8px 7px 26px;
+  border: 1px solid #c5c5c5;
+  border-radius: 50px;
+  color: #222;
+  text-decoration: none;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.sorath-about-button span {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 50%;
+  background: #79a8a6;
+  color: #fff;
+  font-size: 22px;
+  transition: transform 0.3s ease;
+}
+
+.sorath-about-button:hover {
+  border-color: #79a8a6;
+}
+
+.sorath-about-button:hover span {
+  transform: rotate(45deg);
+}
+
+.sorath-about-visual {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+}
+
+.sorath-about-visual > img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.5 / 1;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.sorath-about-move-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 104px;
+  height: 104px;
+  border: 2px solid #79a8a6;
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.15);
+  color: #79a8a6;
+  font-size: 19px;
+  transform: translate(-50%, -50%);
+  animation: sorath-about-hint 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.sorath-about-move-hint svg:nth-child(2) {
+  font-size: 28px;
+}
+
+@keyframes sorath-about-hint {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+@media (max-width: 991px) {
+  .sorath-about-intro {
+    padding: 60px 0;
+  }
+
+  .sorath-about-lead {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 575px) {
+
+
+  .sorath-about-title {
+    margin-bottom: 20px;
+    font-size: 34px;
+  }
+
+  .sorath-about-lead,
+  .sorath-about-description {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .sorath-about-visual {
+    border-radius: 18px;
+  }
+}

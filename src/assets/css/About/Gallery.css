@@ -1,0 +1,138 @@
+.sorath-gallery {
+  padding: 60px 0;
+  overflow: hidden;
+  color: #fff;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)),
+    url('../../../assets/images/gallary-bg-1.png') center/cover no-repeat;
+}
+
+.sorath-gallery-content {
+  padding: 20px;
+}
+
+.sorath-gallery-badge {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 8px 18px;
+  color: #fff;
+  background: #78a7a5;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.sorath-gallery-content h2 {
+  margin-bottom: 18px;
+  font-size: clamp(32px, 3vw, 42px);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.sorath-gallery-content p {
+  max-width: 450px;
+  margin-bottom: 26px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.sorath-gallery-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 6px 6px 20px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 40px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.sorath-gallery-btn span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: #fff;
+  background: #78a7a5;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.sorath-gallery-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.sorath-gallery-btn:hover span {
+  transform: rotate(45deg);
+}
+
+.sorath-gallery-item {
+  display: block;
+  height: 318px;
+  overflow: hidden;
+  border-radius: 22px;
+}
+
+.sorath-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.sorath-gallery-item:hover img {
+  transform: scale(1.07);
+}
+
+.sorath-gallery-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.sorath-gallery-controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: #fff;
+  background: #78a7a5;
+  border: none;
+  border-radius: 50%;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.sorath-gallery-controls button:hover {
+  color: #78a7a5;
+  background: #fff;
+}
+
+@media (max-width: 991px) {
+  .sorath-gallery {
+    padding: 50px 0;
+  }
+
+  .sorath-gallery-content {
+    padding: 0 12px;
+  }
+
+  .sorath-gallery-item {
+    height: 280px;
+  }
+}
+
+@media (max-width: 575px) {
+  .sorath-gallery-item {
+    height: 240px;
+    border-radius: 16px;
+  }
+
+  .sorath-gallery-controls {
+    margin-top: 20px;
+  }
+}
