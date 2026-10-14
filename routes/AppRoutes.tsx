@@ -14,6 +14,7 @@ import Register from '../src/pages/Register/Register'
 import Profile from '../src/pages/Profile/Profile'
 import Search from '../src/pages/Search/Search'
 import Checkout from '../src/pages/Checkout/Checkout'
+import Forgot from '../src/pages/Forgot/Forgot'
 const AppRoutes = () => {
   return (
     <Routes>
@@ -28,6 +29,7 @@ const AppRoutes = () => {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot" element={<Forgot />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/search" element={<Search />} />

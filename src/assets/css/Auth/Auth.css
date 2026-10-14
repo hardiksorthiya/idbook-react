@@ -124,6 +124,7 @@
 }
 
 .sorath-auth-card input,
+.sorath-auth-card textarea,
 .sorath-account-shell input {
   display: block;
   width: 100%;
@@ -137,6 +138,7 @@
 }
 
 .sorath-auth-card input:focus,
+.sorath-auth-card textarea:focus,
 .sorath-account-shell input:focus {
   border-color: var(--primary-sorath-color);
 }
