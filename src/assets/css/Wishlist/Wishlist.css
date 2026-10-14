@@ -1,0 +1,12 @@
+.sorath-wish-bar {
+  margin-bottom: 28px;
+}
+
+.sorath-wish-bar p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.sorath-wish-bar a {
+  color: var(--primary-sorath-color);
+}

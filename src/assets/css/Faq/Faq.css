@@ -1,0 +1,178 @@
+.sorath-faq {
+  padding: 80px 0 100px;
+  background: #fff;
+}
+
+.sorath-faq .sorath-section-heading {
+  margin-bottom: 50px;
+}
+
+.sorath-faq-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.sorath-faq-tabs button,
+.sorath-faq-list article button {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.sorath-faq-tabs button {
+  padding: 11px 24px;
+  border: 1px solid rgba(28, 28, 29, 0.14);
+  border-radius: 999px;
+  color: #17191b;
+  font-size: 15px;
+}
+
+.sorath-faq-tabs button.is-active {
+  border-color: var(--primary-sorath-color);
+  background: var(--primary-sorath-color);
+  color: #fff;
+}
+
+.sorath-faq-list article {
+  border-top: 1px solid rgba(159, 159, 164, 0.24);
+}
+
+.sorath-faq-list article:last-child {
+  border-bottom: 1px solid rgba(159, 159, 164, 0.24);
+}
+
+.sorath-faq-list article button {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  padding: 20px 40px 20px 0;
+  color: #17191b;
+  font-size: 20px;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.sorath-faq-list article.is-open button {
+  color: var(--primary-sorath-color);
+}
+
+.sorath-faq-list article button span {
+  flex: 0 0 40px;
+  color: #9f9fa4;
+  font-size: 15px;
+}
+
+.sorath-faq-list article button::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(28, 28, 29, 0.2);
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+.sorath-faq-list article button {
+  position: relative;
+}
+
+.sorath-faq-list article.is-open button::after {
+  content: "-";
+  border-color: var(--primary-sorath-color);
+  background: var(--primary-sorath-color);
+  color: #fff;
+}
+
+.sorath-faq-list p {
+  margin: 0;
+  padding: 0 40px 26px;
+  color: #555;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.sorath-faq-side {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sorath-faq-card img {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 20px;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+.sorath-faq-card h3 {
+  margin: 0 0 12px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.sorath-faq-card p {
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.sorath-faq-card-dark {
+  padding: 30px 26px;
+  border-radius: 24px;
+  background: #17191b;
+}
+
+.sorath-faq-card-dark h3 {
+  color: #fff;
+}
+
+.sorath-faq-card-dark p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.sorath-faq-card .sorath-faq-btn,
+.sorath-faq-card .sorath-faq-light {
+  height: 52px;
+}
+
+.sorath-faq-card .sorath-faq-btn span,
+.sorath-faq-card .sorath-faq-light span {
+  position: relative;
+  z-index: 1;
+}
+
+.sorath-faq-card .sorath-faq-btn {
+  border-color: var(--primary-sorath-color);
+  background: var(--primary-sorath-color);
+  color: #fff;
+}
+
+.sorath-faq-card .sorath-faq-btn span {
+  color: #fff;
+}
+
+.sorath-faq-card-dark .sorath-faq-light {
+  border-color: #fff;
+  background: #fff;
+  color: #17191b;
+}
+
+.sorath-faq-card-dark .sorath-faq-light span {
+  color: #17191b;
+}
+
+.sorath-faq-card-dark .sorath-faq-light:hover span {
+  color: #fff;
+}
+
+@media (max-width: 991px) {
+  .sorath-faq-list {
+    margin-bottom: 10px;
+  }
+}

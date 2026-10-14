@@ -42,11 +42,9 @@
 
   text-decoration: none;
 
-  opacity: 0;
+  opacity: 1;
 
-  transform: translateY(-10px);
-
-  pointer-events: none;
+  transform: translateY(0);
 
   transition:
     opacity 0.35s ease,
@@ -79,6 +77,14 @@
   min-height: 70px;
 
   padding: 7px 0;
+}
+
+.sorath-header-home:not(.sorath-header-scrolled) .sorath-header-logo {
+  opacity: 0;
+
+  transform: translateY(-10px);
+
+  pointer-events: none;
 }
 
 .sorath-header-scrolled .sorath-header-logo {

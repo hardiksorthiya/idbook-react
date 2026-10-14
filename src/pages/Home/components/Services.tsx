@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 import Heading from '../../Common/Heading';
@@ -45,13 +45,76 @@ const services = [
 ];
 
 const Services = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
   const [activeService, setActiveService] = useState(0);
 
   const activeItem = services[activeService];
+  const lastService = services.length - 1;
+
+  const isPinned = () => {
+    const section = sectionRef.current;
+    if (!section) return false;
+    return section.offsetHeight - window.innerHeight >= window.innerHeight;
+  };
+
+  const goToService = (index: number) => {
+    const section = sectionRef.current;
+    if (!section || !isPinned()) {
+      setActiveService(index);
+      return;
+    }
+
+    const start = section.getBoundingClientRect().top + window.scrollY;
+    const distance = section.offsetHeight - window.innerHeight;
+
+    window.scrollTo({
+      top: start + (distance * index) / lastService,
+      behavior: 'smooth',
+    });
+  };
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    let frame = 0;
+
+    const update = () => {
+      if (!isPinned()) return;
+
+      const distance = section.offsetHeight - window.innerHeight;
+      const passed = Math.min(
+        Math.max(-section.getBoundingClientRect().top, 0),
+        distance,
+      );
+      const progress = passed / distance;
+
+      setActiveService((current) => {
+        const next = Math.min(lastService, Math.round(progress * lastService));
+        return current === next ? current : next;
+      });
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [lastService]);
 
   return (
     <>
-    <section className="sorath-services">
+    <section ref={sectionRef} className="sorath-services">
+      <div className="sorath-services-pin">
       <div className="container-fluid sorath-container-fluid">
       {/* Section Heading */}
         <Heading
@@ -71,7 +134,7 @@ const Services = () => {
           <div className="col-lg-6">
             <div className="sorath-service-image">
               <img
-                key={activeItem.image}
+                key={activeItem.number}
                 src={activeItem.image}
                 alt={activeItem.title}
               />
@@ -93,8 +156,10 @@ const Services = () => {
                       ? 'sorath-service-item-active'
                       : ''
                   }`}
-                  onMouseEnter={() => setActiveService(index)}
-                  onClick={() => setActiveService(index)}
+                  onMouseEnter={() => {
+                    if (!isPinned()) setActiveService(index);
+                  }}
+                  onClick={() => goToService(index)}
                 >
                   <span className="sorath-service-number">
                     {service.number}
@@ -119,6 +184,7 @@ const Services = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
     </>

@@ -1,0 +1,190 @@
+.sorath-gallery-page {
+  padding: 80px 0 100px;
+  background: #fff;
+}
+
+.sorath-gallery-filter {
+  position: relative;
+  width: max-content;
+  margin-bottom: 40px;
+}
+
+.sorath-gallery-filter-btn,
+.sorath-gallery-filter li button {
+  border: 0;
+  background: #fff;
+  color: #17191b;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.sorath-gallery-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  min-width: 220px;
+  padding: 13px 20px;
+  border: 1px solid rgba(28, 28, 29, 0.14);
+  border-radius: 999px;
+}
+
+.sorath-gallery-filter-btn svg {
+  margin-left: auto;
+  transition: transform 0.25s ease;
+}
+
+.sorath-gallery-filter.is-open .sorath-gallery-filter-btn {
+  border-color: var(--primary-sorath-color);
+  color: var(--primary-sorath-color);
+}
+
+.sorath-gallery-filter.is-open .sorath-gallery-filter-btn svg {
+  transform: rotate(180deg);
+}
+
+.sorath-gallery-filter ul {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 5;
+  min-width: 100%;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  border: 1px solid rgba(28, 28, 29, 0.1);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(28, 28, 29, 0.12);
+}
+
+.sorath-gallery-filter li button {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 12px;
+  text-align: left;
+}
+
+.sorath-gallery-filter li button:hover,
+.sorath-gallery-filter li button.is-active {
+  background: var(--primary-sorath-color);
+  color: #fff;
+}
+
+.sorath-gallery-grid {
+  --gallery-row: 260px;
+  --gallery-gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: var(--gallery-row);
+  grid-auto-flow: dense;
+  gap: var(--gallery-gap);
+}
+
+.sorath-gallery-item {
+  position: relative;
+  height: var(--gallery-row);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.sorath-gallery-item.is-wide {
+  grid-column: span 2;
+}
+
+.sorath-gallery-item.is-tall {
+  grid-row: span 2;
+  height: calc(var(--gallery-row) * 2 + var(--gallery-gap));
+}
+
+.sorath-gallery-card {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 24px;
+  background: none;
+  cursor: pointer;
+}
+
+.sorath-gallery-card img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.sorath-gallery-card span {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: var(--primary-sorath-color);
+  color: #fff;
+  font-size: 13px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.sorath-gallery-card:hover img {
+  transform: scale(1.06);
+}
+
+.sorath-gallery-card:hover span {
+  opacity: 1;
+  transform: none;
+}
+
+.sorath-gallery-view {
+  position: fixed;
+  inset: 0;
+  z-index: 10060;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.72);
+  cursor: zoom-out;
+}
+
+.sorath-gallery-view img {
+  max-width: min(1000px, 100%);
+  max-height: 86vh;
+  border-radius: 24px;
+  object-fit: contain;
+}
+
+@media (max-width: 991px) {
+  .sorath-gallery-grid {
+    --gallery-row: 220px;
+    --gallery-gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .sorath-gallery-grid {
+    --gallery-row: 230px;
+    grid-template-columns: 1fr;
+  }
+
+  .sorath-gallery-item.is-wide,
+  .sorath-gallery-item.is-tall {
+    grid-column: auto;
+    grid-row: auto;
+    height: var(--gallery-row);
+  }
+
+  .sorath-gallery-card span {
+    opacity: 1;
+    transform: none;
+  }
+}

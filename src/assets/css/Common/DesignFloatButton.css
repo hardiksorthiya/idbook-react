@@ -5,54 +5,65 @@
   z-index: 9999;
   display: flex;
   align-items: center;
-  width: 64px;
-  height: 64px;
-  border-radius: 50px;
-  background: rgba(119, 165, 163, 0.2);
   text-decoration: none;
-  transition: width 0.4s ease;
 }
 
 .sorath-design-float-icon {
-  z-index: 2;
+  position: relative;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  width: 64px;
-  height: 64px;
-  border: 2px solid #fff;
+  width: 60px;
+  height: 60px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-sorath-color), #5e8c8a);
+  color: #fff;
+  font-size: 26px;
+  box-shadow: 0 10px 25px rgba(119, 165, 163, 0.45);
+  transition: transform 0.3s ease;
+}
+
+.sorath-design-float-icon::before,
+.sorath-design-float-icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   border-radius: 50%;
   background: var(--primary-sorath-color);
-  color: #fff;
-  font-size: 25px;
-  box-shadow: 0 5px 20px rgba(119, 165, 163, 0.35);
-  transition: transform 0.4s ease;
+  animation: designPulse 2.4s ease-out infinite;
+}
+
+.sorath-design-float-icon::after {
+  animation-delay: 1.2s;
+}
+
+.sorath-design-float-icon svg {
+  animation: designShake 4s ease-in-out infinite;
 }
 
 .sorath-design-float-label {
   position: absolute;
-  left: 48px;
-  z-index: 1;
-  padding: 12px 18px 12px 24px;
+  z-index: 2;
+  margin-left: 50px;
+  padding: 10px 18px 10px 40px;
   border-radius: 0 30px 30px 0;
   background: #fff;
   color: var(--primary-sorath-color);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   opacity: 0;
-  transform: translateX(-12px);
+  transform: translateX(-20px);
   pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.4s ease;
-}
-
-.sorath-design-float:hover {
-  width: 190px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .sorath-design-float:hover .sorath-design-float-icon {
-  transform: rotate(-8deg) scale(1.05);
+  transform: scale(1.08) rotate(-8deg);
 }
 
 .sorath-design-float:hover .sorath-design-float-label {
@@ -69,17 +80,5 @@
   .sorath-design-float {
     bottom: 18px;
     left: 18px;
-    width: 58px;
-    height: 58px;
-  }
-
-  .sorath-design-float-icon {
-    width: 58px;
-    height: 58px;
-    font-size: 22px;
-  }
-
-  .sorath-design-float:hover {
-    width: 180px;
   }
 }

@@ -1,0 +1,429 @@
+.sorath-pd,
+.sorath-pd-tabs,
+.sorath-pd-related {
+  background: #fff;
+  color: #4d4d4d;
+}
+
+.sorath-pd {
+  padding: 80px 0 40px;
+}
+
+.sorath-pd-main {
+  height: clamp(280px, 42vw, 560px);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.sorath-pd-main img,
+.sorath-pd-thumbs img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sorath-pd-thumbs {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.sorath-pd-thumbs button {
+  flex: 1;
+  height: 88px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  overflow: hidden;
+  background: none;
+  cursor: pointer;
+}
+
+.sorath-pd-thumbs button.is-active {
+  border-color: var(--primary-sorath-color);
+}
+
+.sorath-pd-info {
+  padding-left: 20px;
+}
+
+.sorath-pd-badge {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 7px 15px;
+  border-radius: 100px;
+  background: var(--primary-sorath-color);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sorath-pd-info h2 {
+  margin: 0 0 15px;
+  color: #17191b;
+  font-size: clamp(32px, 3vw, 50px);
+  font-weight: 400;
+}
+
+.sorath-pd-rating,
+.sorath-pd-stars,
+.sorath-pd-stock,
+.sorath-pd-actions,
+.sorath-pd-wishlist,
+.sorath-pd-form-rating {
+  display: flex;
+  align-items: center;
+}
+
+.sorath-pd-rating {
+  margin-bottom: 20px;
+}
+
+.sorath-pd-stars {
+  gap: 2px;
+  padding-right: 10px;
+  margin-right: 10px;
+  border-right: 1px solid #e5e5e5;
+  color: var(--primary-sorath-color);
+}
+
+.sorath-pd-stars svg {
+  fill: currentColor;
+}
+
+.sorath-pd-stock {
+  gap: 5px;
+  color: #8aa206;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sorath-pd-price {
+  margin: 0 0 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #e5e5e5;
+  color: #17191b;
+  font-size: 40px;
+  font-weight: 400;
+}
+
+.sorath-pd-price span {
+  margin-left: 10px;
+  color: #a4a4a4;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: line-through;
+}
+
+.sorath-pd-actions {
+  gap: 16px;
+  margin: 30px 0 20px;
+}
+
+.sorath-pd-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 56px;
+  padding: 0 24px;
+  border: 2px solid #17191b;
+  border-radius: 100px;
+  background: transparent;
+  color: #17191b;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sorath-pd-btn-outline:hover {
+  background: #17191b;
+  color: #fff;
+}
+
+.sorath-pd-btn-fill {
+  border-color: var(--primary-sorath-color);
+  background: var(--primary-sorath-color);
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(119, 165, 163, 0.35);
+}
+
+.sorath-pd-btn-fill:hover {
+  background: #5e8c8a;
+  border-color: #5e8c8a;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.sorath-pd-cursor {
+  display: none;
+}
+
+@media (hover: hover) and (min-width: 992px) {
+  .sorath-pd-actions .sorath-pd-btn {
+    position: relative;
+    cursor: none;
+  }
+
+  .sorath-pd-cursor {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 110px;
+    height: 110px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.46);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .sorath-pd-actions .sorath-pd-btn:hover .sorath-pd-cursor {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.sorath-pd-wishlist {
+  gap: 8px;
+  margin-bottom: 25px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #17191b;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.sorath-pd-wishlist:hover {
+  color: var(--primary-sorath-color);
+}
+
+.sorath-pd-wishlist span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(159, 159, 164, 0.4);
+  border-radius: 50%;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.sorath-pd-wishlist:hover span {
+  background: var(--primary-sorath-color);
+  border-color: var(--primary-sorath-color);
+  color: #fff;
+}
+
+.sorath-pd-meta {
+  margin: 0;
+  padding: 8px 24px;
+  list-style: none;
+  border: 1px solid rgba(159, 159, 164, 0.24);
+  border-radius: 16px;
+}
+
+.sorath-pd-meta li {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.sorath-pd-meta li:not(:last-child) {
+  border-bottom: 1px dashed rgba(159, 159, 164, 0.3);
+}
+
+.sorath-pd-meta span {
+  min-width: 100px;
+  color: #17191b;
+  font-weight: 500;
+}
+
+.sorath-pd-tabs {
+  padding: 40px 0 80px;
+}
+
+.sorath-pd-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 30px;
+  margin: 0 0 40px;
+  padding: 0 0 30px;
+  list-style: none;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.sorath-pd-nav button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #6b6b6b;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.sorath-pd-nav button.is-active {
+  color: #17191b;
+}
+
+.sorath-pd-desc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sorath-pd-desc li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+  color: #17191b;
+}
+
+.sorath-pd-table {
+  width: 100%;
+  margin-top: 10px;
+  background: #eee;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.sorath-pd-table th,
+.sorath-pd-table td {
+  padding: 15px 10px;
+  border: 1px solid #e5e5e5;
+}
+
+.sorath-pd-table th {
+  color: var(--primary-sorath-color);
+  font-weight: 500;
+}
+
+.sorath-pd-review {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 15px;
+  margin-bottom: 30px;
+  padding: 30px;
+  border: 1px solid #e5e5e5;
+}
+
+.sorath-pd-review img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.sorath-pd-review-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.sorath-pd-review h4,
+.sorath-pd-form h4 {
+  margin: 0;
+  color: #17191b;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.sorath-pd-review h4 span {
+  display: block;
+  margin-top: 7px;
+  color: #6b6b6b;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.sorath-pd-form h4 {
+  margin-bottom: 8px;
+}
+
+.sorath-pd-form p {
+  margin-bottom: 16px;
+}
+
+.sorath-pd-form-rating {
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.sorath-pd-form-rating .sorath-pd-stars {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.sorath-pd-form input,
+.sorath-pd-form textarea {
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 14px 18px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  outline: none;
+}
+
+.sorath-pd-form label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.sorath-pd-form .sorath-pd-btn {
+  flex: none;
+  width: auto;
+}
+
+.sorath-pd-related {
+  padding: 0 0 120px;
+}
+
+.sorath-pd-related h2 {
+  margin: 0 0 30px;
+  color: #17191b;
+  font-size: clamp(32px, 3vw, 42px);
+  font-weight: 400;
+}
+
+@media (max-width: 991px) {
+  .sorath-pd-info {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 575px) {
+  .sorath-pd-actions {
+    gap: 10px;
+  }
+
+  .sorath-pd-btn {
+    height: 48px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+
+  .sorath-pd-review {
+    grid-template-columns: 1fr;
+  }
+}

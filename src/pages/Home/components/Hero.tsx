@@ -38,7 +38,7 @@ const Hero = () => {
             {/* Bottom CTA */}
             <div className="d-flex align-items-center gap-3">
               {/* Compass */}
-              <a href="contact.html" className="sorath-hero-compass" aria-label="Design With Us" >
+              <a href="/contact" className="sorath-hero-compass" aria-label="Design With Us" >
                 <span className="design-float-icon">
                   <i className="fa-regular fa-compass-drafting"></i>
                 </span>

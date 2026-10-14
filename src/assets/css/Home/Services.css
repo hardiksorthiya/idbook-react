@@ -7,11 +7,15 @@
   
     padding: 120px 0 110px;
   
-    overflow: hidden;
+    overflow: visible;
   
     background: #f7f7f7;
   
     color: #17191b;
+  }
+
+  .sorath-services-pin {
+    background: #f7f7f7;
   }
   
   /* ========================================
@@ -317,3 +321,33 @@
       font-size: 18px;
     }
   }
+
+@media (min-width: 992px) {
+  .sorath-services {
+    height: 500vh;
+    padding: 0;
+  }
+
+  .sorath-services-pin {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .sorath-services-pin .sorath-section-heading {
+    margin-bottom: 28px;
+  }
+
+  .sorath-services-pin .sorath-service-image {
+    height: min(420px, 42vh);
+  }
+
+  .sorath-services-pin .sorath-service-item {
+    min-height: 72px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}

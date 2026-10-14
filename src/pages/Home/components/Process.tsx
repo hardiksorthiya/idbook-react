@@ -1,7 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import type { Swiper as SwiperType } from 'swiper';
-import 'swiper/css';
 
 import '../../../assets/css/Home/Process.css';
 
@@ -14,9 +11,8 @@ import Step2Image3 from '../../../assets/images/step2c.webp';
 import Step2Image4 from '../../../assets/images/step2d.webp';
 
 const HowItWorks = () => {
-  const swiperRef = useRef<SwiperType | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
-  const wheelLock = useRef(false);
+  const trackRef = useRef<HTMLDivElement | null>(null);
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -28,56 +24,63 @@ const HowItWorks = () => {
     'Complete Design Package',
   ];
 
-  useEffect(() => {
+  const goToStep = (index: number) => {
     const section = sectionRef.current;
     if (!section) return;
 
-    const handleWheel = (event: WheelEvent) => {
-      const swiper = swiperRef.current;
-      if (!swiper) return;
-      if (Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
+    const start = section.getBoundingClientRect().top + window.scrollY;
+    const distance = section.offsetHeight - window.innerHeight;
+    const top = start + (distance * index) / (titles.length - 1);
 
-      const top = section.getBoundingClientRect().top;
-      const down = event.deltaY > 0;
-      const aligned = top <= 2 && top >= -2;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
 
-      // If an upward scroll nudged the section down, pull it back
-      // and move to the previous slide.
-      if (!aligned) {
-        if (down || swiper.isBeginning || top <= 2 || top > 160) return;
-        event.preventDefault();
-        window.scrollTo({ top: window.scrollY + top });
-        if (wheelLock.current) return;
-        wheelLock.current = true;
-        swiper.slidePrev();
-        window.setTimeout(() => {
-          wheelLock.current = false;
-        }, 800);
-        return;
-      }
+  useEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    if (!section || !track) return;
 
-      if ((down && swiper.isEnd) || (!down && swiper.isBeginning)) return;
+    let frame = 0;
 
-      event.preventDefault();
-      if (wheelLock.current) return;
+    const update = () => {
+      const distance = section.offsetHeight - window.innerHeight;
+      const passed = Math.min(
+        Math.max(-section.getBoundingClientRect().top, 0),
+        distance,
+      );
+      const progress = distance > 0 ? passed / distance : 0;
+      const width = track.parentElement?.clientWidth ?? window.innerWidth;
+      const last = titles.length - 1;
 
-      wheelLock.current = true;
-      if (down) swiper.slideNext();
-      else swiper.slidePrev();
-      window.setTimeout(() => {
-        wheelLock.current = false;
-      }, 800);
+      track.style.transform = `translate3d(-${progress * last * width}px, 0, 0)`;
+      setActiveIndex((current) => {
+        const next = Math.min(last, Math.round(progress * last));
+        return current === next ? current : next;
+      });
     };
 
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    return () => window.removeEventListener('wheel', handleWheel);
-  }, []);
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [titles.length]);
 
   return (
     <section
       ref={sectionRef}
       className="sorath-process"
     >
+      <div className="sorath-process-pin">
       {/* Background */}
       <div className="sorath-process-grid" />
       <div className="sorath-process-vignette" />
@@ -149,7 +152,7 @@ const HowItWorks = () => {
                 : ''
             }`}
             aria-label={`${index + 1}. ${title}`}
-            onClick={() => swiperRef.current?.slideTo(index)}
+            onClick={() => goToStep(index)}
           />
         ))}
       </div>
@@ -164,21 +167,9 @@ const HowItWorks = () => {
       </div>
 
       {/* Slides */}
-      <Swiper
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-        }}
-        onSlideChange={(swiper) => {
-          setActiveIndex(swiper.activeIndex);
-        }}
-        slidesPerView={1}
-        speed={800}
-        grabCursor
-        allowTouchMove
-        className="sorath-process-swiper"
-      >
+      <div className="sorath-process-track" ref={trackRef}>
         {/* ==================== 01 ==================== */}
-        <SwiperSlide>
+        <div className="sorath-process-screen">
           <div className="sorath-process-slide">
             <div className="container-fluid sorath-container-fluid h-100">
               <div className="row h-100 align-items-center">
@@ -234,10 +225,10 @@ const HowItWorks = () => {
               </div>
             </div>
           </div>
-        </SwiperSlide>
+        </div>
 
         {/* ==================== 02 ==================== */}
-        <SwiperSlide>
+        <div className="sorath-process-screen">
           <div className="sorath-process-slide">
             <div className="container-fluid sorath-container-fluid h-100">
               <div className="row h-100 align-items-center">
@@ -281,10 +272,10 @@ const HowItWorks = () => {
               </div>
             </div>
           </div>
-        </SwiperSlide>
+        </div>
 
         {/* ==================== 03 ==================== */}
-        <SwiperSlide>
+        <div className="sorath-process-screen">
           <div className="sorath-process-slide">
             <div className="container-fluid sorath-container-fluid h-100">
               <div className="row h-100 align-items-center">
@@ -362,10 +353,10 @@ const HowItWorks = () => {
               </div>
             </div>
           </div>
-        </SwiperSlide>
+        </div>
 
         {/* ==================== 04 ==================== */}
-        <SwiperSlide>
+        <div className="sorath-process-screen">
           <div className="sorath-process-slide">
             <div className="container-fluid sorath-container-fluid h-100">
               <div className="row h-100 align-items-center">
@@ -402,10 +393,10 @@ const HowItWorks = () => {
               </div>
             </div>
           </div>
-        </SwiperSlide>
+        </div>
 
         {/* ==================== 05 ==================== */}
-        <SwiperSlide>
+        <div className="sorath-process-screen">
           <div className="sorath-process-slide">
             <div className="container-fluid sorath-container-fluid h-100">
               <div className="row h-100 align-items-center">
@@ -467,8 +458,9 @@ const HowItWorks = () => {
               </div>
             </div>
           </div>
-        </SwiperSlide>
-      </Swiper>
+        </div>
+      </div>
+      </div>
     </section>
   );
 };

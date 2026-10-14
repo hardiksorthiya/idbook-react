@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   FiHeart,
   FiSearch,
@@ -11,6 +12,8 @@ import Logo from '../../assets/images/logo.webp';
 import '../../assets/css/Common/Header.css';
 
 const Header = () => {
+  const { pathname } = useLocation();
+  const isHome = pathname === '/';
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,8 +36,17 @@ const Header = () => {
     };
   }, [isSearchOpen]);
 
+  const goSearch = () => {
+    const word = searchInputRef.current?.value.trim() ?? '';
+    window.location.href = word ? `/search?q=${encodeURIComponent(word)}` : '/search';
+  };
+
   const handleSearchToggle = () => {
-    setIsSearchOpen((prev) => !prev);
+    if (isSearchOpen) {
+      goSearch();
+      return;
+    }
+    setIsSearchOpen(true);
   };
 
   const handleMenuToggle = () => {
@@ -44,6 +56,8 @@ const Header = () => {
   return (
     <header
       className={`sorath-header ${
+        isHome ? 'sorath-header-home' : ''
+      } ${
         isScrolled ? 'sorath-header-scrolled' : ''
       }`}
     >
@@ -74,6 +88,9 @@ const Header = () => {
                 className="sorath-search-input"
                 placeholder="Type here..."
                 aria-label="Search"
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') goSearch();
+                }}
               />
             </div>
 
@@ -90,13 +107,9 @@ const Header = () => {
             </button>
 
             {/* Login */}
-            <button
-              type="button"
-              className="sorath-header-btn"
-              aria-label="Login"
-            >
+            <a href="/login" className="sorath-header-btn" aria-label="Login">
               <FiUser />
-            </button>
+            </a>
 
             {/* Menu */}
             <button
@@ -132,21 +145,13 @@ const Header = () => {
 
               <div className="d-flex align-items-center gap-2 sorath-menu-bottom">
 
-                <button
-                  type="button"
-                  className="sorath-menu-icon"
-                  aria-label="Wishlist"
-                >
+                <a href="/wishlist" className="sorath-menu-icon" aria-label="Wishlist">
                   <FiHeart />
-                </button>
+                </a>
 
-                <button
-                  type="button"
-                  className="sorath-menu-icon"
-                  aria-label="Cart"
-                >
+                <a href="/cart" className="sorath-menu-icon" aria-label="Cart">
                   <FiShoppingCart />
-                </button>
+                </a>
 
               </div>
             </div>

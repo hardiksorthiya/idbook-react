@@ -1,0 +1,31 @@
+.sorath-search-page {
+  padding: 80px 0 110px;
+  background: #f7f7f7;
+}
+
+.sorath-search-bar {
+  margin-bottom: 28px;
+}
+
+.sorath-search-bar input {
+  height: 56px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 100px;
+  background: #fff;
+}
+
+.sorath-search-bar p {
+  margin: 16px 0 0;
+}
+
+.sorath-search-empty {
+  padding: 28px;
+  border-radius: 24px;
+  background: #fff;
+  text-align: center;
+}
+
+.sorath-search-empty a {
+  color: var(--primary-sorath-color);
+}

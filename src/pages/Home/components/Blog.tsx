@@ -4,6 +4,7 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
 import Heading from "../../Common/Heading";
+import BlogCard from "../../Common/BlogCard";
 import "../../../assets/css/Home/Blog.css";
 
 import BlogImage1 from "../../../assets/images/step1.webp";
@@ -84,27 +85,14 @@ const Blog = () => {
         >
           {blogs.map((blog) => (
             <SwiperSlide key={blog.id}>
-              <article className="sorath-blog-card">
-                <a href={blog.link} className="sorath-blog-image">
-                  <img src={blog.image} alt={blog.title} loading="lazy" />
-                  <span className="sorath-blog-category">
-                    {blog.category}
-                  </span>
-                </a>
-
-                <div className="sorath-blog-meta">
-                  <span>{blog.date}</span>
-                  <span>
-                    By <strong>IDBook</strong>
-                  </span>
-                </div>
-
-                <h3>
-                  <a href={blog.link}>{blog.title}</a>
-                </h3>
-
-                <p>{blog.description}</p>
-              </article>
+              <BlogCard
+                image={blog.image}
+                category={blog.category}
+                date={blog.date}
+                title={blog.title}
+                description={blog.description}
+                link={blog.link}
+              />
             </SwiperSlide>
           ))}
         </Swiper>

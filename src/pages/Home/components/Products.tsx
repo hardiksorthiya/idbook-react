@@ -25,7 +25,7 @@ const products = [
     price: "$1,240",
     categories: ["Living Room", "Sofa"],
     dimensions: `16'-5" × 12'-6"`,
-    link: '#',
+    link: '/product',
   },
   {
     id: 2,
@@ -35,7 +35,7 @@ const products = [
     price: "$680",
     categories: ["Living Room", "Chair"],
     dimensions: `8'-2" × 7'-4"`,
-    link: '#',
+    link: '/product',
   },
   {
     id: 3,
@@ -45,7 +45,7 @@ const products = [
     price: "$320",
     categories: ["Lighting", "Lamp"],
     dimensions: `4'-0" × 3'-6"`,
-    link: '#',
+    link: '/product',
   },
   {
     id: 4,
@@ -55,7 +55,7 @@ const products = [
     price: "$890",
     categories: ["Office", "Chair"],
     dimensions: `6'-5" × 5'-2"`,
-    link: '#',
+    link: '/product',
   },
 ];
 

@@ -10,6 +10,7 @@ import Testimonials from './components/Testimonials';
 import Blog from './components/Blog';
 import Newsletter from '../Common/Newsletter';
 import Footer from '../../components/Footer/Footer';
+import DesignFloatButton from '../Common/DesignFloatButton';
 
 const Home = () => {
   return (
@@ -26,6 +27,7 @@ const Home = () => {
     <Blog />
     <Newsletter />
     <Footer />
+    <DesignFloatButton />
     </>
   )
 }

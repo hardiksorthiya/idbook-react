@@ -1,0 +1,133 @@
+.sorath-checkout {
+  padding: 80px 0 110px;
+  background: #f7f7f7;
+}
+
+.sorath-bill-card {
+  height: 100%;
+  padding: 28px;
+  border: 1px solid rgba(159, 159, 164, 0.24);
+  border-radius: 24px;
+  background: #fff;
+  color: #17191b;
+}
+
+.sorath-bill-card h2 {
+  margin: 0 0 18px;
+  color: #17191b;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.sorath-bill-card label {
+  display: block;
+  margin-bottom: 6px;
+  color: #17191b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.sorath-bill-card input,
+.sorath-bill-card textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 13px 14px;
+  border: 1px solid rgba(159, 159, 164, 0.4);
+  border-radius: 14px;
+  outline: none;
+  background: #fff;
+  color: #17191b;
+  font-weight: 400;
+}
+
+.sorath-bill-card textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.sorath-bill-card input:focus,
+.sorath-bill-card textarea:focus {
+  border-color: var(--primary-sorath-color);
+}
+
+.sorath-bill-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sorath-bill-items li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(159, 159, 164, 0.22);
+}
+
+.sorath-bill-items img {
+  width: 72px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.sorath-bill-items strong,
+.sorath-bill-items em {
+  display: block;
+}
+
+.sorath-bill-items strong {
+  color: #17191b;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.sorath-bill-items em {
+  color: var(--primary-sorath-color);
+  font-style: normal;
+}
+
+.sorath-bill-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 0;
+  color: #17191b;
+  font-size: 20px;
+}
+
+.sorath-bill-card .sorath-bill-place {
+  width: 100%;
+  justify-content: center;
+  margin-top: 18px;
+  border-color: var(--primary-sorath-color);
+  background: var(--primary-sorath-color);
+  color: #fff;
+}
+
+.sorath-bill-card .sorath-bill-place span {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+}
+
+.sorath-bill-done {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(119, 165, 163, 0.14);
+  color: var(--primary-sorath-color);
+  font-weight: 600;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .sorath-checkout {
+    padding: 48px 0 72px;
+  }
+
+  .sorath-bill-card {
+    padding: 22px;
+  }
+}

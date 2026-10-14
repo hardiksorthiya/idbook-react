@@ -1,0 +1,48 @@
+.sorath-scroll-top {
+  position: fixed;
+  right: 30px;
+  bottom: clamp(24px, 5vh, 60px);
+  z-index: 9990;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 11px 41px 3px rgba(23, 67, 63, 0.12);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0);
+  transition: 0.3s;
+}
+
+.sorath-scroll-top.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.sorath-scroll-top span {
+  display: grid;
+  place-items: center;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--primary-sorath-color);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sorath-scroll-top svg {
+  font-size: 20px;
+}
+
+@media (max-width: 767px) {
+  .sorath-scroll-top {
+    right: 20px;
+    bottom: 20px;
+  }
+}

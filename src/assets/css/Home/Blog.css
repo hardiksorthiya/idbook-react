@@ -81,6 +81,10 @@
   line-height: 1.7;
 }
 
+.sorath-blog-more {
+  margin-top: 16px;
+}
+
 @media (max-width: 991px) {
   .sorath-blog {
     padding: 50px 0;
