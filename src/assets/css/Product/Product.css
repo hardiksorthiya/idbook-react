@@ -323,11 +323,17 @@
   border: 1px solid #e5e5e5;
 }
 
-.sorath-pd-review img {
+.sorath-pd-review img,
+.sorath-pd-review-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 90px;
   height: 90px;
   border-radius: 50%;
   object-fit: cover;
+  background: #f3f3f3;
+  font-size: 28px;
 }
 
 .sorath-pd-review-top {

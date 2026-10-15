@@ -13,6 +13,7 @@ export function getMe() {
 export function readUser(data: MeResult | null): User | null {
   if (!data) return null;
   if (data.user) return data.user;
-  if (data.data) return data.data;
+  if (data.data?.user) return data.data.user;
+  if (data.data?.name || data.data?.email) return data.data;
   return data;
 }

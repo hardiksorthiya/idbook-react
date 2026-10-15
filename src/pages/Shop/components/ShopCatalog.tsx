@@ -5,31 +5,11 @@ import '../../../assets/css/Home/Products.css';
 import '../../../assets/css/Shop/Shop.css';
 import ProductCard from '../../Common/ProductCard';
 import ShopFilter from './ShopFilter';
-
 import Shop1 from '../../../assets/images/shop/shop-1.png';
-import Shop2 from '../../../assets/images/shop/shop-2.png';
-import Shop3 from '../../../assets/images/shop/shop-3.png';
-import Shop4 from '../../../assets/images/shop/shop-4.png';
-import Shop5 from '../../../assets/images/shop/shop-5.png';
-import Shop6 from '../../../assets/images/shop/shop-6.png';
-import Shop7 from '../../../assets/images/shop/shop-7.png';
-import Shop8 from '../../../assets/images/shop/shop-8.png';
-import Shop9 from '../../../assets/images/shop/shop-9.png';
+import { getProductFilters, getProducts } from '../../../../services/products';
+import type { ProductFilters, ProductItem } from '../../../../types/product';
 
-const MIN_PRICE = 10;
-const MAX_PRICE = 500;
 const PAGE_SIZE = 6;
-
-const categoryNames = [
-  'Bench',
-  'Bookcase',
-  'Dining Table',
-  'Dressing Table',
-  'Clothing & Apparel',
-  'Furniture',
-  'Office Chair',
-  'Uncategorized',
-];
 
 const sortOptions = [
   { value: 'default', label: 'Default Sorting' },
@@ -40,168 +20,65 @@ const sortOptions = [
   { value: 'discounted', label: 'Discounted' },
 ];
 
-const products = [
-  {
-    id: 1,
-    image: Shop1,
-    hoverImage: Shop2,
-    name: 'Modern Caramel Fabric Sofa',
-    priceValue: 157,
-    price: '$157.00',
-    categories: ['Furniture'],
-    dimensions: `16'-5" × 12'-6"`,
-    link: '/product',
-    popular: 96,
-    date: 9,
-    trending: 80,
-    featured: true,
-    discounted: false,
-  },
-  {
-    id: 2,
-    image: Shop2,
-    hoverImage: Shop3,
-    name: 'Oak Dining Bench',
-    priceValue: 89,
-    price: '$89.00',
-    categories: ['Bench'],
-    dimensions: `8'-2" × 7'-4"`,
-    link: '/product',
-    popular: 70,
-    date: 8,
-    trending: 60,
-    featured: false,
-    discounted: true,
-  },
-  {
-    id: 3,
-    image: Shop3,
-    hoverImage: Shop4,
-    name: 'Walnut Bookcase',
-    priceValue: 210,
-    price: '$210.00',
-    categories: ['Bookcase'],
-    dimensions: `4'-0" × 3'-6"`,
-    link: '/product',
-    popular: 84,
-    date: 7,
-    trending: 74,
-    featured: true,
-    discounted: false,
-  },
-  {
-    id: 4,
-    image: Shop4,
-    hoverImage: Shop5,
-    name: 'Marble Dining Table',
-    priceValue: 340,
-    price: '$340.00',
-    categories: ['Dining Table'],
-    dimensions: `12'-0" × 10'-8"`,
-    link: '/product',
-    popular: 91,
-    date: 6,
-    trending: 88,
-    featured: false,
-    discounted: false,
-  },
-  {
-    id: 5,
-    image: Shop5,
-    hoverImage: Shop6,
-    name: 'Soft Linen Dressing Table',
-    priceValue: 275,
-    price: '$275.00',
-    categories: ['Dressing Table'],
-    dimensions: `6'-5" × 5'-2"`,
-    link: '/product',
-    popular: 77,
-    date: 5,
-    trending: 66,
-    featured: false,
-    discounted: true,
-  },
-  {
-    id: 6,
-    image: Shop6,
-    hoverImage: Shop7,
-    name: 'Linen Throw Set',
-    priceValue: 45,
-    price: '$45.00',
-    categories: ['Clothing & Apparel'],
-    dimensions: `16'-5" × 12'-6"`,
-    link: '/product',
-    popular: 62,
-    date: 4,
-    trending: 90,
-    featured: false,
-    discounted: true,
-  },
-  {
-    id: 7,
-    image: Shop7,
-    hoverImage: Shop8,
-    name: 'Titan Office Chair',
-    priceValue: 189,
-    price: '$189.00',
-    categories: ['Office Chair'],
-    dimensions: `8'-2" × 7'-4"`,
-    link: '/product',
-    popular: 88,
-    date: 3,
-    trending: 72,
-    featured: true,
-    discounted: false,
-  },
-  {
-    id: 8,
-    image: Shop8,
-    hoverImage: Shop9,
-    name: 'Framed Canvas Painting',
-    priceValue: 120,
-    price: '$120.00',
-    categories: ['Uncategorized'],
-    dimensions: `4'-0" × 3'-6"`,
-    link: '/product',
-    popular: 58,
-    date: 2,
-    trending: 54,
-    featured: false,
-    discounted: false,
-  },
-  {
-    id: 9,
-    image: Shop9,
-    hoverImage: Shop1,
-    name: 'Arabesque Design Vase',
-    priceValue: 55,
-    price: '$55.00',
-    categories: ['Uncategorized'],
-    dimensions: `12'-0" × 10'-8"`,
-    link: '/product',
-    popular: 64,
-    date: 1,
-    trending: 49,
-    featured: false,
-    discounted: true,
-  },
-];
+type ShopProduct = {
+  id: number;
+  image: string;
+  hoverImage: string;
+  name: string;
+  priceValue: number;
+  price: string;
+  mrp: string;
+  discount: number;
+  categories: string[];
+  categorySlug: string;
+  style: string;
+  dimensions: string;
+  link: string;
+  popular: number;
+  date: number;
+  trending: number;
+  featured: boolean;
+  discounted: boolean;
+};
+
+const toProduct = (item: ProductItem): ShopProduct => ({
+  id: item.id,
+  image: item.thumb_url || item.main_image_url || Shop1,
+  hoverImage: item.main_image_url || item.thumb_url || Shop1,
+  name: item.name,
+  priceValue: item.price,
+  price: `₹${item.price.toLocaleString('en-IN')}`,
+  mrp: item.mrp_price > item.price ? `₹${item.mrp_price.toLocaleString('en-IN')}` : '',
+  discount: item.discount_percentage,
+  categories: item.primary_category ? [item.primary_category.name] : [],
+  categorySlug: item.primary_category?.slug || '',
+  style: item.design_style || '',
+  dimensions: item.room_dimensions,
+  link: `/product/${item.slug}`,
+  popular: item.discount_percentage,
+  date: item.id,
+  trending: item.is_featured ? 1 : 0,
+  featured: item.is_featured,
+  discounted: item.discount_percentage > 0,
+});
 
 const ShopCatalog = () => {
   const sortRef = useRef<HTMLDivElement>(null);
+  const [products, setProducts] = useState<ShopProduct[]>([]);
+  const [filters, setFilters] = useState<ProductFilters | null>(null);
+  const [note, setNote] = useState('');
   const [search, setSearch] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [priceLimit, setPriceLimit] = useState(MAX_PRICE);
+  const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
+  const [priceLimit, setPriceLimit] = useState(0);
   const [sort, setSort] = useState('default');
   const [sortOpen, setSortOpen] = useState(false);
   const [view, setView] = useState<'grid' | 'list'>('grid');
   const [page, setPage] = useState(1);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const categories = categoryNames.map((name) => ({
-    name,
-    count: products.filter((product) => product.categories.includes(name)).length,
-  }));
+  const minPrice = filters?.price_range.min ?? 0;
+  const maxPrice = filters?.price_range.max ?? 0;
 
   const filteredProducts = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -209,12 +86,12 @@ const ShopCatalog = () => {
     const matched = products.filter((product) => {
       const matchesSearch = product.name.toLowerCase().includes(query);
       const matchesCategory =
-        selectedCategories.length === 0 ||
-        product.categories.some((category) => selectedCategories.includes(category));
-      const matchesPrice =
-        product.priceValue >= MIN_PRICE && product.priceValue <= priceLimit;
+        selectedCategories.length === 0 || selectedCategories.includes(product.categorySlug);
+      const matchesStyle =
+        selectedStyles.length === 0 || selectedStyles.includes(product.style);
+      const matchesPrice = priceLimit === 0 || product.priceValue <= priceLimit;
 
-      return matchesSearch && matchesCategory && matchesPrice;
+      return matchesSearch && matchesCategory && matchesStyle && matchesPrice;
     });
 
     const sorted = [...matched];
@@ -230,7 +107,7 @@ const ShopCatalog = () => {
     }
 
     return sorted;
-  }, [priceLimit, search, selectedCategories, sort]);
+  }, [priceLimit, products, search, selectedCategories, selectedStyles, sort]);
 
   const pageCount = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
   const currentPage = Math.min(page, pageCount);
@@ -242,7 +119,24 @@ const ShopCatalog = () => {
 
   useEffect(() => {
     setPage(1);
-  }, [search, selectedCategories, priceLimit, sort]);
+  }, [search, selectedCategories, selectedStyles, priceLimit, sort]);
+
+  useEffect(() => {
+    getProductFilters()
+      .then((next) => {
+        setFilters(next);
+        setPriceLimit(next.price_range.max);
+      })
+      .catch((error) => {
+        setNote(error instanceof Error ? error.message : 'Could not load filters.');
+      });
+
+    getProducts()
+      .then((list) => setProducts(list.map(toProduct)))
+      .catch((error) => {
+        setNote(error instanceof Error ? error.message : 'Could not load products.');
+      });
+  }, []);
 
   useEffect(() => {
     const closeSort = (event: MouseEvent) => {
@@ -264,11 +158,19 @@ const ShopCatalog = () => {
     };
   }, []);
 
-  const toggleCategory = (name: string) => {
+  const toggleCategory = (slug: string) => {
     setSelectedCategories((current) =>
-      current.includes(name)
-        ? current.filter((category) => category !== name)
-        : [...current, name],
+      current.includes(slug)
+        ? current.filter((category) => category !== slug)
+        : [...current, slug],
+    );
+  };
+
+  const toggleStyle = (style: string) => {
+    setSelectedStyles((current) =>
+      current.includes(style)
+        ? current.filter((item) => item !== style)
+        : [...current, style],
     );
   };
 
@@ -281,11 +183,14 @@ const ShopCatalog = () => {
             <ShopFilter
               search={search}
               onSearchChange={setSearch}
-              categories={categories}
+              categories={filters?.categories || []}
               selectedCategories={selectedCategories}
               onToggleCategory={toggleCategory}
-              minPrice={MIN_PRICE}
-              maxPrice={MAX_PRICE}
+              styles={filters?.design_styles || []}
+              selectedStyles={selectedStyles}
+              onToggleStyle={toggleStyle}
+              minPrice={minPrice}
+              maxPrice={maxPrice || minPrice}
               priceLimit={priceLimit}
               onPriceLimitChange={setPriceLimit}
             />
@@ -382,7 +287,9 @@ const ShopCatalog = () => {
               </div>
             </div>
 
-            {visibleProducts.length === 0 ? (
+            {note ? (
+              <p className="sorath-shop-empty">{note}</p>
+            ) : visibleProducts.length === 0 ? (
               <p className="sorath-shop-empty">No products match these filters.</p>
             ) : (
               <div className={`row gy-4 ${view === 'list' ? 'sorath-shop-list' : ''}`}>
@@ -396,9 +303,12 @@ const ShopCatalog = () => {
                       hoverImage={product.hoverImage}
                       name={product.name}
                       price={product.price}
+                      mrp={product.mrp}
+                      discount={product.discount}
                       categories={product.categories}
                       dimensions={product.dimensions}
                       link={product.link}
+                      productId={product.id}
                     />
                   </div>
                 ))}

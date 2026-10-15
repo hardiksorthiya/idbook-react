@@ -125,7 +125,8 @@
 
 .sorath-auth-card input,
 .sorath-auth-card textarea,
-.sorath-account-shell input {
+.sorath-account-shell input,
+.sorath-account-shell textarea {
   display: block;
   width: 100%;
   margin: 8px 0 18px;
@@ -139,8 +140,54 @@
 
 .sorath-auth-card input:focus,
 .sorath-auth-card textarea:focus,
-.sorath-account-shell input:focus {
+.sorath-account-shell input:focus,
+.sorath-account-shell textarea:focus {
   border-color: var(--primary-sorath-color);
+}
+
+.sorath-account-shell textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.sorath-account-photo-wrap {
+  position: relative;
+  width: 84px;
+  margin-bottom: 16px;
+}
+
+.sorath-account-photo,
+.sorath-account-photo-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+  font-size: 28px;
+}
+
+.sorath-account-shell .sorath-account-photo-wrap input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 84px;
+  height: 84px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.sorath-account-photo-wrap > span:last-child {
+  display: block;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
 }
 
 .sorath-auth-wrap {

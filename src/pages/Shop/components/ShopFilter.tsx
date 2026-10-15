@@ -1,13 +1,8 @@
 import { FiSearch } from 'react-icons/fi';
-import { FaStar } from 'react-icons/fa';
-
-import SidebarImage1 from '../../../assets/images/shop/sidebar-img-1.png';
-import SidebarImage2 from '../../../assets/images/shop/sidebar-img-2.png';
-import SidebarImage3 from '../../../assets/images/shop/sidebar-img-3.png';
-import SidebarImage4 from '../../../assets/images/shop/sidebar-img-4.png';
 
 type ShopCategory = {
   name: string;
+  slug: string;
   count: number;
 };
 
@@ -16,39 +11,15 @@ type ShopFilterProps = {
   onSearchChange: (value: string) => void;
   categories: ShopCategory[];
   selectedCategories: string[];
-  onToggleCategory: (name: string) => void;
+  onToggleCategory: (slug: string) => void;
+  styles: string[];
+  selectedStyles: string[];
+  onToggleStyle: (style: string) => void;
   minPrice: number;
   maxPrice: number;
   priceLimit: number;
   onPriceLimitChange: (value: number) => void;
 };
-
-const featuredProducts = [
-  {
-    id: 1,
-    image: SidebarImage1,
-    name: 'Durable Timber Structure',
-    price: '$55.00',
-  },
-  {
-    id: 2,
-    image: SidebarImage2,
-    name: 'Arabesque Design vase',
-    price: '$55.00',
-  },
-  {
-    id: 3,
-    image: SidebarImage3,
-    name: 'Coffee Table Ocean Blue',
-    price: '$55.00',
-  },
-  {
-    id: 4,
-    image: SidebarImage4,
-    name: 'Framed Canvas Painting',
-    price: '$55.00',
-  },
-];
 
 const ShopFilter = ({
   search,
@@ -56,6 +27,9 @@ const ShopFilter = ({
   categories,
   selectedCategories,
   onToggleCategory,
+  styles,
+  selectedStyles,
+  onToggleStyle,
   minPrice,
   maxPrice,
   priceLimit,
@@ -85,23 +59,19 @@ const ShopFilter = ({
       <div className="sorath-shop-sidebar">
         <h3 className="sorath-shop-sidebar-title">Categories</h3>
         <ul className="sorath-shop-categories">
-          {categories.map((category) => {
-            const inputId = `shop-category-${category.name.replace(/\s+/g, '-').toLowerCase()}`;
-
-            return (
-              <li key={category.name}>
-                <input
-                  type="checkbox"
-                  id={inputId}
-                  checked={selectedCategories.includes(category.name)}
-                  onChange={() => onToggleCategory(category.name)}
-                />
-                <label htmlFor={inputId}>
-                  {category.name} ({category.count})
-                </label>
-              </li>
-            );
-          })}
+          {categories.map((category) => (
+            <li key={category.slug}>
+              <input
+                type="checkbox"
+                id={`shop-category-${category.slug}`}
+                checked={selectedCategories.includes(category.slug)}
+                onChange={() => onToggleCategory(category.slug)}
+              />
+              <label htmlFor={`shop-category-${category.slug}`}>
+                {category.name} ({category.count})
+              </label>
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -112,38 +82,35 @@ const ShopFilter = ({
             type="range"
             min={minPrice}
             max={maxPrice}
-            value={priceLimit}
+            value={priceLimit || maxPrice}
             aria-label="Maximum price"
             onChange={(event) => onPriceLimitChange(Number(event.target.value))}
           />
           <div className="sorath-shop-price-output">
             <h3>
-              Price: ${minPrice} — ${priceLimit}
+              Price: ₹{minPrice} — ₹{priceLimit || maxPrice}
             </h3>
           </div>
         </div>
       </div>
 
       <div className="sorath-shop-sidebar">
-        <h3 className="sorath-shop-sidebar-title">Brands</h3>
-        <div className="sorath-shop-featured">
-          {featuredProducts.map((product) => (
-            <a key={product.id} href="#" className="sorath-shop-featured-item">
-              <img src={product.image} alt={product.name} />
-              <div>
-                <h4>{product.name}</h4>
-                <span className="sorath-shop-stars" aria-label="5 star rating">
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
-                </span>
-                <span className="sorath-shop-featured-price">{product.price}</span>
-              </div>
-            </a>
+        <h3 className="sorath-shop-sidebar-title">Design style</h3>
+        <ul className="sorath-shop-categories">
+          {styles.map((style) => (
+            <li key={style}>
+              <input
+                type="checkbox"
+                id={`shop-style-${style.replace(/\s+/g, '-').toLowerCase()}`}
+                checked={selectedStyles.includes(style)}
+                onChange={() => onToggleStyle(style)}
+              />
+              <label htmlFor={`shop-style-${style.replace(/\s+/g, '-').toLowerCase()}`}>
+                {style}
+              </label>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );

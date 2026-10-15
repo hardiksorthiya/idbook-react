@@ -1,4 +1,4 @@
-import { post } from './api';
+import { put } from './api';
 import { getToken } from '../utils/token';
 import type { PasswordBody } from '../types/password';
 
@@ -7,5 +7,5 @@ export function changePassword(body: PasswordBody) {
     return Promise.reject(new Error('Please login first.'));
   }
 
-  return post('/auth/change-password', body, true);
+  return put('/auth/password', body, true);
 }

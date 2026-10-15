@@ -171,10 +171,36 @@
 }
 
 .sorath-search-open {
+  position: relative;
   width: 320px;
   margin-right: -61px;
-
+  overflow: visible;
   opacity: 1;
+}
+
+.sorath-search-list {
+  position: absolute;
+  top: 68px;
+  left: 0;
+  z-index: 5;
+  width: 320px;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  border-radius: 16px;
+  background: #191919;
+}
+
+.sorath-search-list a {
+  display: block;
+  padding: 10px 18px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.sorath-search-list small {
+  display: block;
+  color: rgba(255, 255, 255, 0.62);
 }
 
 .sorath-search-input {

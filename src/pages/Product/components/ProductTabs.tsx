@@ -1,31 +1,16 @@
 import { useState } from 'react';
 import { FiArrowRight, FiCheck, FiStar } from 'react-icons/fi';
+import type { ProductDetail } from '../../../../types/product';
 
-import Review1 from '../../../assets/images/shop/review-1.jpg';
-import Review2 from '../../../assets/images/shop/review-2.jpg';
-
-const tabs = [
-  { id: 'description', label: 'Description' },
-  { id: 'info', label: 'Additional information' },
-  { id: 'reviews', label: 'Reviews (3)' },
-];
-
-const specs = [
-  ['Plot Size', `30' × 40' (1,200 sq.ft)`],
-  ['Built-up Area', '1,050 sq.ft'],
-  ['Room Size', `16'-5" × 12'-6"`],
-  ['Floors', 'G + 1'],
-  ['Bedrooms / Bathrooms', '3 / 2'],
-  ['Files Included', '3D View, CAD (DWG / DXF), PDF'],
-];
-
-const reviews = [
-  { name: 'Eleanor Fant', date: '06 March, 2026', image: Review1 },
-  { name: 'Haliey White', date: '06 March, 2026', image: Review2 },
-];
-
-const ProductTabs = () => {
+const ProductTabs = ({ product }: { product: ProductDetail }) => {
   const [tab, setTab] = useState('description');
+  const specs = Object.entries(product.specification || {});
+  const reviews = product.reviews || [];
+  const tabs = [
+    { id: 'description', label: 'Description' },
+    { id: 'info', label: 'Additional information' },
+    { id: 'reviews', label: `Reviews (${product.reviews_count || reviews.length})` },
+  ];
 
   return (
     <section className="sorath-pd-tabs">
@@ -46,17 +31,14 @@ const ProductTabs = () => {
 
         {tab === 'description' && (
           <div className="sorath-pd-desc">
-            <p>
-              A complete look at the sofa finish, frame, and fabric. The caramel
-              upholstery is easy to place with wood, stone, and neutral rooms,
-              and the seat stays comfortable for everyday use.
-            </p>
+            <p>{product.description || product.design_style || 'No description yet.'}</p>
             <ul>
-              <li><FiCheck /> Soft caramel fabric upholstery</li>
-              <li><FiCheck /> Solid wood frame with compact depth</li>
-              <li><FiCheck /> Removable seat cushions</li>
-              <li><FiCheck /> Suitable for living and lounge rooms</li>
-              <li><FiCheck /> Easy to pair with existing furniture</li>
+              {(product.deliverables || []).map((item) => (
+                <li key={item.code}>
+                  {item.available && <FiCheck />} {item.label}
+                  {item.details ? ` — ${item.details}` : ''}
+                </li>
+              ))}
             </ul>
           </div>
         )}
@@ -83,25 +65,23 @@ const ProductTabs = () => {
         {tab === 'reviews' && (
           <div className="row gy-4">
             <div className="col-lg-5">
+              {reviews.length === 0 && <p>No reviews yet.</p>}
               {reviews.map((review) => (
-                <article key={review.name} className="sorath-pd-review">
-                  <img src={review.image} alt={review.name} />
+                <article key={review.id} className="sorath-pd-review">
+                  <span className="sorath-pd-review-letter">{review.author.charAt(0)}</span>
                   <div>
                     <div className="sorath-pd-review-top">
                       <h4>
-                        {review.name}
-                        <span>{review.date}</span>
+                        {review.author}
+                        <span>{review.created_at}</span>
                       </h4>
                       <span className="sorath-pd-stars">
-                        {Array.from({ length: 5 }).map((_, index) => (
+                        {Array.from({ length: review.rating || 0 }).map((_, index) => (
                           <FiStar key={index} />
                         ))}
                       </span>
                     </div>
-                    <p>
-                      Designed very similarly to the nearly double priced Galaxy
-                      tab S6, with the only removal being.
-                    </p>
+                    <p>{review.review_text || 'No written review.'}</p>
                   </div>
                 </article>
               ))}

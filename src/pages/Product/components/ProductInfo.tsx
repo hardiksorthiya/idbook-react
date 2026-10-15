@@ -1,17 +1,26 @@
 import { useState } from 'react';
-import { FiCheck, FiHeart, FiStar } from 'react-icons/fi';
+import { FiHeart, FiStar } from 'react-icons/fi';
 import AddToCart from './AddToCart';
 import BuyNow from './BuyNow';
-
 import Shop1 from '../../../assets/images/shop/shop-1.png';
-import Shop2 from '../../../assets/images/shop/shop-2.png';
-import Shop3 from '../../../assets/images/shop/shop-3.png';
-import Shop4 from '../../../assets/images/shop/shop-4.png';
+import type { ProductDetail } from '../../../../types/product';
 
-const images = [Shop1, Shop2, Shop3, Shop4];
+const money = (value: number) => `₹${value.toLocaleString('en-IN')}`;
 
-const ProductInfo = () => {
+const photosOf = (product: ProductDetail) => {
+  const gallery = (product.gallery || []).map((item) => {
+    if (typeof item === 'string') return item;
+    return item.url || item.image_url || item.thumb_url || '';
+  }).filter(Boolean);
+
+  if (gallery.length) return gallery;
+  return [product.main_image_url, product.thumb_url, Shop1].filter(Boolean) as string[];
+};
+
+const ProductInfo = ({ product }: { product: ProductDetail }) => {
   const [active, setActive] = useState(0);
+  const images = photosOf(product);
+  const photo = images[active] || images[0];
 
   return (
     <section className="sorath-pd">
@@ -20,12 +29,12 @@ const ProductInfo = () => {
           <div className="col-lg-6">
             <div className="sorath-pd-gallery">
               <div className="sorath-pd-main">
-                <img src={images[active]} alt="Modern Caramel Fabric Sofa" />
+                <img src={photo} alt={product.name} />
               </div>
               <div className="sorath-pd-thumbs">
                 {images.map((image, index) => (
                   <button
-                    key={image}
+                    key={`${image}-${index}`}
                     type="button"
                     className={index === active ? 'is-active' : ''}
                     aria-label={`Show image ${index + 1}`}
@@ -40,32 +49,28 @@ const ProductInfo = () => {
 
           <div className="col-lg-6">
             <div className="sorath-pd-info">
-              <span className="sorath-pd-badge">Save -20%</span>
-              <h2>Modern Caramel Fabric Sofa</h2>
+              {product.discount_percentage > 0 && (
+                <span className="sorath-pd-badge">Save -{product.discount_percentage}%</span>
+              )}
+              <h2>{product.name}</h2>
 
               <div className="sorath-pd-rating">
                 <span className="sorath-pd-stars">
                   {Array.from({ length: 5 }).map((_, index) => (
                     <FiStar key={index} />
                   ))}
-                  ( 3 Reviews )
-                </span>
-                <span className="sorath-pd-stock">
-                  <FiCheck /> In Stock
+                  ( {product.reviews_count} Review{product.reviews_count === 1 ? '' : 's'} )
                 </span>
               </div>
 
               <h3 className="sorath-pd-price">
-                $260.00 <span>$360.00</span>
+                {money(product.price)} {product.mrp_price > product.price && <span>{money(product.mrp_price)}</span>}
               </h3>
 
-              <p>
-                A warm caramel sofa with a soft fabric seat, clean lines, and a
-                compact frame that fits living rooms without losing comfort.
-              </p>
+              <p>{product.short_description || product.design_style || 'No short description yet.'}</p>
 
               <div className="sorath-pd-actions">
-                <AddToCart />
+                <AddToCart productId={product.id} />
                 <BuyNow />
               </div>
 
@@ -74,9 +79,10 @@ const ProductInfo = () => {
               </button>
 
               <ul className="sorath-pd-meta">
-                <li><span>Categories</span> Industry, Engineering</li>
-                <li><span>Tags</span> Factory, Industry</li>
-                <li><span>SKU</span> 68</li>
+                <li><span>Categories</span> {product.categories.map((item) => item.name).join(', ') || '—'}</li>
+                <li><span>Designer</span> {product.designer?.name || '—'}</li>
+                <li><span>SKU</span> {product.design_code}</li>
+                {product.tag && <li><span>Tags</span> {product.tag}</li>}
               </ul>
             </div>
           </div>

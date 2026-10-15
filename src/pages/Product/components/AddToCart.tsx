@@ -1,8 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
+import { addToCart } from '../../../../services/cart';
 
-const AddToCart = () => {
+const AddToCart = ({ productId }: { productId: number }) => {
   const viewRef = useRef<HTMLSpanElement>(null);
+  const [label, setLabel] = useState('Add To Cart');
 
   const moveView = (event: React.MouseEvent<HTMLButtonElement>) => {
     const view = viewRef.current;
@@ -13,13 +15,21 @@ const AddToCart = () => {
     view.style.top = `${event.clientY - rect.top}px`;
   };
 
+  const add = () => {
+    setLabel('Adding...');
+    addToCart(productId)
+      .then((data) => setLabel(data?.message || 'Added to cart.'))
+      .catch((error) => setLabel(error instanceof Error ? error.message : 'Could not add to cart.'));
+  };
+
   return (
     <button
       type="button"
       className="sorath-pd-btn sorath-pd-btn-outline"
       onMouseMove={moveView}
+      onClick={add}
     >
-      <FiShoppingCart /> Add To Cart
+      <FiShoppingCart /> {label}
       <span ref={viewRef} className="sorath-pd-cursor" aria-hidden="true">
         Add To Cart
       </span>

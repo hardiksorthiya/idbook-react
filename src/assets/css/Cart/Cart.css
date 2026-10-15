@@ -54,6 +54,28 @@
   font-style: normal;
 }
 
+.sorath-cart-qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sorath-cart-qty button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #f3f4f6;
+  cursor: pointer;
+}
+
+.sorath-cart-qty span {
+  min-width: 16px;
+  text-align: center;
+  font-weight: 600;
+}
+
 .sorath-cart-remove,
 .sorath-wish-remove {
   display: inline-flex;

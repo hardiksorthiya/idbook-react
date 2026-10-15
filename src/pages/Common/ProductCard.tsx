@@ -1,14 +1,18 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { FiHeart, FiShoppingCart, FiX } from 'react-icons/fi';
+import { addToCart } from '../../../services/cart';
 
 type ProductCardProps = {
   image: string;
   hoverImage: string;
   name: string;
   price: string;
+  mrp?: string;
+  discount?: number;
   categories: string[];
   dimensions?: string;
   link: string;
+  productId?: number;
   remove?: () => void;
 };
 
@@ -17,12 +21,16 @@ const ProductCard = ({
   hoverImage,
   name,
   price,
+  mrp,
+  discount,
   categories,
   dimensions,
   link,
+  productId,
   remove,
 }: ProductCardProps) => {
   const viewRef = useRef<HTMLSpanElement>(null);
+  const [cartLabel, setCartLabel] = useState('Add to cart');
 
   const moveView = (event: React.MouseEvent<HTMLDivElement>) => {
     const view = viewRef.current;
@@ -54,6 +62,10 @@ const ProductCard = ({
             View More
           </span>
 
+          {!!discount && discount > 0 && (
+            <span className="sorath-product-badge">-{discount}%</span>
+          )}
+
           <div className="sorath-product-categories">
             {categories.map((category) => (
               <span key={category}>{category}</span>
@@ -65,7 +77,10 @@ const ProductCard = ({
           <h3>{name}</h3>
 
           <div className="sorath-product-meta">
-            <span className="sorath-product-price">{price}</span>
+            <span className="sorath-product-price">
+              {price}
+              {mrp && <span className="sorath-product-mrp">{mrp}</span>}
+            </span>
 
             {dimensions && (
               <span className="sorath-product-dimensions">
@@ -85,7 +100,17 @@ const ProductCard = ({
           {remove ? <FiX /> : <FiHeart />}
         </button>
 
-        <button type="button" aria-label="Add to cart">
+        <button
+          type="button"
+          aria-label={cartLabel}
+          onClick={() => {
+            if (!productId) return;
+            setCartLabel('Adding...');
+            addToCart(productId)
+              .then((data) => setCartLabel(data?.message || 'Added to cart'))
+              .catch((error) => setCartLabel(error instanceof Error ? error.message : 'Could not add to cart.'));
+          }}
+        >
           <FiShoppingCart />
         </button>
       </div>
