@@ -22,7 +22,7 @@ const Gallery = () => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
-    <section className="sorath-gallery">
+    <section className="sorath-gallery" data-aos="fade-up">
       <div className="container-fluid sorath-container-fluid">
         <div className="row align-items-center g-4">
           <div className="col-lg-4">

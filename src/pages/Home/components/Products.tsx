@@ -66,7 +66,7 @@ const Products = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="sorath-products">
+    <section className="sorath-products" data-aos="fade-up">
       <div className="container-fluid sorath-container-fluid">
         {/* Section Heading */}
         <Heading

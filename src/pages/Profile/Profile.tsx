@@ -11,7 +11,7 @@ const Profile = () => {
     <>
       <Header />
       <Breadcrumb title="Profile" background={Breadcrumbimage} />
-      <section className="sorath-account">
+      <section className="sorath-account" data-aos="fade-up">
         <div className="container-fluid sorath-container-fluid">
           <ProfileAccount />
         </div>

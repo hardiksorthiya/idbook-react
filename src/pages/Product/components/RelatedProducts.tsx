@@ -7,7 +7,7 @@ const RelatedProducts = ({ items }: { items: RelatedProduct[] }) => {
   if (!items.length) return null;
 
   return (
-    <section className="sorath-pd-related">
+    <section className="sorath-pd-related" data-aos="zoom-in">
       <div className="container-fluid sorath-container-fluid">
         <h2>Related Products</h2>
         <div className="row gy-4">

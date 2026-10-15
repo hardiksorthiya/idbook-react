@@ -9,6 +9,7 @@ const Breadcrumb = ({ title, background }: BreadcrumbProps) => {
   return (
     <section
       className="sorath-breadcrumb"
+      data-aos="fade-down"
       style={{ backgroundImage: `url(${background})` }}
     >
       <div className="sorath-breadcrumb-overlay" />

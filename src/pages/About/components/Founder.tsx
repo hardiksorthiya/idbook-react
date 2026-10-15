@@ -5,7 +5,7 @@ import "../../../assets/css/About/Founder.css";
 
 const Founder = () => {
   return (
-    <section className="sorath-founder py-100">
+    <section className="sorath-founder py-100" data-aos="fade-right">
       <div className="container-fluid sorath-container-fluid">
         <Heading
           badge="Our Beginning"

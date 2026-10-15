@@ -175,7 +175,7 @@ const ShopCatalog = () => {
   };
 
   return (
-    <section className="sorath-shop">
+    <section className="sorath-shop" data-aos="fade-up">
       <div className="container-fluid sorath-container-fluid">
         <div className="row">
           <div className={`col-lg-3 sorath-shop-filter-col ${filtersOpen ? 'is-open' : ''}`}>

@@ -13,7 +13,7 @@ const Contact = () => {
     <>
       <Header />
       <Breadcrumb title="Contact Us" background={Breadcrumbimage} />
-      <section className="sorath-contact">
+      <section className="sorath-contact" data-aos="fade-left">
         <div className="container-fluid sorath-container-fluid">
           <Heading
             badge="Get In Touch"

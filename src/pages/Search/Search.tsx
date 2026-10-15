@@ -10,7 +10,7 @@ const Search = () => {
     <>
       <Header />
       <Breadcrumb title="Search" background={Breadcrumbimage} />
-      <section className="sorath-search-page">
+      <section className="sorath-search-page" data-aos="fade-left">
         <div className="container-fluid sorath-container-fluid">
           <SearchResults />
         </div>

@@ -79,6 +79,7 @@ const HowItWorks = () => {
     <section
       ref={sectionRef}
       className="sorath-process"
+      data-aos="fade"
     >
       <div className="sorath-process-pin">
       {/* Background */}

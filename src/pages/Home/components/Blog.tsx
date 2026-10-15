@@ -56,7 +56,7 @@ const blogs = [
 
 const Blog = () => {
   return (
-    <section className="sorath-blog">
+    <section className="sorath-blog" data-aos="fade-up">
       <div className="container-fluid sorath-container-fluid">
         <Heading
           badge="Our Blog"

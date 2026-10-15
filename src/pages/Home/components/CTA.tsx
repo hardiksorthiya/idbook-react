@@ -10,6 +10,7 @@ const CTA = () => {
   return (
     <section
       className="sorath-cta"
+      data-aos="fade-left"
       style={{ backgroundImage: `url(${CTABackground})` }}
     >
       <div className="sorath-cta-overlay">

@@ -5,7 +5,7 @@ import '../../../assets/css/About/VisionMission.css';
 
 const VisionMission = () => {
   return (
-    <section className="sorath-vision-mission">
+    <section className="sorath-vision-mission" data-aos="zoom-in">
       <div className="container-fluid sorath-container-fluid">
         <Heading
           badge="What Drives Us"

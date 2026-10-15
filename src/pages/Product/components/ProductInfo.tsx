@@ -25,7 +25,7 @@ const ProductInfo = ({ product }: { product: ProductDetail }) => {
   const photo = images[active] || images[0];
 
   return (
-    <section className="sorath-pd">
+    <section className="sorath-pd" data-aos="fade-up">
       <div className="container-fluid sorath-container-fluid">
         <div className="row gy-4">
           <div className="col-lg-6">

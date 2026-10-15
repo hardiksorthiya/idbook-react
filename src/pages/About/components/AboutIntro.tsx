@@ -9,7 +9,7 @@ const AboutIntro = () => {
   const [showHint, setShowHint] = useState(true);
 
   return (
-    <section className="sorath-about-intro">
+    <section className="sorath-about-intro" data-aos="fade-up">
       <div className="container-fluid sorath-container-fluid">
         <div className="row align-items-center gy-5">
           <div className="col-lg-6">

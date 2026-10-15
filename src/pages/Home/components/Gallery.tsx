@@ -105,7 +105,7 @@ const Gallery = () => {
   }, []);
 
   return (
-    <section className="sorath-gallery" ref={sectionRef}>
+    <section className="sorath-gallery" ref={sectionRef} data-aos="zoom-in-up">
       <div className="container-fluid sorath-container-fluid">
         <Heading
           badge="Our Gallery"

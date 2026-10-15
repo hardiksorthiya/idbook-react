@@ -212,6 +212,7 @@ const Footer = () => {
   return (
     <footer
       className="sorath-footer"
+      data-aos="fade-up"
       style={{ backgroundImage: `url(${FooterBg})` }}
     >
       <div className="sorath-footer-shade" />

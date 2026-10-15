@@ -43,7 +43,7 @@ const posts = [
 
 const BlogGrid = () => {
   return (
-    <section className="sorath-blog-page">
+    <section className="sorath-blog-page" data-aos="fade-right">
       <div className="container-fluid sorath-container-fluid">
         <div className="row gy-5">
           {posts.map((post) => (

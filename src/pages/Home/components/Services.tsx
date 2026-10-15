@@ -113,7 +113,7 @@ const Services = () => {
 
   return (
     <>
-    <section ref={sectionRef} className="sorath-services">
+    <section ref={sectionRef} className="sorath-services" data-aos="fade">
       <div className="sorath-services-pin">
       <div className="container-fluid sorath-container-fluid">
       {/* Section Heading */}

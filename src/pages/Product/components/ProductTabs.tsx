@@ -13,7 +13,7 @@ const ProductTabs = ({ product }: { product: ProductDetail }) => {
   ];
 
   return (
-    <section className="sorath-pd-tabs">
+    <section className="sorath-pd-tabs" data-aos="fade-left">
       <div className="container-fluid sorath-container-fluid">
         <ul className="sorath-pd-nav">
           {tabs.map((item) => (

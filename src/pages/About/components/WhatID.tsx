@@ -25,7 +25,7 @@ const features = [
 
 const WhatID = () => {
   return (
-    <section className="sorath-about-intro">
+    <section className="sorath-about-intro" data-aos="fade-left">
       <div className="container-fluid sorath-container-fluid">
         <Heading
           badge="What IDBOOK Is"

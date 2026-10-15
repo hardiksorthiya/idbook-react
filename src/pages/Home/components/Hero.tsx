@@ -6,7 +6,7 @@ import CAD from "../../../assets/images/cad.webp";
 
 const Hero = () => {
   return (
-    <section className="sorath-hero">
+    <section className="sorath-hero" data-aos="zoom-in">
       <div className="sorath-hero-overlay"></div>
       <div className="container-fluid position-relative sorath-hero-content sorath-container-fluid">
         <div className="row align-items-end">

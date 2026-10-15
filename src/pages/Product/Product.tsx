@@ -47,7 +47,7 @@ const Product = () => {
           <RelatedProducts items={product.related_products || []} />
         </>
       ) : (
-        <section className="sorath-pd">
+        <section className="sorath-pd" data-aos="fade">
           <div className="container-fluid sorath-container-fluid">
             <p>{note}</p>
           </div>

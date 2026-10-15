@@ -14,7 +14,7 @@ const Faq = () => {
     <>
       <Header />
       <Breadcrumb title="FAQ" background={Breadcrumbimage} />
-      <section className="sorath-faq">
+      <section className="sorath-faq" data-aos="fade-up">
         <div className="container-fluid sorath-container-fluid">
           <Heading
             badge="FAQs"
