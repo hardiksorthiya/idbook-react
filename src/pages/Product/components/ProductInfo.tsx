@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FiHeart, FiStar } from 'react-icons/fi';
 import AddToCart from './AddToCart';
 import BuyNow from './BuyNow';
+import { toggleWishlist } from '../../../../services/wishlist';
 import Shop1 from '../../../assets/images/shop/shop-1.png';
 import type { ProductDetail } from '../../../../types/product';
 
@@ -19,6 +20,7 @@ const photosOf = (product: ProductDetail) => {
 
 const ProductInfo = ({ product }: { product: ProductDetail }) => {
   const [active, setActive] = useState(0);
+  const [wishLabel, setWishLabel] = useState('Add to wishlist');
   const images = photosOf(product);
   const photo = images[active] || images[0];
 
@@ -74,8 +76,18 @@ const ProductInfo = ({ product }: { product: ProductDetail }) => {
                 <BuyNow />
               </div>
 
-              <button type="button" className="sorath-pd-wishlist">
-                <span><FiHeart /></span> Add to wishlist
+              <button
+                type="button"
+                className="sorath-pd-wishlist"
+                onClick={() => {
+                  if (wishLabel === 'Saving...') return;
+                  setWishLabel('Saving...');
+                  toggleWishlist(product.id)
+                    .then((data) => setWishLabel(data.message || 'Added to wishlist.'))
+                    .catch((error) => setWishLabel(error instanceof Error ? error.message : 'Could not update wishlist.'));
+                }}
+              >
+                <span><FiHeart /></span> {wishLabel}
               </button>
 
               <ul className="sorath-pd-meta">

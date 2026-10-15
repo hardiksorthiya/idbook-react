@@ -1,4 +1,4 @@
-import { baseUrl, del, get, put } from './api';
+import { baseUrl, del, get, post, put } from './api';
 import { apiError } from '../utils/apiError';
 import { getToken } from '../utils/token';
 import type { CartResult } from '../types/cart';
@@ -43,4 +43,14 @@ export function updateCartItem(id: number, quantity: number) {
 export function removeCartItem(id: number) {
   if (!getToken()) return Promise.reject(new Error('Please login first.'));
   return del(`/cart/items/${id}`) as Promise<CartResult>;
+}
+
+export function clearCart() {
+  if (!getToken()) return Promise.reject(new Error('Please login first.'));
+  return del('/cart') as Promise<CartResult>;
+}
+
+export function applyCoupon(couponCode: string) {
+  if (!getToken()) return Promise.reject(new Error('Please login first.'));
+  return post('/cart/apply-coupon', { coupon_code: couponCode }, true) as Promise<CartResult>;
 }

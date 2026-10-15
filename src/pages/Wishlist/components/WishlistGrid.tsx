@@ -1,60 +1,53 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 
 import '../../../assets/css/Home/Products.css';
 import '../../../assets/css/Cart/Cart.css';
 import '../../../assets/css/Wishlist/Wishlist.css';
 import ProductCard from '../../Common/ProductCard';
-
 import Shop1 from '../../../assets/images/shop/shop-1.png';
-import Shop2 from '../../../assets/images/shop/shop-2.png';
-import Shop3 from '../../../assets/images/shop/shop-3.png';
-import Shop4 from '../../../assets/images/shop/shop-4.png';
-import Shop5 from '../../../assets/images/shop/shop-5.png';
+import { getWishlist, toggleWishlist } from '../../../../services/wishlist';
+import type { WishItem } from '../../../../types/wishlist';
 
-const items = [
-  {
-    image: Shop1,
-    hoverImage: Shop2,
-    name: 'Luxury Skyline Sofa',
-    price: '$1,240',
-    categories: ['Living Room', 'Sofa'],
-    dimensions: `16'-5" × 12'-6"`,
-    link: '/product',
-  },
-  {
-    image: Shop2,
-    hoverImage: Shop3,
-    name: 'Modern Caramel Fabric Sofa',
-    price: '$157.00',
-    categories: ['Living Room', 'Sofa'],
-    dimensions: `8'-2" × 7'-4"`,
-    link: '/product',
-  },
-  {
-    image: Shop3,
-    hoverImage: Shop4,
-    name: 'Gray Tufted Armchair',
-    price: '$680',
-    categories: ['Living Room', 'Chair'],
-    dimensions: `4'-0" × 3'-6"`,
-    link: '/product',
-  },
-  {
-    image: Shop4,
-    hoverImage: Shop5,
-    name: 'Walnut Dining Table',
-    price: '$420',
-    categories: ['Dining', 'Table'],
-    dimensions: `2'-4" × 1'-6"`,
-    link: '/product',
-  },
-];
+const money = (value: number) => `₹${value.toLocaleString('en-IN')}`;
 
 const WishlistGrid = () => {
-  const [saved, setSaved] = useState(items);
+  const [items, setItems] = useState<WishItem[]>([]);
+  const [note, setNote] = useState('Loading...');
+  const [error, setError] = useState('');
 
-  if (saved.length === 0) {
+  useEffect(() => {
+    getWishlist()
+      .then((list) => {
+        setItems(list.items || []);
+        setNote('');
+      })
+      .catch((loadError) => {
+        setItems([]);
+        setNote(loadError instanceof Error ? loadError.message : 'Could not load wishlist.');
+      });
+  }, []);
+
+  const removeItem = (productId: number) => {
+    toggleWishlist(productId)
+      .then(() => setItems((list) => list.filter((item) => item.product_id !== productId)))
+      .catch((removeError) => setError(removeError instanceof Error ? removeError.message : 'Could not update wishlist.'));
+  };
+
+  if (note) {
+    return (
+      <div className="sorath-wish-empty">
+        <h2>{note === 'Please login first.' ? 'Please login first' : 'Your wishlist'}</h2>
+        <p>{note === 'Please login first.' ? 'Login to see your saved designs.' : note}</p>
+        <a href={note === 'Please login first.' ? '/login' : '/shop'} className="sorath-primary-btn sorath-cart-checkout">
+          <span>{note === 'Please login first.' ? 'Login' : 'Browse products'}</span>
+          <span><FiArrowRight /></span>
+        </a>
+      </div>
+    );
+  }
+
+  if (items.length === 0) {
     return (
       <div className="sorath-wish-empty">
         <h2>Your wishlist is empty</h2>
@@ -69,17 +62,26 @@ const WishlistGrid = () => {
 
   return (
     <>
+      {error && <p className="sorath-cart-note">{error}</p>}
       <div className="sorath-wish-bar">
-        <p><span>{saved.length}</span> saved pieces</p>
+        <p><span>{items.length}</span> saved pieces</p>
         <a href="/shop">Continue shopping</a>
       </div>
 
       <div className="row gy-4">
-        {saved.map((item) => (
-          <div className="col-xl-4 col-lg-6 col-md-6" key={item.name}>
+        {items.map((item) => (
+          <div className="col-xl-4 col-lg-6 col-md-6" key={item.id}>
             <ProductCard
-              {...item}
-              remove={() => setSaved(saved.filter((row) => row.name !== item.name))}
+              image={item.image_url || Shop1}
+              hoverImage={item.image_url || Shop1}
+              name={item.name}
+              price={money(item.price)}
+              mrp={item.mrp_price > item.price ? money(item.mrp_price) : ''}
+              categories={item.category_name ? [item.category_name] : []}
+              dimensions={item.room_dimensions}
+              link={`/product/${item.slug}`}
+              productId={item.product_id}
+              remove={() => removeItem(item.product_id)}
             />
           </div>
         ))}

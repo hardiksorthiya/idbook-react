@@ -3,7 +3,7 @@ import { FiArrowRight, FiX } from 'react-icons/fi';
 
 import '../../../assets/css/Cart/Cart.css';
 import Shop1 from '../../../assets/images/shop/shop-1.png';
-import { getCart, removeCartItem, updateCartItem } from '../../../../services/cart';
+import { applyCoupon, clearCart, getCart, removeCartItem, updateCartItem } from '../../../../services/cart';
 import type { CartItem, CartResult, CartSummary } from '../../../../types/cart';
 
 const money = (value: number) => `₹${value.toLocaleString('en-IN')}`;
@@ -13,6 +13,7 @@ const CartList = () => {
   const [summary, setSummary] = useState<CartSummary | null>(null);
   const [note, setNote] = useState('Loading...');
   const [error, setError] = useState('');
+  const [code, setCode] = useState('');
 
   const showCart = (data: CartResult) => {
     setItems(data.data?.items || []);
@@ -45,6 +46,23 @@ const CartList = () => {
       .catch((removeError) => setError(removeError instanceof Error ? removeError.message : 'Could not remove this item.'));
   };
 
+  const applyCode = () => {
+    if (!code.trim()) {
+      setError('Enter a coupon code.');
+      return;
+    }
+
+    applyCoupon(code.trim())
+      .then(showCart)
+      .catch((couponError) => setError(couponError instanceof Error ? couponError.message : 'Could not apply this coupon.'));
+  };
+
+  const clear = () => {
+    clearCart()
+      .then(showCart)
+      .catch((clearError) => setError(clearError instanceof Error ? clearError.message : 'Could not clear the cart.'));
+  };
+
   if (note) {
     return (
       <div className="sorath-cart-empty">
@@ -73,7 +91,25 @@ const CartList = () => {
 
   return (
     <>
-      {error && <p className="sorath-cart-empty">{error}</p>}
+      {error && <p className="sorath-cart-note">{error}</p>}
+      <form
+        className="sorath-cart-coupon"
+        onSubmit={(event) => {
+          event.preventDefault();
+          applyCode();
+        }}
+      >
+        <input
+          type="text"
+          value={code}
+          onChange={(event) => setCode(event.target.value)}
+          placeholder="Coupon code"
+          aria-label="Coupon code"
+        />
+        <button type="submit" className="sorath-primary-btn primary-btn-2 sorath-cart-shop">
+          <span>Apply</span>
+        </button>
+      </form>
       <ul className="sorath-cart-list">
         {items.map((item) => (
           <li key={item.id}>
@@ -117,11 +153,16 @@ const CartList = () => {
       <div className="sorath-cart-foot">
         <p className="sorath-cart-total">
           <span>
-            Subtotal {money(summary?.subtotal || 0)} · Tax {money(summary?.estimated_tax || 0)}
+            Subtotal {money(summary?.subtotal || 0)}
+            {summary?.discount ? ` · Discount ${money(summary.discount)}` : ''}
+            {' '}· Tax {money(summary?.estimated_tax || 0)}
           </span>
           <strong>{money(summary?.final_amount || 0)}</strong>
         </p>
         <div className="sorath-cart-actions">
+          <button type="button" className="sorath-primary-btn primary-btn-2 sorath-cart-shop" onClick={clear}>
+            <span>Clear cart</span>
+          </button>
           <a href="/shop" className="sorath-primary-btn primary-btn-2 sorath-cart-shop">
             <span>Continue shopping</span>
           </a>

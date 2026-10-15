@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FiHeart, FiShoppingCart, FiX } from 'react-icons/fi';
 import { addToCart } from '../../../services/cart';
+import { toggleWishlist } from '../../../services/wishlist';
 
 type ProductCardProps = {
   image: string;
@@ -30,7 +31,27 @@ const ProductCard = ({
   remove,
 }: ProductCardProps) => {
   const viewRef = useRef<HTMLSpanElement>(null);
-  const [cartLabel, setCartLabel] = useState('Add to cart');
+  const timer = useRef<number | null>(null);
+  const wishTimer = useRef<number | null>(null);
+  const [cartNote, setCartNote] = useState('');
+  const [wishNote, setWishNote] = useState('');
+
+  useEffect(() => () => {
+    if (timer.current) window.clearTimeout(timer.current);
+    if (wishTimer.current) window.clearTimeout(wishTimer.current);
+  }, []);
+
+  const showNote = (text: string) => {
+    setCartNote(text);
+    if (timer.current) window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setCartNote(''), 2000);
+  };
+
+  const showWish = (text: string) => {
+    setWishNote(text);
+    if (wishTimer.current) window.clearTimeout(wishTimer.current);
+    wishTimer.current = window.setTimeout(() => setWishNote(''), 2000);
+  };
 
   const moveView = (event: React.MouseEvent<HTMLDivElement>) => {
     const view = viewRef.current;
@@ -91,28 +112,45 @@ const ProductCard = ({
         </div>
       </a>
 
-      <div className="sorath-product-actions">
-        <button
-          type="button"
-          aria-label={remove ? `Remove ${name}` : 'Add to wishlist'}
-          onClick={remove}
-        >
-          {remove ? <FiX /> : <FiHeart />}
-        </button>
+      <div className={`sorath-product-actions${cartNote || wishNote ? ' is-open' : ''}`}>
+        <div className="sorath-product-cart">
+          {wishNote && <span className="sorath-product-cart-note">{wishNote}</span>}
+          <button
+            type="button"
+            aria-label={remove ? `Remove ${name}` : (wishNote || 'Add to wishlist')}
+            onClick={() => {
+              if (remove) {
+                remove();
+                return;
+              }
+              if (!productId || wishNote === 'Saving...') return;
+              setWishNote('Saving...');
+              toggleWishlist(productId)
+                .then((data) => showWish(data.message || 'Added to wishlist.'))
+                .catch((error) => showWish(error instanceof Error ? error.message : 'Could not update wishlist.'));
+            }}
+          >
+            {remove ? <FiX /> : <FiHeart />}
+          </button>
+        </div>
 
-        <button
-          type="button"
-          aria-label={cartLabel}
-          onClick={() => {
-            if (!productId) return;
-            setCartLabel('Adding...');
-            addToCart(productId)
-              .then((data) => setCartLabel(data?.message || 'Added to cart'))
-              .catch((error) => setCartLabel(error instanceof Error ? error.message : 'Could not add to cart.'));
-          }}
-        >
-          <FiShoppingCart />
-        </button>
+        <div className="sorath-product-cart">
+          {cartNote && <span className="sorath-product-cart-note">{cartNote}</span>}
+          <button
+            type="button"
+            className={cartNote === 'Added to cart' ? 'is-added' : ''}
+            aria-label={cartNote || 'Add to cart'}
+            onClick={() => {
+              if (!productId || cartNote === 'Adding...') return;
+              setCartNote('Adding...');
+              addToCart(productId)
+                .then(() => showNote('Added to cart'))
+                .catch((error) => showNote(error instanceof Error ? error.message : 'Could not add to cart.'));
+            }}
+          >
+            <FiShoppingCart />
+          </button>
+        </div>
       </div>
     </div>
   );
