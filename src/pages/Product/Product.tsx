@@ -11,6 +11,7 @@ import type { ProductDetail } from '../../../types/product';
 import ProductInfo from './components/ProductInfo';
 import ProductTabs from './components/ProductTabs';
 import RelatedProducts from './components/RelatedProducts';
+import LoginPrompt from './components/LoginPrompt';
 
 const Product = () => {
   const { slug } = useParams();
@@ -55,6 +56,7 @@ const Product = () => {
       )}
       <Footer />
       <DesignFloatButton />
+      <LoginPrompt />
     </>
   );
 };

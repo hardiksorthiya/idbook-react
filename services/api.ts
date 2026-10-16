@@ -81,7 +81,7 @@ export async function get(path: string) {
   return data;
 }
 
-export async function del(path: string) {
+export async function del(path: string, body?: object) {
   const token = getToken();
   let response: Response;
 
@@ -90,8 +90,10 @@ export async function del(path: string) {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
+        ...(body ? { 'Content-Type': 'application/json' } : {}),
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
+      ...(body ? { body: JSON.stringify(body) } : {}),
     });
   } catch {
     throw new Error('Could not reach the server. Check the API address in services/api.ts.');

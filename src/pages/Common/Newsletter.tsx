@@ -1,14 +1,32 @@
+import { useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 
 import "../../assets/css/Common/Newsletter.css";
 
 import NewsletterBg from "../../assets/images/shapes/newsletter-shape.png";
+import { subscribeNewsletter } from "../../../services/newsletter";
 
 const Newsletter = () => {
+  const [note, setNote] = useState("");
+  const [busy, setBusy] = useState(false);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const form = event.currentTarget;
+    const email = String(new FormData(form).get("email") || "");
 
-    // Connect your newsletter API here.
+    setBusy(true);
+    setNote("");
+
+    subscribeNewsletter(email)
+      .then((data) => {
+        form.reset();
+        setNote(data.message || "Thank you for subscribing.");
+      })
+      .catch((error) => {
+        setNote(error instanceof Error ? error.message : "Could not subscribe.");
+      })
+      .finally(() => setBusy(false));
   };
 
   return (
@@ -42,15 +60,17 @@ const Newsletter = () => {
           <form className="sorath-newsletter-form" onSubmit={handleSubmit}>
             <input
               type="email"
+              name="email"
               placeholder="Email address..."
               aria-label="Email address"
               required
             />
 
-            <button type="submit" aria-label="Subscribe to newsletter">
+            <button type="submit" aria-label="Subscribe to newsletter" disabled={busy}>
               <FiArrowUpRight />
             </button>
           </form>
+          {note ? <p className="sorath-newsletter-note">{note}</p> : null}
         </div>
       </div>
     </section>

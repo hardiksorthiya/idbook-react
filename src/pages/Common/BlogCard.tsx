@@ -8,6 +8,7 @@ type BlogCardProps = {
   title: string;
   description: string;
   link: string;
+  author?: string;
 };
 
 const BlogCard = ({
@@ -17,6 +18,7 @@ const BlogCard = ({
   title,
   description,
   link,
+  author = 'IDBook',
 }: BlogCardProps) => {
   return (
     <article className="sorath-blog-card">
@@ -28,7 +30,7 @@ const BlogCard = ({
       <div className="sorath-blog-meta">
         <span>{date}</span>
         <span>
-          By <strong>IDBook</strong>
+          By <strong>{author}</strong>
         </span>
       </div>
 

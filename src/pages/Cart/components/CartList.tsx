@@ -4,6 +4,7 @@ import { FiArrowRight, FiX } from 'react-icons/fi';
 import '../../../assets/css/Cart/Cart.css';
 import Shop1 from '../../../assets/images/shop/shop-1.png';
 import { applyCoupon, clearCart, getCart, removeCartItem, updateCartItem } from '../../../../services/cart';
+import { loginPath } from '../../../../utils/loginPath';
 import type { CartItem, CartResult, CartSummary } from '../../../../types/cart';
 
 const money = (value: number) => `₹${value.toLocaleString('en-IN')}`;
@@ -68,7 +69,7 @@ const CartList = () => {
       <div className="sorath-cart-empty">
         <h2>{note === 'Please login first.' ? 'Please login first' : 'Your cart'}</h2>
         <p>{note === 'Please login first.' ? 'Login to see the designs in your cart.' : note}</p>
-        <a href={note === 'Please login first.' ? '/login' : '/shop'} className="sorath-primary-btn sorath-cart-checkout">
+        <a href={note === 'Please login first.' ? loginPath() : '/shop'} className="sorath-primary-btn sorath-cart-checkout">
           <span>{note === 'Please login first.' ? 'Login' : 'Browse products'}</span>
           <span><FiArrowRight /></span>
         </a>

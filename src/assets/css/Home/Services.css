@@ -351,3 +351,44 @@
     padding-bottom: 16px;
   }
 }
+
+@media (max-width: 1199px) {
+  .sorath-services .sorath-container-fluid {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .sorath-services-pin {
+    align-items: flex-start;
+    box-sizing: border-box;
+    padding-top: 92px;
+  }
+
+  .sorath-services-pin .sorath-section-heading {
+    margin-bottom: 16px;
+  }
+
+  .sorath-services .sorath-section-title {
+    font-size: 34px;
+    line-height: 1.15;
+  }
+
+  .sorath-services .sorath-section-description {
+    margin-top: 12px;
+  }
+
+  .sorath-services-pin .sorath-service-image {
+    height: min(280px, 34vh);
+  }
+
+  .sorath-services-pin .sorath-service-item {
+    min-height: 58px;
+    padding: 10px 52px 10px 0;
+  }
+
+  .sorath-services-pin .sorath-service-title {
+    font-size: 18px;
+  }
+}

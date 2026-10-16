@@ -36,7 +36,7 @@ export type OrderData = {
   currency: string;
   gateway: string;
   gateway_order_id: string;
-  gateway_key: string;
+  gateway_payment_id: string;
   customer?: {
     name: string;
     email: string;
@@ -47,4 +47,9 @@ export type OrderData = {
 export type OrderResult = {
   message?: string;
   data?: OrderData;
+};
+
+export type VerifyResult = {
+  status?: boolean;
+  message?: string;
 };

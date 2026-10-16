@@ -7,6 +7,7 @@ import '../../../assets/css/Wishlist/Wishlist.css';
 import ProductCard from '../../Common/ProductCard';
 import Shop1 from '../../../assets/images/shop/shop-1.png';
 import { getWishlist, toggleWishlist } from '../../../../services/wishlist';
+import { loginPath } from '../../../../utils/loginPath';
 import type { WishItem } from '../../../../types/wishlist';
 
 const money = (value: number) => `₹${value.toLocaleString('en-IN')}`;
@@ -39,7 +40,7 @@ const WishlistGrid = () => {
       <div className="sorath-wish-empty">
         <h2>{note === 'Please login first.' ? 'Please login first' : 'Your wishlist'}</h2>
         <p>{note === 'Please login first.' ? 'Login to see your saved designs.' : note}</p>
-        <a href={note === 'Please login first.' ? '/login' : '/shop'} className="sorath-primary-btn sorath-cart-checkout">
+        <a href={note === 'Please login first.' ? loginPath() : '/shop'} className="sorath-primary-btn sorath-cart-checkout">
           <span>{note === 'Please login first.' ? 'Login' : 'Browse products'}</span>
           <span><FiArrowRight /></span>
         </a>

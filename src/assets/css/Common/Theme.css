@@ -11,7 +11,9 @@
 
 }
 
+html,
 body {
+  overflow-x: clip;
   font-family: var(--body-sorath-font-family);
   color: var(--black-sorath-color);
 }

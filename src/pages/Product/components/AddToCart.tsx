@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { addToCart } from '../../../../services/cart';
+import { loginPath } from '../../../../utils/loginPath';
 
 const AddToCart = ({ productId }: { productId: number }) => {
   const viewRef = useRef<HTMLSpanElement>(null);
@@ -19,7 +20,14 @@ const AddToCart = ({ productId }: { productId: number }) => {
     setLabel('Adding...');
     addToCart(productId)
       .then((data) => setLabel(data?.message || 'Added to cart.'))
-      .catch((error) => setLabel(error instanceof Error ? error.message : 'Could not add to cart.'));
+      .catch((error) => {
+        const message = error instanceof Error ? error.message : 'Could not add to cart.';
+        if (message === 'Please login first.') {
+          window.location.href = loginPath();
+          return;
+        }
+        setLabel(message);
+      });
   };
 
   return (

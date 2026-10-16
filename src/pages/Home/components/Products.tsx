@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -10,65 +10,70 @@ import "swiper/css";
 import "../../../assets/css/Home/Products.css";
 import Heading from "../../Common/Heading";
 import ProductCard from "../../Common/ProductCard";
+import Shop1 from "../../../assets/images/shop/shop-1.png";
+import { getProducts } from "../../../../services/products";
+import type { ProductItem } from "../../../../types/product";
 
-import ProductImage1 from "../../../assets/images/step1.webp";
-import ProductImage2 from "../../../assets/images/step1.webp";
-import ProductImage3 from "../../../assets/images/step1.webp";
-import ProductImage4 from "../../../assets/images/step1.webp";
+type CardProduct = {
+  id: number;
+  image: string;
+  hoverImage: string;
+  name: string;
+  price: string;
+  mrp: string;
+  discount: number;
+  categories: string[];
+  dimensions: string;
+  link: string;
+  productId: number;
+};
 
-const products = [
-  {
-    id: 1,
-    image: ProductImage1,
-    hoverImage: ProductImage2,
-    name: "Luxury Skyline Sofa",
-    price: "$1,240",
-    categories: ["Living Room", "Sofa"],
-    dimensions: `16'-5" × 12'-6"`,
-    link: '/product',
-  },
-  {
-    id: 2,
-    image: ProductImage2,
-    hoverImage: ProductImage3,
-    name: "Bohemian Armchair",
-    price: "$680",
-    categories: ["Living Room", "Chair"],
-    dimensions: `8'-2" × 7'-4"`,
-    link: '/product',
-  },
-  {
-    id: 3,
-    image: ProductImage3,
-    hoverImage: ProductImage4,
-    name: "Vintage Glamour Lamp",
-    price: "$320",
-    categories: ["Lighting", "Lamp"],
-    dimensions: `4'-0" × 3'-6"`,
-    link: '/product',
-  },
-  {
-    id: 4,
-    image: ProductImage4,
-    hoverImage: ProductImage1,
-    name: "Titan Office Chair",
-    price: "$890",
-    categories: ["Office", "Chair"],
-    dimensions: `6'-5" × 5'-2"`,
-    link: '/product',
-  },
-];
-
-const sliderProducts = [...products, ...products];
+const toCard = (item: ProductItem): CardProduct => ({
+  id: item.id,
+  image: item.thumb_url || item.main_image_url || Shop1,
+  hoverImage: item.main_image_url || item.thumb_url || Shop1,
+  name: item.name,
+  price: `₹${Number(item.price).toLocaleString("en-IN")}`,
+  mrp: Number(item.mrp_price) > Number(item.price) ? `₹${Number(item.mrp_price).toLocaleString("en-IN")}` : "",
+  discount: item.discount_percentage,
+  categories: item.primary_category ? [item.primary_category.name] : [],
+  dimensions: item.room_dimensions,
+  link: `/product/${item.slug}`,
+  productId: item.id,
+});
 
 const Products = () => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [products, setProducts] = useState<CardProduct[]>([]);
+  const [note, setNote] = useState("Loading...");
+
+  useEffect(() => {
+    let stop = false;
+
+    getProducts()
+      .then((list) => {
+        if (stop) return;
+        const featured = list.filter((item) => item.is_featured).map(toCard);
+        setProducts(featured);
+        setNote(featured.length ? "" : "No featured products yet.");
+      })
+      .catch((error) => {
+        if (stop) return;
+        setProducts([]);
+        setNote(error instanceof Error ? error.message : "Could not load products.");
+      });
+
+    return () => {
+      stop = true;
+    };
+  }, []);
+
+  const sliderProducts = products.length > 1 ? [...products, ...products] : products;
 
   return (
     <section className="sorath-products" data-aos="fade-up">
       <div className="container-fluid sorath-container-fluid">
-        {/* Section Heading */}
         <Heading
           badge="Our Products"
           title="Creative"
@@ -76,81 +81,85 @@ const Products = () => {
           afterHighlight="Define Our Style"
           description="Our collection showcases a diverse range of products, from beautifully crafted residential pieces to functional and stylish commercial interiors."
         />
+
+        {note ? <p className="text-center">{note}</p> : null}
       </div>
 
-      {/* Product Slider */}
-      <div className="sorath-products-slider">
-        <Swiper
-          modules={[Autoplay]}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-          onSlideChange={(swiper) => {
-            setActiveIndex(swiper.realIndex % products.length);
-          }}
-          slidesPerView={1.35}
-          spaceBetween={20}
-          centeredSlides
-          loop
-          grabCursor
-          speed={700}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
-          breakpoints={{
-            768: {
-              slidesPerView: 2.15,
-              spaceBetween: 20,
-            },
-            1200: {
-              slidesPerView: 3.6,
-              spaceBetween: 24,
-            },
-          }}
-          className="sorath-products-swiper"
-        >
-          {sliderProducts.map((product, index) => (
-            <SwiperSlide key={`${product.id}-${index}`}>
-              <ProductCard {...product} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      {products.length > 0 && (
+        <>
+          <div className="sorath-products-slider">
+            <Swiper
+              modules={[Autoplay]}
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+              }}
+              onSlideChange={(swiper) => {
+                setActiveIndex(swiper.realIndex % products.length);
+              }}
+              slidesPerView={1.35}
+              spaceBetween={20}
+              centeredSlides
+              loop={products.length > 1}
+              grabCursor
+              speed={700}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              breakpoints={{
+                768: {
+                  slidesPerView: 2.15,
+                  spaceBetween: 20,
+                },
+                1200: {
+                  slidesPerView: 3.6,
+                  spaceBetween: 24,
+                },
+              }}
+              className="sorath-products-swiper"
+            >
+              {sliderProducts.map((product, index) => (
+                <SwiperSlide key={`${product.id}-${index}`}>
+                  <ProductCard {...product} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
 
-      {/* Slider Controls */}
-      <div className="sorath-products-controls">
-        <button
-          type="button"
-          className="sorath-products-prev"
-          aria-label="Previous products"
-          onClick={() => swiperRef.current?.slidePrev()}
-        >
-          <FiArrowLeft />
-        </button>
-
-        <div className="sorath-products-pagination">
-          {products.map((product, index) => (
+          <div className="sorath-products-controls">
             <button
-              key={product.id}
               type="button"
-              className={activeIndex === index ? "is-active" : ""}
-              aria-label={`Show ${product.name}`}
-              onClick={() => swiperRef.current?.slideToLoop(index)}
-            />
-          ))}
-        </div>
+              className="sorath-products-prev"
+              aria-label="Previous products"
+              onClick={() => swiperRef.current?.slidePrev()}
+            >
+              <FiArrowLeft />
+            </button>
 
-        <button
-          type="button"
-          className="sorath-products-next"
-          aria-label="Next products"
-          onClick={() => swiperRef.current?.slideNext()}
-        >
-          <FiArrowRight />
-        </button>
-      </div>
+            <div className="sorath-products-pagination">
+              {products.map((product, index) => (
+                <button
+                  key={product.id}
+                  type="button"
+                  className={activeIndex === index ? "is-active" : ""}
+                  aria-label={`Show ${product.name}`}
+                  onClick={() => swiperRef.current?.slideToLoop(index)}
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className="sorath-products-next"
+              aria-label="Next products"
+              onClick={() => swiperRef.current?.slideNext()}
+            >
+              <FiArrowRight />
+            </button>
+          </div>
+        </>
+      )}
     </section>
   );
 };

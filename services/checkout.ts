@@ -1,5 +1,5 @@
 import { post } from './api';
-import type { CheckoutResult, OrderResult } from '../types/checkout';
+import type { CheckoutResult, OrderResult, VerifyResult } from '../types/checkout';
 
 export function calculateCheckout(body: {
   state: string;
@@ -24,4 +24,13 @@ export function createOrder(body: {
   items: { product_id: number; quantity: number }[];
 }) {
   return post('/checkout/create-order', body, true) as Promise<OrderResult>;
+}
+
+export function verifyPayment(body: {
+  order_number: string;
+  gateway: string;
+  gateway_payment_id: string;
+  gateway_signature: string;
+}) {
+  return post('/checkout/verify-payment', body, true) as Promise<VerifyResult>;
 }

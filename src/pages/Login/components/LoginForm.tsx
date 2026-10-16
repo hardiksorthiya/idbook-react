@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { loginUser } from '../../../../services/login';
+import { pathAfterLogin } from '../../../../utils/loginPath';
 import { saveToken } from '../../../../utils/token';
 import PasswordField from '../../Common/PasswordField';
 
-const LoginForm = () => {
+const LoginForm = ({ stay = false }: { stay?: boolean }) => {
   const [note, setNote] = useState('');
   const [sending, setSending] = useState(false);
 
@@ -21,7 +22,7 @@ const LoginForm = () => {
         password: String(form.get('password')),
       });
       saveToken(data);
-      window.location.href = '/profile';
+      window.location.href = stay ? window.location.href : pathAfterLogin();
     } catch (error) {
       setNote(error instanceof Error ? error.message : 'Could not sign in.');
       setSending(false);
@@ -58,7 +59,6 @@ const LoginForm = () => {
 
         {note && <p className="sorath-auth-note" role="status">{note}</p>}
         <p className="sorath-auth-switch">New here? <a href="/register">Create an account</a></p>
-        <p className="sorath-auth-switch">Already signed in? <a href="/profile">Open your profile</a></p>
       </form>
     </div>
   );

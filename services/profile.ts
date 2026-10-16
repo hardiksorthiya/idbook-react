@@ -1,4 +1,4 @@
-import { postForm, put } from './api';
+import { del, postForm, put } from './api';
 import { getToken } from '../utils/token';
 import type { ProfileBody } from '../types/profile';
 
@@ -15,4 +15,12 @@ export function updateProfile(body: ProfileBody, photo?: File | null) {
   form.append('profile_image', photo);
 
   return postForm('/auth/profile', form);
+}
+
+export function deleteAccount(reason: string) {
+  if (!getToken()) {
+    return Promise.reject(new Error('Please login first.'));
+  }
+
+  return del('/auth/account', { reason }) as Promise<{ message?: string }>;
 }

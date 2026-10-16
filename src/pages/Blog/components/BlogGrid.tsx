@@ -1,57 +1,73 @@
+import { useEffect, useState } from 'react';
 import '../../../assets/css/Blog/Blog.css';
 import BlogCard from '../../Common/BlogCard';
+import Fallback from '../../../assets/images/step1.webp';
+import { getBlogs } from '../../../../services/blog';
+import type { BlogItem, BlogMeta } from '../../../../types/blog';
 
-import Post1 from '../../../assets/images/blog/post-1.jpg';
-import Post2 from '../../../assets/images/blog/post-2.png';
-import Post3 from '../../../assets/images/blog/post-3.png';
-import Post4 from '../../../assets/images/blog/post-4.png';
-
-const posts = [
-  {
-    image: Post1,
-    category: 'Living Room',
-    date: 'Sep 12, 2026',
-    title: 'Mastering Warm Minimalism: Inside a Modern Earth-Toned Living Sanctuary',
-    description: 'Fluted wood, soft architectural light, and low sculptural seating shape a warm living room.',
-    link: '/blog',
-  },
-  {
-    image: Post2,
-    category: 'Kitchen',
-    date: 'Sep 18, 2026',
-    title: 'Harmonious Living: Inside an Open-Concept Modern Dining and Kitchen Suite',
-    description: 'A marble dining table, olive kit-kat tiles, and a glowing breakfast bar share one open room.',
-    link: '/blog',
-  },
-  {
-    image: Post3,
-    category: 'Bedroom',
-    date: 'Sep 24, 2026',
-    title: 'Quiet Luxury in the Bedroom: A Masterclass in Walnut, Concrete, and Fluted Millwork',
-    description: 'Walnut slats, a channel-tufted bed, and quiet cove lighting settle a grey stone bedroom.',
-    link: '/blog',
-  },
-  {
-    image: Post4,
-    category: 'Bathroom',
-    date: 'Oct 2, 2026',
-    title: 'Modern Spa Serenity: Inside a Luxury Bathroom with Exotic Stone and Fluted Millwork',
-    description: 'A glowing capsule mirror, teal stone, and fluted ash millwork turn the bathroom into a spa.',
-    link: '/blog',
-  },
-];
+const toCard = (item: BlogItem) => ({
+  id: item.id,
+  image: item.image_url || Fallback,
+  category: item.tags?.[0] || 'Blog',
+  date: item.published_at,
+  title: item.title,
+  description: item.summary,
+  link: '/blog',
+  author: item.author,
+});
 
 const BlogGrid = () => {
+  const [posts, setPosts] = useState<ReturnType<typeof toCard>[]>([]);
+  const [meta, setMeta] = useState<BlogMeta | null>(null);
+  const [page, setPage] = useState(1);
+  const [note, setNote] = useState('Loading...');
+
+  useEffect(() => {
+    let stop = false;
+    setNote('Loading...');
+
+    getBlogs(page, 9)
+      .then(({ items, meta: nextMeta }) => {
+        if (stop) return;
+        setPosts(items.map(toCard));
+        setMeta(nextMeta || null);
+        setNote(items.length ? '' : 'No stories yet.');
+      })
+      .catch((error) => {
+        if (stop) return;
+        setPosts([]);
+        setNote(error instanceof Error ? error.message : 'Could not load stories.');
+      });
+
+    return () => {
+      stop = true;
+    };
+  }, [page]);
+
   return (
     <section className="sorath-blog-page" data-aos="fade-right">
       <div className="container-fluid sorath-container-fluid">
+        {note ? <p className="text-center">{note}</p> : null}
+
         <div className="row gy-5">
           {posts.map((post) => (
-            <div className="col-lg-4 col-md-6" key={post.title}>
+            <div className="col-lg-4 col-md-6" key={post.id}>
               <BlogCard {...post} />
             </div>
           ))}
         </div>
+
+        {meta && meta.last_page > 1 && (
+          <div className="d-flex justify-content-center gap-3 mt-5">
+            <button type="button" disabled={page <= 1} onClick={() => setPage(page - 1)}>
+              Previous
+            </button>
+            <span>{page} / {meta.last_page}</span>
+            <button type="button" disabled={page >= meta.last_page} onClick={() => setPage(page + 1)}>
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

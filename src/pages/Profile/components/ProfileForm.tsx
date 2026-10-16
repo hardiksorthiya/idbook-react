@@ -3,7 +3,8 @@ import { FiArrowRight } from 'react-icons/fi';
 import PasswordField from '../../Common/PasswordField';
 import { changePassword } from '../../../../services/password';
 import { readUser } from '../../../../services/me';
-import { updateProfile } from '../../../../services/profile';
+import { deleteAccount, updateProfile } from '../../../../services/profile';
+import { clearToken } from '../../../../utils/token';
 import type { User } from '../../../../types/me';
 
 type ProfileFormProps = {
@@ -15,6 +16,7 @@ type ProfileFormProps = {
 const ProfileForm = ({ user, setUser, onNote }: ProfileFormProps) => {
   const [saving, setSaving] = useState(false);
   const [sending, setSending] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [preview, setPreview] = useState('');
   const photo = preview || user?.profile?.profile_image_url || '';
 
@@ -170,6 +172,35 @@ const ProfileForm = ({ user, setUser, onNote }: ProfileFormProps) => {
         </div>
         <button type="submit" className="sorath-primary-btn sorath-auth-submit" disabled={sending}>
           <span>{sending ? 'Please wait' : 'Update password'}</span>
+          <span><FiArrowRight /></span>
+        </button>
+      </form>
+
+      <form
+        className="sorath-account-password"
+        onSubmit={async (event) => {
+          event.preventDefault();
+          const reason = String(new FormData(event.currentTarget).get('reason')).trim();
+          if (!window.confirm('Delete your account? This cannot be undone.')) return;
+
+          setDeleting(true);
+          onNote('');
+
+          try {
+            await deleteAccount(reason || 'No longer using the service');
+            clearToken();
+            window.location.href = '/login';
+          } catch (error) {
+            onNote(error instanceof Error ? error.message : 'Could not delete your account.');
+            setDeleting(false);
+          }
+        }}
+      >
+        <h2>Delete account</h2>
+        <p className="sorath-account-lead">This permanently removes your account and cannot be undone.</p>
+        <label>Reason<textarea name="reason" placeholder="Why are you leaving?" /></label>
+        <button type="submit" className="sorath-primary-btn sorath-auth-submit" disabled={deleting}>
+          <span>{deleting ? 'Please wait' : 'Delete account'}</span>
           <span><FiArrowRight /></span>
         </button>
       </form>

@@ -4,6 +4,7 @@ import Breadcrumb from '../Common/Breadcrumb';
 import DesignFloatButton from '../Common/DesignFloatButton';
 import Breadcrumbimage from '../../assets/images/page-header-bg.png';
 import ShopCatalog from './components/ShopCatalog';
+import LoginPrompt from '../Product/components/LoginPrompt';
 
 const Shop = () => {
   return (
@@ -13,6 +14,7 @@ const Shop = () => {
       <ShopCatalog />
       <Footer />
       <DesignFloatButton />
+      <LoginPrompt />
     </>
   );
 };

@@ -41,8 +41,14 @@ const HowItWorks = () => {
     if (!section || !track) return;
 
     let frame = 0;
+    const desktop = window.matchMedia('(min-width: 992px)');
 
     const update = () => {
+      if (!desktop.matches) {
+        track.style.transform = '';
+        return;
+      }
+
       const distance = section.offsetHeight - window.innerHeight;
       const passed = Math.min(
         Math.max(-section.getBoundingClientRect().top, 0),
@@ -67,11 +73,13 @@ const HowItWorks = () => {
     update();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+    desktop.addEventListener('change', update);
 
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
+      desktop.removeEventListener('change', update);
     };
   }, [titles.length]);
 

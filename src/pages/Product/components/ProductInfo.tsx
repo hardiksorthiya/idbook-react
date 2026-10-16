@@ -69,11 +69,18 @@ const ProductInfo = ({ product }: { product: ProductDetail }) => {
                 {money(product.price)} {product.mrp_price > product.price && <span>{money(product.mrp_price)}</span>}
               </h3>
 
-              <p>{product.short_description || product.design_style || 'No short description yet.'}</p>
+              {product.short_description ? (
+                <div
+                  className="sorath-pd-html"
+                  dangerouslySetInnerHTML={{ __html: product.short_description }}
+                />
+              ) : (
+                <p>{product.design_style || 'No short description yet.'}</p>
+              )}
 
               <div className="sorath-pd-actions">
                 <AddToCart productId={product.id} />
-                <BuyNow />
+                <BuyNow productId={product.id} />
               </div>
 
               <button

@@ -31,7 +31,14 @@ const ProductTabs = ({ product }: { product: ProductDetail }) => {
 
         {tab === 'description' && (
           <div className="sorath-pd-desc">
-            <p>{product.description || product.design_style || 'No description yet.'}</p>
+            {product.description ? (
+              <div
+                className="sorath-pd-html"
+                dangerouslySetInnerHTML={{ __html: product.description }}
+              />
+            ) : (
+              <p>{product.design_style || 'No description yet.'}</p>
+            )}
             <ul>
               {(product.deliverables || []).map((item) => (
                 <li key={item.code}>

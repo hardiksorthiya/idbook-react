@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 
@@ -6,55 +7,44 @@ import "swiper/css";
 import Heading from "../../Common/Heading";
 import BlogCard from "../../Common/BlogCard";
 import "../../../assets/css/Home/Blog.css";
+import Fallback from "../../../assets/images/step1.webp";
+import { getBlogs } from "../../../../services/blog";
+import type { BlogItem } from "../../../../types/blog";
 
-import BlogImage1 from "../../../assets/images/step1.webp";
-import BlogImage2 from "../../../assets/images/step1.webp";
-import BlogImage3 from "../../../assets/images/step1.webp";
-
-const blogs = [
-  {
-    id: 1,
-    image: BlogImage1,
-    category: "Kitchen",
-    date: "Sep 18, 2026",
-    title: "Harmonious Living: Inside an Open-Concept Modern Dining and Kitchen Suite",
-    description:
-      "A marble dining table, olive kit-kat tiles, and a glowing breakfast bar share one open room.",
-    link: "/blog/harmonious-living",
-  },
-  {
-    id: 2,
-    image: BlogImage2,
-    category: "Bedroom",
-    date: "Sep 24, 2026",
-    title: "Quiet Luxury in the Bedroom: A Masterclass in Walnut, Concrete, and Fluted Millwork",
-    description:
-      "Walnut slats, a channel-tufted bed, and quiet cove lighting settle a grey stone bedroom.",
-    link: "/blog/quiet-luxury-bedroom",
-  },
-  {
-    id: 3,
-    image: BlogImage3,
-    category: "Bathroom",
-    date: "Oct 2, 2026",
-    title: "Modern Spa Serenity: Inside a Luxury Bathroom with Exotic Stone and Fluted Millwork",
-    description:
-      "A glowing capsule mirror, teal stone, and fluted ash millwork turn the bathroom into a spa.",
-    link: "/blog/modern-spa-serenity",
-  },
-   {
-    id: 4,
-    image: BlogImage3,
-    category: "Bathroom",
-    date: "Oct 2, 2026",
-    title: "Modern Spa Serenity: Inside a Luxury Bathroom with Exotic Stone and Fluted Millwork",
-    description:
-      "A glowing capsule mirror, teal stone, and fluted ash millwork turn the bathroom into a spa.",
-    link: "/blog/modern-spa-serenity",
-  },
-];
+const toCard = (item: BlogItem) => ({
+  id: item.id,
+  image: item.image_url || Fallback,
+  category: item.tags?.[0] || "Blog",
+  date: item.published_at,
+  title: item.title,
+  description: item.summary,
+  link: "/blog",
+  author: item.author,
+});
 
 const Blog = () => {
+  const [blogs, setBlogs] = useState<ReturnType<typeof toCard>[]>([]);
+  const [note, setNote] = useState("");
+
+  useEffect(() => {
+    let stop = false;
+
+    getBlogs(1, 6)
+      .then(({ items }) => {
+        if (stop) return;
+        setBlogs(items.map(toCard));
+        setNote(items.length ? "" : "No stories yet.");
+      })
+      .catch((error) => {
+        if (stop) return;
+        setNote(error instanceof Error ? error.message : "Could not load stories.");
+      });
+
+    return () => {
+      stop = true;
+    };
+  }, []);
+
   return (
     <section className="sorath-blog" data-aos="fade-up">
       <div className="container-fluid sorath-container-fluid">
@@ -66,36 +56,41 @@ const Blog = () => {
           description=""
         />
 
-        <Swiper
-          modules={[Autoplay]}
-          slidesPerView={1}
-          spaceBetween={20}
-          loop
-          speed={1000}
-          autoplay={{
-            delay: 1500,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
-          breakpoints={{
-            576: { slidesPerView: 2, spaceBetween: 20 },
-            992: { slidesPerView: 3, spaceBetween: 20 },
-          }}
-          className="sorath-blog-swiper"
-        >
-          {blogs.map((blog) => (
-            <SwiperSlide key={blog.id}>
-              <BlogCard
-                image={blog.image}
-                category={blog.category}
-                date={blog.date}
-                title={blog.title}
-                description={blog.description}
-                link={blog.link}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {note ? <p className="text-center">{note}</p> : null}
+
+        {blogs.length > 0 && (
+          <Swiper
+            modules={[Autoplay]}
+            slidesPerView={1}
+            spaceBetween={20}
+            loop={blogs.length > 1}
+            speed={1000}
+            autoplay={{
+              delay: 1500,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            breakpoints={{
+              576: { slidesPerView: 2, spaceBetween: 20 },
+              992: { slidesPerView: 3, spaceBetween: 20 },
+            }}
+            className="sorath-blog-swiper"
+          >
+            {blogs.map((blog) => (
+              <SwiperSlide key={blog.id}>
+                <BlogCard
+                  image={blog.image}
+                  category={blog.category}
+                  date={blog.date}
+                  title={blog.title}
+                  description={blog.description}
+                  link={blog.link}
+                  author={blog.author}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </div>
     </section>
   );

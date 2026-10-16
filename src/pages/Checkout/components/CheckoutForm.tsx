@@ -3,22 +3,27 @@ import type { FormEvent } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import Shop1 from '../../../assets/images/shop/shop-1.png';
 import { getCart } from '../../../../services/cart';
-import { calculateCheckout, createOrder } from '../../../../services/checkout';
+import { calculateCheckout, createOrder, verifyPayment } from '../../../../services/checkout';
+import { loginPath } from '../../../../utils/loginPath';
 import type { CartItem } from '../../../../types/cart';
 import type { CheckoutTotals, OrderData } from '../../../../types/checkout';
 
 const money = (value: number) => `₹${value.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`;
 
-function openRazorpay(order: OrderData) {
+function openRazorpay(order: OrderData, onVerified: (message: string) => void, onFailed: (message: string) => void) {
   const launch = () => {
     const Razorpay = (window as Window & {
       Razorpay?: new (options: object) => { open: () => void };
     }).Razorpay;
 
-    if (!Razorpay || !order.gateway_key || !order.gateway_order_id) return;
+    const amount = Math.round(Number(String(order.final_amount).replace(/,/g, '')) * 100);
+    const key = order.gateway_payment_id;
+
+    if (!Razorpay || !key || !order.gateway_order_id || !amount) return;
 
     new Razorpay({
-      key: order.gateway_key,
+      key,
+      amount,
       order_id: order.gateway_order_id,
       currency: order.currency || 'INR',
       name: 'IDBook',
@@ -29,6 +34,18 @@ function openRazorpay(order: OrderData) {
         contact: order.customer?.phone,
       },
       theme: { color: '#83b9b7' },
+      handler: (response: { razorpay_payment_id: string; razorpay_signature: string }) => {
+        verifyPayment({
+          order_number: order.order_number,
+          gateway: 'razorpay',
+          gateway_payment_id: response.razorpay_payment_id,
+          gateway_signature: response.razorpay_signature,
+        })
+          .then((result) => onVerified(result.message || 'Payment verified successfully.'))
+          .catch((verifyError) => {
+            onFailed(verifyError instanceof Error ? verifyError.message : 'Payment could not be verified.');
+          });
+      },
     }).open();
   };
 
@@ -97,7 +114,7 @@ const CheckoutForm = () => {
       <div className="sorath-bill-card sorath-bill-empty">
         <h2>{login ? 'Please login first' : 'Your cart'}</h2>
         <p>{login ? 'Login to calculate GST and continue checkout.' : note}</p>
-        <a href={login ? '/login' : '/shop'} className="sorath-primary-btn sorath-bill-place">
+        <a href={login ? loginPath() : '/shop'} className="sorath-primary-btn sorath-bill-place">
           <span>{login ? 'Login' : 'Browse products'}</span>
           <span><FiArrowRight /></span>
         </a>
@@ -130,7 +147,16 @@ const CheckoutForm = () => {
         setDone(order?.order_number
           ? `${result.message || 'Order initiated successfully. Proceed to payment.'} ${order.order_number}`
           : (result.message || 'Order initiated successfully. Proceed to payment.'));
-        if (order) openRazorpay(order);
+        if (order) {
+          openRazorpay(
+            order,
+            (message) => {
+              setError('');
+              setDone(message);
+            },
+            (message) => setError(message),
+          );
+        }
       })
       .catch((orderError) => {
         setError(orderError instanceof Error ? orderError.message : 'Could not place this order.');

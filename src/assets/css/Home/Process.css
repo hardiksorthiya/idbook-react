@@ -15,6 +15,7 @@
   position: sticky;
   top: 0;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 
   background:
@@ -434,10 +435,15 @@
   overflow: hidden;
 }
 
-.sorath-process-slide > .container {
+.sorath-process-slide > .container-fluid {
   height: 100%;
-  padding-top: 170px;
-  padding-bottom: 40px;
+  padding-top: 168px;
+  padding-bottom: 56px;
+}
+
+.sorath-process-slide .row {
+  height: 100%;
+  min-height: 0;
 }
 
 /* ================================
@@ -507,11 +513,14 @@
 
 .sorath-process-visual {
   position: relative;
+  container-type: size;
 
   height: min(
-    calc(100vh - 230px),
+    calc(100dvh - 230px),
     720px
   );
+
+  overflow: hidden;
 }
 
 .sorath-process-glow {
@@ -545,12 +554,14 @@
   top: 50%;
   left: 50%;
 
-  width: min(560px, 90%);
-  height: 400px;
+  width: 520px;
+  height: 360px;
 
   perspective: 1200px;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%)
+    scale(min(1, 100cqw / 540px, 100cqh / 390px));
 }
 
 .sorath-flip {
@@ -647,10 +658,12 @@
   top: 50%;
   left: 50%;
 
-  width: min(640px, 95%);
+  width: 640px;
   height: 470px;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%)
+    scale(min(1, 100cqw / 660px, 100cqh / 490px));
 }
 
 .sorath-gallery-card {
@@ -732,10 +745,12 @@
   align-items: center;
   gap: 10px;
 
-  width: min(760px, 100%);
-  height: 320px;
+  width: 740px;
+  height: 310px;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%)
+    scale(min(1, 100cqw / 760px, 100cqh / 330px));
 }
 
 .sorath-design-card,
@@ -765,7 +780,7 @@
   padding: 12px;
 
   animation:
-    sorath-payment-add 10s ease infinite;
+    sorath-payment-add 5s ease infinite;
 }
 
 .sorath-design-card img {
@@ -828,11 +843,11 @@
 }
 
 .sorath-payment-arrow-1 {
-  animation: sorath-arrow-one 10s ease infinite;
+  animation: sorath-arrow-one 5s ease infinite;
 }
 
 .sorath-payment-arrow-2 {
-  animation: sorath-arrow-two 10s ease infinite;
+  animation: sorath-arrow-two 5s ease infinite;
 }
 
 .sorath-checkout-card {
@@ -840,7 +855,7 @@
   padding: 16px;
 
   animation:
-    sorath-payment-buy 10s ease infinite;
+    sorath-payment-buy 5s ease infinite;
 }
 
 .sorath-checkout-head {
@@ -908,7 +923,7 @@
     0 35px 80px rgba(0, 0, 0, 0.65);
 
   animation:
-    sorath-payment-success 10s ease infinite;
+    sorath-payment-success 5s ease infinite;
 }
 
 .sorath-payment-phone::before {
@@ -1067,7 +1082,9 @@
   width: 460px;
   height: 240px;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%)
+    scale(min(1, 100cqw / 480px, 100cqh / 260px));
 }
 
 .sorath-send-path {
@@ -1168,10 +1185,12 @@
   top: 50%;
   left: 50%;
 
-  width: min(700px, 95%);
-  height: 510px;
+  width: 680px;
+  height: 500px;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%)
+    scale(min(1, 100cqw / 700px, 100cqh / 520px));
 }
 
 .sorath-zip {
@@ -1344,106 +1363,265 @@
    RESPONSIVE
 ================================ */
 
-@media (max-width: 1199px) {
+@media (max-width: 768px) {
+
+  .sorath-process-hud {
+    top: 88px;
+  }
+
+
+  .sorath-process-slide .row {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+
+  .sorath-process-copy,
+  .sorath-process-visual {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sorath-process-copy {
+    flex: 0 1 auto;
+  }
+
+  .sorath-process-visual {
+    flex: 1 1 0;
+    height: auto;
+    min-height: 220px;
+    margin-top: 12px;
+  }
+
+  .sorath-process-step {
+    margin-bottom: 10px;
+    letter-spacing: 1.6px;
+  }
+
+  .sorath-process-title {
+    font-size: clamp(34px, 4.6vw, 52px);
+  }
+
+  .sorath-process-desc {
+    max-width: 640px;
+    margin-top: 12px;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .sorath-process-note {
+    display: none;
+  }
+
+  .sorath-flip-wrap {
+    transform:
+      translate(-50%, -50%)
+      scale(min(100cqw / 520px, 100cqh / 360px));
+  }
+
+  .sorath-process-gallery {
+    transform:
+      translate(-50%, -50%)
+      scale(min(100cqw / 640px, 100cqh / 470px));
+  }
+
+  .sorath-send-animation {
+    transform:
+      translate(-50%, -50%)
+      scale(min(100cqw / 460px, 100cqh / 240px));
+  }
+
+  .sorath-files-animation {
+    transform:
+      translate(-50%, -50%)
+      scale(min(100cqw / 680px, 100cqh / 500px));
+  }
+
+  .sorath-payment-animation {
+    height: 460px;
+    align-items: center;
+
+    transform:
+      translate(-50%, -50%)
+      scale(min(100cqw / 740px, 100cqh / 460px));
+  }
+
+  .sorath-design-card img {
+    height: 140px;
+  }
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .sorath-process-title {
+    font-size: clamp(42px, 5vw, 56px);
+  }
+
+  .sorath-process-desc {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 767px) {
+
+  .sorath-process-hud .sorath-container-fluid {
+    gap: 8px;
+  }
+
+  .sorath-process-kicker {
+    padding: 6px 12px 6px 24px;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+  }
+
+  .sorath-process-counter {
+    flex-shrink: 0;
+    gap: 8px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 575px) {
+  .sorath-process-title {
+    font-size: clamp(30px, 8vw, 40px);
+  }
+
   .sorath-process-desc {
     font-size: 15px;
   }
 }
 
-@media (max-width: 991px) {
-  .sorath-process-hud {
-    top: 90px;
-  }
-
-  .sorath-process-slide > .container {
-    padding-top: 150px;
-    padding-bottom: 24px;
-  }
-
-  .sorath-process-visual {
-    height: 50vh;
-    margin-top: 20px;
-  }
-
-  .sorath-process-desc {
-    margin-top: 14px;
-  }
-
-  .sorath-process-title {
-    font-size: 42px;
-  }
-}
-
 @media (max-width: 575px) {
   .sorath-process-counter .sorath-process-line {
-    width: 60px;
+    display: none;
   }
 
   .sorath-cube-scene {
-    --sorath-cube-size: 44px;
+    --sorath-cube-size: 42px;
   }
 
   .sorath-cube-front b {
     font-size: 14px;
   }
 
-  .sorath-process-slide > .container {
-    padding-top: 140px;
-  }
-
-  .sorath-process-visual {
-    height: 46vh;
-  }
-
   .sorath-process-title {
-    font-size: 28px;
+    font-size: 30px;
   }
 
   .sorath-process-desc {
     font-size: 14px;
   }
-
-  .sorath-flip-wrap {
-    width: 100%;
-    height: 280px;
-  }
-
-  .sorath-process-gallery {
-    width: 100%;
-    height: 350px;
-  }
-
-  .sorath-gallery-card {
-    width: 46%;
-    height: 120px;
-  }
-
-  .sorath-payment-animation {
-    transform:
-      translate(-50%, -50%)
-      scale(0.55);
-  }
-
-  .sorath-send-animation {
-    transform:
-      translate(-50%, -50%)
-      scale(0.7);
-  }
-
-  .sorath-files-animation {
-    transform:
-      translate(-50%, -50%)
-      scale(0.65);
-  }
 }
 
-@media (max-width: 575px) and (max-height: 700px) {
-  .sorath-process-visual {
-    height: 38vh;
+@media (min-width: 1200px) and (max-height: 760px) {
+  .sorath-process-hud {
+    top: 72px;
+  }
+
+
+  .sorath-process-title {
+    font-size: clamp(28px, 3vw, 42px);
   }
 
   .sorath-process-desc {
-    font-size: 13px;
-    line-height: 1.6;
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .sorath-process-pill {
+    display: none;
+  }
+}
+
+@media (max-width: 991px) and (max-height: 700px) {
+  .sorath-process-slide > .container-fluid {
+    padding-top: 112px;
+    padding-bottom: 10px;
+  }
+
+  .sorath-process-step {
+    margin-bottom: 4px;
+  }
+
+  .sorath-process-desc {
+    -webkit-line-clamp: 2;
+  }
+}
+
+@media (max-width: 991px) and (max-height: 500px) {
+  .sorath-process-slide .row {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .sorath-process-copy,
+  .sorath-process-visual {
+    width: 50%;
+    max-width: 50%;
+  }
+
+  .sorath-process-visual {
+    flex: none;
+    height: 260px;
+    min-height: 260px;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .sorath-process {
+    height: auto;
+  }
+
+  .sorath-process-pin {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  .sorath-process-hud {
+    position: relative;
+    top: auto;
+    padding-top: 24px;
+  }
+
+  .sorath-process-track {
+    flex-direction: column;
+    height: auto;
+    transform: none !important;
+  }
+
+  .sorath-process-screen,
+  .sorath-process-slide,
+  .sorath-process-slide > .container-fluid,
+  .sorath-process-slide .row {
+    height: auto;
+  }
+
+  .sorath-process-slide > .container-fluid {
+    padding-top: 28px;
+    padding-bottom: 36px;
+  }
+
+  .sorath-process-visual {
+    flex: none;
+    height: 420px;
+    min-height: 420px;
+  }
+
+  .sorath-process-screen + .sorath-process-screen {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 767px) {
+  .sorath-process-visual {
+    height: 340px;
+    min-height: 340px;
   }
 }

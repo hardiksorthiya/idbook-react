@@ -281,13 +281,28 @@
   color: #17191b;
 }
 
-.sorath-pd-desc ul {
+.sorath-pd-html p,
+.sorath-pd-html ul,
+.sorath-pd-html ol {
+  margin: 0 0 12px;
+}
+
+.sorath-pd-html ul,
+.sorath-pd-html ol {
+  padding-left: 18px;
+}
+
+.sorath-pd-html li {
+  margin-bottom: 6px;
+}
+
+.sorath-pd-desc > ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.sorath-pd-desc li {
+.sorath-pd-desc > ul li {
   display: flex;
   align-items: center;
   gap: 8px;

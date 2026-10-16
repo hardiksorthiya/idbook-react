@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { FiHeart, FiShoppingCart, FiX } from 'react-icons/fi';
 import { addToCart } from '../../../services/cart';
+import { loginPath } from '../../../utils/loginPath';
 import { toggleWishlist } from '../../../services/wishlist';
 
 type ProductCardProps = {
@@ -127,7 +128,14 @@ const ProductCard = ({
               setWishNote('Saving...');
               toggleWishlist(productId)
                 .then((data) => showWish(data.message || 'Added to wishlist.'))
-                .catch((error) => showWish(error instanceof Error ? error.message : 'Could not update wishlist.'));
+                .catch((error) => {
+                  const message = error instanceof Error ? error.message : 'Could not update wishlist.';
+                  if (message === 'Please login first.') {
+                    window.location.href = loginPath();
+                    return;
+                  }
+                  showWish(message);
+                });
             }}
           >
             {remove ? <FiX /> : <FiHeart />}
@@ -145,7 +153,14 @@ const ProductCard = ({
               setCartNote('Adding...');
               addToCart(productId)
                 .then(() => showNote('Added to cart'))
-                .catch((error) => showNote(error instanceof Error ? error.message : 'Could not add to cart.'));
+                .catch((error) => {
+                  const message = error instanceof Error ? error.message : 'Could not add to cart.';
+                  if (message === 'Please login first.') {
+                    window.location.href = loginPath();
+                    return;
+                  }
+                  showNote(message);
+                });
             }}
           >
             <FiShoppingCart />
