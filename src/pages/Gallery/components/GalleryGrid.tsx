@@ -56,7 +56,7 @@ const GalleryGrid = () => {
   }, []);
 
   return (
-    <section className="sorath-gallery-page" data-aos="zoom-in">
+    <section className="sorath-gallery-page">
       <div className="container-fluid sorath-container-fluid">
         <div className={`sorath-gallery-filter ${open ? 'is-open' : ''}`}>
           <button

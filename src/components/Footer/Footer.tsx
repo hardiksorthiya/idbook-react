@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { FiMail } from "react-icons/fi";
 import {
   FaFacebookF,
@@ -9,7 +10,7 @@ import {
 
 import "../../assets/css/Common/Footer.css";
 
-import FooterBg from "../../assets/images/step1b.webp";
+import FooterBg from "../../assets/images/footer-bg.png";
 import Logo from "../../assets/images/logo.webp";
 
 const Footer = () => {
@@ -212,7 +213,6 @@ const Footer = () => {
   return (
     <footer
       className="sorath-footer"
-      data-aos="fade-up"
       style={{ backgroundImage: `url(${FooterBg})` }}
     >
       <div className="sorath-footer-shade" />
@@ -220,9 +220,9 @@ const Footer = () => {
       <div className="container-fluid sorath-container-fluid sorath-footer-main">
         <div className="row align-items-center gy-4">
           <div className="col-lg-4">
-            <a href="/" className="sorath-footer-logo">
+            <Link to="/" className="sorath-footer-logo">
               <img src={Logo} alt="IDbook" />
-            </a>
+            </Link>
 
             <a
               href="mailto:support@example.com"
@@ -236,9 +236,12 @@ const Footer = () => {
           <div className="col-lg-8">
             <nav className="sorath-footer-nav" aria-label="Footer navigation">
               {navLinks.map((link) => (
-                <a href={link.href} key={link.label}>
-                  {link.label}
-                </a>
+                <Link to={link.href} key={link.label}>
+                  <span className="sorath-menu-label">
+                    <span>{link.label}</span>
+                    <span>{link.label}</span>
+                  </span>
+                </Link>
               ))}
             </nav>
           </div>
@@ -251,9 +254,12 @@ const Footer = () => {
             <div className="col-lg-4">
               <nav className="sorath-footer-legal" aria-label="Legal links">
                 {legalLinks.map((link) => (
-                  <a href={link.href} key={link.label}>
-                    {link.label}
-                  </a>
+                  <Link to={link.href} key={link.label}>
+                    <span className="sorath-menu-label">
+                      <span>{link.label}</span>
+                      <span>{link.label}</span>
+                    </span>
+                  </Link>
                 ))}
               </nav>
             </div>

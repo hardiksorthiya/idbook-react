@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import '../../../assets/css/Home/Products.css';
 import '../../../assets/css/Search/Search.css';
@@ -81,7 +81,7 @@ const SearchResults = () => {
       {!note && query.trim() && items.length === 0 ? (
         <div className="sorath-search-empty">
           <p>No designs found for “{query}”.</p>
-          <a href="/shop">Browse the shop</a>
+          <Link to="/shop">Browse the shop</Link>
         </div>
       ) : (
         <div className="row g-4">
@@ -92,7 +92,7 @@ const SearchResults = () => {
                 hoverImage={item.thumb_url || Shop1}
                 name={item.name}
                 price={`₹${item.price.toLocaleString('en-IN')}`}
-                categories={item.category_name ? [item.category_name] : []}
+                categories={item.category_name ? [{ name: item.category_name }] : []}
                 dimensions={item.design_code}
                 link={`/product/${item.slug}`}
                 productId={item.id}

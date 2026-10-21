@@ -11,7 +11,7 @@ const Checkout = () => {
     <>
       <Header />
       <Breadcrumb title="Checkout" background={Breadcrumbimage} />
-      <section className="sorath-checkout" data-aos="fade-up">
+      <section className="sorath-checkout">
         <div className="container-fluid sorath-container-fluid">
           <CheckoutForm />
         </div>

@@ -12,7 +12,7 @@ const toCard = (item: BlogItem) => ({
   date: item.published_at,
   title: item.title,
   description: item.summary,
-  link: '/blog',
+  link: `/blog/${item.slug}`,
   author: item.author,
 });
 
@@ -45,7 +45,7 @@ const BlogGrid = () => {
   }, [page]);
 
   return (
-    <section className="sorath-blog-page" data-aos="fade-right">
+    <section className="sorath-blog-page">
       <div className="container-fluid sorath-container-fluid">
         {note ? <p className="text-center">{note}</p> : null}
 

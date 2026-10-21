@@ -87,7 +87,6 @@ const HowItWorks = () => {
     <section
       ref={sectionRef}
       className="sorath-process"
-      data-aos="fade"
     >
       <div className="sorath-process-pin">
       {/* Background */}
@@ -388,15 +387,32 @@ const HowItWorks = () => {
 
                 <div className="col-lg-7 sorath-process-visual">
                   <div className="sorath-send-animation">
-                    <div className="sorath-send-path" />
+                    <svg className="sorath-send-curve" viewBox="0 0 460 240">
+                      <defs>
+                        <marker
+                          id="sorathSendHead"
+                          viewBox="0 0 10 10"
+                          refX="8"
+                          refY="5"
+                          markerWidth="7"
+                          markerHeight="7"
+                          orient="auto"
+                        >
+                          <path d="M0 0 L10 5 L0 10 Z" fill="#77a5a3" />
+                        </marker>
+                      </defs>
+                      <path
+                        pathLength="100"
+                        d="M70 180 C 180 180, 230 40, 390 78"
+                        markerEnd="url(#sorathSendHead)"
+                      />
+                    </svg>
 
-                    <div className="sorath-send-box">
-                      iDBook
+                    <div className="sorath-send-fly">
+                      <div className="sorath-send-box">iDBook</div>
                     </div>
 
-                    <div className="sorath-send-mailbox">
-                      ✉
-                    </div>
+                    <div className="sorath-send-mailbox">✉</div>
                   </div>
                 </div>
               </div>

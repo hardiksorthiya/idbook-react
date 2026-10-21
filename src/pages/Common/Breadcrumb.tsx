@@ -1,4 +1,5 @@
-import "../../assets/css/Common/Breadcrumb.css";
+import { Link } from 'react-router-dom';
+import '../../assets/css/Common/Breadcrumb.css';
 
 type BreadcrumbProps = {
   title: string;
@@ -9,7 +10,6 @@ const Breadcrumb = ({ title, background }: BreadcrumbProps) => {
   return (
     <section
       className="sorath-breadcrumb"
-      data-aos="fade-down"
       style={{ backgroundImage: `url(${background})` }}
     >
       <div className="sorath-breadcrumb-overlay" />
@@ -21,7 +21,7 @@ const Breadcrumb = ({ title, background }: BreadcrumbProps) => {
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb justify-content-center mb-0">
               <li className="breadcrumb-item">
-                <a href="/">Home</a>
+                <Link to="/">Home</Link>
               </li>
               <li
                 className="breadcrumb-item active"

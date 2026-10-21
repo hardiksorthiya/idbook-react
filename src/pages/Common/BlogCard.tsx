@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import '../../assets/css/Home/Blog.css';
 
@@ -22,10 +23,10 @@ const BlogCard = ({
 }: BlogCardProps) => {
   return (
     <article className="sorath-blog-card">
-      <a href={link} className="sorath-blog-image">
+      <Link to={link} className="sorath-blog-image">
         <img src={image} alt={title} loading="lazy" />
         <span className="sorath-blog-category">{category}</span>
-      </a>
+      </Link>
 
       <div className="sorath-blog-meta">
         <span>{date}</span>
@@ -35,17 +36,17 @@ const BlogCard = ({
       </div>
 
       <h3>
-        <a href={link}>{title}</a>
+        <Link to={link}>{title}</Link>
       </h3>
 
       <p>{description}</p>
 
-      <a href={link} className="sorath-primary-btn primary-btn-2 sorath-blog-more">
+      <Link to={link} className="sorath-primary-btn primary-btn-2 sorath-blog-more">
         <span>Read More</span>
         <span>
           <FiArrowRight />
         </span>
-      </a>
+      </Link>
     </article>
   );
 };

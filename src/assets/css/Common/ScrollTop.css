@@ -1,7 +1,7 @@
 .sorath-scroll-top {
   position: fixed;
   right: 30px;
-  bottom: clamp(24px, 5vh, 60px);
+  bottom: 25px;
   z-index: 9990;
   display: grid;
   place-items: center;

@@ -1,3 +1,5 @@
+import SectionHeadingShape from '../../assets/images/shapes/section-heading.png';
+
 interface HeadingProps {
   badge: string;
   title: string;
@@ -17,6 +19,10 @@ const Heading = ({
 }: HeadingProps) => {
   return (
     <div className="row sorath-section-heading">
+      <div className="sorath-section-heading-shape">
+        <img src={SectionHeadingShape} alt="" />
+      </div>
+
       <div className="col-lg-4 col-md-12">
         <div className="sorath-section-badge">
           <span />

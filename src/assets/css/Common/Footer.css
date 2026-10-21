@@ -58,9 +58,7 @@
   color: #78a7a5;
 }
 
-.sorath-footer-mail:hover,
-.sorath-footer-nav a:hover,
-.sorath-footer-legal a:hover {
+.sorath-footer-mail:hover {
   color: #78a7a5;
 }
 
@@ -76,8 +74,39 @@
 .sorath-footer-legal a {
   color: #eee;
   font-size: 13px;
+  font-weight: 500;
   text-decoration: none;
-  transition: color 0.3s ease;
+}
+
+.sorath-footer-nav .sorath-menu-label,
+.sorath-footer-legal .sorath-menu-label {
+  display: inline-grid;
+  overflow: hidden;
+  line-height: 1.15;
+  vertical-align: middle;
+}
+
+.sorath-footer-nav .sorath-menu-label span,
+.sorath-footer-legal .sorath-menu-label span {
+  grid-area: 1 / 1;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.sorath-footer-nav .sorath-menu-label span:last-child,
+.sorath-footer-legal .sorath-menu-label span:last-child {
+  color: #78a7a5;
+  transform: translateY(110%);
+}
+
+.sorath-footer-nav a:hover .sorath-menu-label span:first-child,
+.sorath-footer-legal a:hover .sorath-menu-label span:first-child {
+  transform: translateY(-110%);
+}
+
+.sorath-footer-nav a:hover .sorath-menu-label span:last-child,
+.sorath-footer-legal a:hover .sorath-menu-label span:last-child {
+  transform: translateY(0);
 }
 
 .sorath-footer-copyright {

@@ -10,9 +10,122 @@
 }
 
 .sorath-pd-main {
+  position: relative;
   height: clamp(280px, 42vw, 560px);
   border-radius: 24px;
   overflow: hidden;
+}
+
+.sorath-pd-cad {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 100px;
+  background: #17191b;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sorath-pd-cad:hover {
+  background: var(--primary-sorath-color);
+}
+
+.sorath-pd-cad-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0.35s ease;
+}
+
+.sorath-pd-cad-popup.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.sorath-pd-cad-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(23, 25, 27, 0.6);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sorath-pd-cad-popup.is-open .sorath-pd-cad-backdrop {
+  opacity: 1;
+}
+
+.sorath-pd-cad-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: min(920px, 100%);
+  max-height: calc(100dvh - 32px);
+  overflow: hidden;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sorath-pd-cad-popup.is-open .sorath-pd-cad-card {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.sorath-pd-cad-head {
+  flex: none;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+}
+
+.sorath-pd-cad-head h3 {
+  color: #17191b;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.sorath-pd-cad-body {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: 16px 18px 20px;
+}
+
+.sorath-pd-cad-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+.sorath-pd-cad-close {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: #f3f4f6;
+  cursor: pointer;
 }
 
 .sorath-pd-main img,
@@ -392,6 +505,25 @@
   margin: 0;
   padding: 0;
   border: 0;
+}
+
+.sorath-pd-form-rating .sorath-pd-stars button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #cfcfcf;
+  cursor: pointer;
+}
+
+.sorath-pd-form-rating .sorath-pd-stars button.is-on,
+.sorath-pd-form-rating .sorath-pd-stars button:hover {
+  color: var(--primary-sorath-color);
+}
+
+.sorath-pd-form-note {
+  margin: 14px 0 0;
+  color: var(--primary-sorath-color);
+  font-weight: 600;
 }
 
 .sorath-pd-form input,

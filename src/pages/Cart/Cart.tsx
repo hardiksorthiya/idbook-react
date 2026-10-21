@@ -10,7 +10,7 @@ const Cart = () => {
     <>
       <Header />
       <Breadcrumb title="Cart" background={Breadcrumbimage} />
-      <section className="sorath-cart" data-aos="fade-up">
+      <section className="sorath-cart">
         <div className="container-fluid sorath-container-fluid">
           <CartList />
         </div>

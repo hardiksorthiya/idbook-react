@@ -3,9 +3,33 @@
 ======================================== */
 
 .sorath-products {
-  padding: 100px 0 35px;
+  position: relative;
+  z-index: 1;
+  padding: 100px 0 80px;
   overflow: hidden;
   background: #f7f7f7;
+}
+
+.sorath-products-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  width: 100%;
+  max-width: 1232px;
+  height: 100%;
+  max-height: 690px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.sorath-products .sorath-container-fluid,
+.sorath-products-slider,
+.sorath-products-controls {
+  position: relative;
+  z-index: 1;
 }
 
 .sorath-products .sorath-section-heading {
@@ -18,16 +42,27 @@
 
 .sorath-products-slider {
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .sorath-products-swiper {
   width: 100%;
   padding: 0 0 10px;
+  overflow: visible;
 }
 
 .sorath-products-swiper .swiper-slide {
   height: auto;
+}
+
+.sorath-products-swiper .swiper-slide:nth-child(odd) {
+  margin-top: 50px;
+}
+
+.sorath-products .sorath-product-image {
+  aspect-ratio: auto;
+  height: 540px;
+  border-radius: 24px;
 }
 
 /* ========================================
@@ -68,19 +103,29 @@
   position: absolute;
   top: 22px;
   left: 22px;
+  z-index: 3;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.sorath-product-categories span {
+.sorath-product-categories span,
+.sorath-product-categories a {
   padding: 6px 12px;
   border: 1px solid rgba(255, 255, 255, 0.85);
   border-radius: 30px;
   color: #fff;
   font-size: 11px;
   line-height: 1.2;
+  text-decoration: none;
   text-transform: uppercase;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.sorath-product-categories a:hover {
+  background: #fff;
+  border-color: #fff;
+  color: #17191b;
 }
 
 /* Wishlist and Cart */
@@ -380,6 +425,14 @@
     margin-bottom: 50px;
   }
 
+  .sorath-products .sorath-product-image {
+    height: 450px;
+  }
+
+  .sorath-products-swiper .swiper-slide:nth-child(odd) {
+    margin-top: 0;
+  }
+
   .sorath-product-actions {
     opacity: 1;
     transform: none;
@@ -389,6 +442,11 @@
 @media (max-width: 575px) {
   .sorath-products {
     padding: 60px 0 25px;
+  }
+
+  .sorath-products .sorath-product-image {
+    height: 350px;
+    border-radius: 16px;
   }
 
   .sorath-product-image {
@@ -401,7 +459,8 @@
     gap: 5px;
   }
 
-  .sorath-product-categories span {
+  .sorath-product-categories span,
+  .sorath-product-categories a {
     padding: 5px 8px;
     font-size: 9px;
   }

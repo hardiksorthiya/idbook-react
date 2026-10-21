@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useRef, type RefObject } from "react";
 import { FaArrowUp } from "react-icons/fa";
 
@@ -105,7 +106,7 @@ const Gallery = () => {
   }, []);
 
   return (
-    <section className="sorath-gallery" ref={sectionRef} data-aos="zoom-in-up">
+    <section className="sorath-gallery sorath-home-gallery" ref={sectionRef}>
       <div className="container-fluid sorath-container-fluid">
         <Heading
           badge="Our Gallery"
@@ -129,8 +130,8 @@ const Gallery = () => {
       </div>
 
       <div className="sorath-gallery-footer">
-        <a
-          href="/shop"
+        <Link
+          to="/shop"
           className="sorath-primary-btn sorath-hero-shop-btn primary-btn-2"
         >
           <span>Shop Now</span>
@@ -138,7 +139,7 @@ const Gallery = () => {
           <span className="sorath-hero-shop-arrow">
             <FaArrowUp />
           </span>
-        </a>
+        </Link>
       </div>
     </section>
   );

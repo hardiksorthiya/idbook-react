@@ -18,7 +18,7 @@ const toCard = (item: BlogItem) => ({
   date: item.published_at,
   title: item.title,
   description: item.summary,
-  link: "/blog",
+  link: `/blog/${item.slug}`,
   author: item.author,
 });
 
@@ -46,7 +46,7 @@ const Blog = () => {
   }, []);
 
   return (
-    <section className="sorath-blog" data-aos="fade-up">
+    <section className="sorath-blog">
       <div className="container-fluid sorath-container-fluid">
         <Heading
           badge="Our Blog"

@@ -107,8 +107,8 @@
 }
 
 .sorath-header-btn {
-  width: 61px;
-  height: 61px;
+  width: 54px;
+  height: 54px;
 
   flex-shrink: 0;
 
@@ -174,7 +174,7 @@
   position: relative;
   width: 320px;
   margin-right: -61px;
-  overflow: visible;
+  /* overflow: visible; */
   opacity: 1;
 }
 
@@ -300,17 +300,37 @@
 
   font-size: 18px;
 
-  font-weight: 700;
+  font-weight: 500;
 
   transition: color 0.25s ease;
 }
 
-.sorath-menu-list a:first-child {
-  color: #83b9b7;
+.sorath-menu-label {
+  display: inline-grid;
+  overflow: hidden;
+  line-height: 1.15;
+  vertical-align: middle;
 }
 
-.sorath-menu-list a:hover {
+.sorath-menu-label span {
+  grid-area: 1 / 1;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.sorath-menu-label span:last-child {
   color: #83b9b7;
+  transform: translateY(110%);
+}
+
+.sorath-menu-list a:hover .sorath-menu-label span:first-child,
+.sorath-menu-list a.is-active .sorath-menu-label span:first-child {
+  transform: translateY(-110%);
+}
+
+.sorath-menu-list a:hover .sorath-menu-label span:last-child,
+.sorath-menu-list a.is-active .sorath-menu-label span:last-child {
+  transform: translateY(0);
 }
 
 

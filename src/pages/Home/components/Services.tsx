@@ -1,55 +1,23 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { FiArrowUpRight } from 'react-icons/fi';
 
 import Heading from '../../Common/Heading';
+import { getCategories } from '../../../../services/categories';
+import type { CategoryItem } from '../../../../types/category';
+import FallbackImage from '../../../assets/images/step1.webp';
 
 import '../../../assets/css/Home/Services.css';
 
-import ServiceImage1 from '../../../assets/images/step1.webp';
-import ServiceImage2 from '../../../assets/images/step1.webp';
-import ServiceImage3 from '../../../assets/images/step1.webp';
-import ServiceImage4 from '../../../assets/images/step1.webp';
-import ServiceImage5 from '../../../assets/images/step1.webp';
-
-const services = [
-  {
-    number: '01',
-    title: 'Residential Interior Design',
-    image: ServiceImage1,
-    text: 'Room makeovers and full home transformations planned around how you live.',
-  },
-  {
-    number: '02',
-    title: 'Commercial Interior Design',
-    image: ServiceImage2,
-    text: 'Offices, retail floors, and hospitality spaces designed to work for staff and guests.',
-  },
-  {
-    number: '03',
-    title: 'Interior Design Consultation',
-    image: ServiceImage3,
-    text: 'Advice on layout, color, materials, and finishes before you start the work.',
-  },
-  {
-    number: '04',
-    title: 'Outdoor & Landscape Design',
-    image: ServiceImage4,
-    text: 'Gardens, patios, terraces, and decks planned as an extension of the interior.',
-  },
-  {
-    number: '05',
-    title: 'Renovation and Remodeling',
-    image: ServiceImage5,
-    text: 'Existing rooms updated so they look current and function better every day.',
-  },
-];
+const plain = (html: string) => html.replace(/<[^>]+>/g, '').trim();
 
 const Services = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const [categories, setCategories] = useState<CategoryItem[]>([]);
   const [activeService, setActiveService] = useState(0);
 
-  const activeItem = services[activeService];
-  const lastService = services.length - 1;
+  const activeItem = categories[activeService];
+  const lastService = Math.max(categories.length - 1, 1);
 
   const isPinned = () => {
     const section = sectionRef.current;
@@ -59,7 +27,7 @@ const Services = () => {
 
   const goToService = (index: number) => {
     const section = sectionRef.current;
-    if (!section || !isPinned()) {
+    if (!section || !isPinned() || categories.length < 2) {
       setActiveService(index);
       return;
     }
@@ -74,8 +42,14 @@ const Services = () => {
   };
 
   useEffect(() => {
+    getCategories()
+      .then(setCategories)
+      .catch(() => setCategories([]));
+  }, []);
+
+  useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    if (!section || categories.length < 2) return;
 
     let frame = 0;
 
@@ -109,85 +83,72 @@ const Services = () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     };
-  }, [lastService]);
+  }, [lastService, categories.length]);
 
   return (
-    <>
-    <section ref={sectionRef} className="sorath-services" data-aos="fade">
+    <section ref={sectionRef} className="sorath-services">
       <div className="sorath-services-pin">
-      <div className="container-fluid sorath-container-fluid">
-      {/* Section Heading */}
-        <Heading
-          badge="Our Services"
-          title="Explore our"
-          highlight="comprehensive interior design "
-          afterHighlight="services"
-          description="From private homes to offices, retail, and outdoor spaces, we design interiors that are practical, refined, and built around how you live and work."
-        />
+        <div className="container-fluid sorath-container-fluid">
+          <Heading
+            badge="Our Services"
+            title="Explore our"
+            highlight="comprehensive interior design "
+            afterHighlight="services"
+            description="From private homes to offices, retail, and outdoor spaces, we design interiors that are practical, refined, and built around how you live and work."
+          />
 
-        {/* ================================
-            SERVICES CONTENT
-        ================================= */}
+          {activeItem && (
+            <div className="row align-items-center sorath-services-content">
+              <div className="col-lg-6">
+                <div className="sorath-service-image">
+                  <img
+                    key={activeItem.id}
+                    src={activeItem.image_url || activeItem.thumb_url || FallbackImage}
+                    alt={activeItem.name}
+                  />
 
-        <div className="row align-items-center sorath-services-content">
-          {/* Image */}
-          <div className="col-lg-6">
-            <div className="sorath-service-image">
-              <img
-                key={activeItem.number}
-                src={activeItem.image}
-                alt={activeItem.title}
-              />
+                  <div className="sorath-service-image-content">
+                    <p>{plain(activeItem.description) || activeItem.name}</p>
+                  </div>
+                </div>
+              </div>
 
-              <div className="sorath-service-image-content">
-                <p>{activeItem.text}</p>
+              <div className="col-lg-6">
+                <div className="sorath-service-list">
+                  {categories.map((category, index) => (
+                    <div
+                      key={category.id}
+                      className={`sorath-service-item ${
+                        activeService === index ? 'sorath-service-item-active' : ''
+                      }`}
+                      onMouseEnter={() => {
+                        if (!isPinned()) setActiveService(index);
+                      }}
+                      onClick={() => goToService(index)}
+                    >
+                      <span className="sorath-service-number">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+
+                      <h5 className="sorath-service-title">{category.name}</h5>
+
+                      <Link
+                        to={`/shop?category=${category.slug}`}
+                        className="sorath-service-arrow"
+                        aria-label={`View ${category.name}`}
+                        onClick={(event) => event.stopPropagation()}
+                      >
+                        <FiArrowUpRight />
+                      </Link>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Service List */}
-          <div className="col-lg-6">
-            <div className="sorath-service-list">
-              {services.map((service, index) => (
-                <div
-                  key={service.number}
-                  className={`sorath-service-item ${
-                    activeService === index
-                      ? 'sorath-service-item-active'
-                      : ''
-                  }`}
-                  onMouseEnter={() => {
-                    if (!isPinned()) setActiveService(index);
-                  }}
-                  onClick={() => goToService(index)}
-                >
-                  <span className="sorath-service-number">
-                    {service.number}
-                  </span>
-
-                  <h5 className="sorath-service-title">
-                    {service.title}
-                  </h5>
-
-                  <a
-                    href="/service-details"
-                    className="sorath-service-arrow"
-                    aria-label={`View ${service.title}`}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                    }}
-                  >
-                    <FiArrowUpRight />
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
+          )}
         </div>
       </div>
-      </div>
     </section>
-    </>
   );
 };
 

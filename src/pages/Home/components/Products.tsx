@@ -11,6 +11,7 @@ import "../../../assets/css/Home/Products.css";
 import Heading from "../../Common/Heading";
 import ProductCard from "../../Common/ProductCard";
 import Shop1 from "../../../assets/images/shop/shop-1.png";
+import ProjectShape from "../../../assets/images/shapes/project-shape-1.png";
 import { getProducts } from "../../../../services/products";
 import type { ProductItem } from "../../../../types/product";
 
@@ -22,7 +23,7 @@ type CardProduct = {
   price: string;
   mrp: string;
   discount: number;
-  categories: string[];
+  categories: { name: string; slug: string }[];
   dimensions: string;
   link: string;
   productId: number;
@@ -36,7 +37,9 @@ const toCard = (item: ProductItem): CardProduct => ({
   price: `₹${Number(item.price).toLocaleString("en-IN")}`,
   mrp: Number(item.mrp_price) > Number(item.price) ? `₹${Number(item.mrp_price).toLocaleString("en-IN")}` : "",
   discount: item.discount_percentage,
-  categories: item.primary_category ? [item.primary_category.name] : [],
+  categories: item.primary_category
+    ? [{ name: item.primary_category.name, slug: item.primary_category.slug }]
+    : [],
   dimensions: item.room_dimensions,
   link: `/product/${item.slug}`,
   productId: item.id,
@@ -51,10 +54,10 @@ const Products = () => {
   useEffect(() => {
     let stop = false;
 
-    getProducts()
+    getProducts({ is_featured: true })
       .then((list) => {
         if (stop) return;
-        const featured = list.filter((item) => item.is_featured).map(toCard);
+        const featured = list.map(toCard);
         setProducts(featured);
         setNote(featured.length ? "" : "No featured products yet.");
       })
@@ -72,7 +75,13 @@ const Products = () => {
   const sliderProducts = products.length > 1 ? [...products, ...products] : products;
 
   return (
-    <section className="sorath-products" data-aos="fade-up">
+    <section className="sorath-products">
+      <div
+        className="sorath-products-bg"
+        style={{ backgroundImage: `url(${ProjectShape})` }}
+        aria-hidden="true"
+      />
+
       <div className="container-fluid sorath-container-fluid">
         <Heading
           badge="Our Products"
@@ -80,6 +89,7 @@ const Products = () => {
           highlight="Products That"
           afterHighlight="Define Our Style"
           description="Our collection showcases a diverse range of products, from beautifully crafted residential pieces to functional and stylish commercial interiors."
+          breakBeforeHighlight
         />
 
         {note ? <p className="text-center">{note}</p> : null}

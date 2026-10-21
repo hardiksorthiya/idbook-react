@@ -1,14 +1,15 @@
+import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.webp';
 import '../../assets/css/Auth/Auth.css';
 import LoginForm from './components/LoginForm';
 
 const Login = () => {
   return (
-    <section className="sorath-auth" data-aos="zoom-in">
+    <section className="sorath-auth">
       <div className="container">
-        <a href="/" className="sorath-auth-logo" aria-label="Go to homepage">
+        <Link to="/" className="sorath-auth-logo" aria-label="Go to homepage">
           <img src={Logo} alt="IDBook" />
-        </a>
+        </Link>
         <LoginForm />
       </div>
     </section>

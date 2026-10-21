@@ -4,14 +4,16 @@ import Logo from '../../assets/images/logo.webp';
 
 const Loader = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setIsVisible(false);
-    }, 2300);
+    // Bars finish covering ~1.4s; fade out so white wipe never sits as a blank page
+    const leaveTimer = window.setTimeout(() => setLeaving(true), 1400);
+    const hideTimer = window.setTimeout(() => setIsVisible(false), 1800);
 
     return () => {
-      window.clearTimeout(timer);
+      window.clearTimeout(leaveTimer);
+      window.clearTimeout(hideTimer);
     };
   }, []);
 
@@ -20,7 +22,7 @@ const Loader = () => {
   }
 
   return (
-    <div className="sorath-preloader">
+    <div className={`sorath-preloader${leaving ? ' is-leave' : ''}`}>
       <div className="sorath-site-name">
         <img
           src={Logo}

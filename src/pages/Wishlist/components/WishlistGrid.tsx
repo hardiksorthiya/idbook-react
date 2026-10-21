@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 
@@ -40,10 +41,10 @@ const WishlistGrid = () => {
       <div className="sorath-wish-empty">
         <h2>{note === 'Please login first.' ? 'Please login first' : 'Your wishlist'}</h2>
         <p>{note === 'Please login first.' ? 'Login to see your saved designs.' : note}</p>
-        <a href={note === 'Please login first.' ? loginPath() : '/shop'} className="sorath-primary-btn sorath-cart-checkout">
+        <Link to={note === 'Please login first.' ? loginPath() : '/shop'} className="sorath-primary-btn sorath-cart-checkout">
           <span>{note === 'Please login first.' ? 'Login' : 'Browse products'}</span>
           <span><FiArrowRight /></span>
-        </a>
+        </Link>
       </div>
     );
   }
@@ -53,10 +54,10 @@ const WishlistGrid = () => {
       <div className="sorath-wish-empty">
         <h2>Your wishlist is empty</h2>
         <p>Save pieces you like and they will show up here.</p>
-        <a href="/shop" className="sorath-primary-btn sorath-cart-checkout">
+        <Link to="/shop" className="sorath-primary-btn sorath-cart-checkout">
           <span>Browse products</span>
           <span><FiArrowRight /></span>
-        </a>
+        </Link>
       </div>
     );
   }
@@ -66,7 +67,7 @@ const WishlistGrid = () => {
       {error && <p className="sorath-cart-note">{error}</p>}
       <div className="sorath-wish-bar">
         <p><span>{items.length}</span> saved pieces</p>
-        <a href="/shop">Continue shopping</a>
+        <Link to="/shop">Continue shopping</Link>
       </div>
 
       <div className="row gy-4">
@@ -78,7 +79,7 @@ const WishlistGrid = () => {
               name={item.name}
               price={money(item.price)}
               mrp={item.mrp_price > item.price ? money(item.mrp_price) : ''}
-              categories={item.category_name ? [item.category_name] : []}
+              categories={item.category_name ? [{ name: item.category_name }] : []}
               dimensions={item.room_dimensions}
               link={`/product/${item.slug}`}
               productId={item.product_id}

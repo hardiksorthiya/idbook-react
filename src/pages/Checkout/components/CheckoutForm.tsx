@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
@@ -114,10 +115,10 @@ const CheckoutForm = () => {
       <div className="sorath-bill-card sorath-bill-empty">
         <h2>{login ? 'Please login first' : 'Your cart'}</h2>
         <p>{login ? 'Login to calculate GST and continue checkout.' : note}</p>
-        <a href={login ? loginPath() : '/shop'} className="sorath-primary-btn sorath-bill-place">
+        <Link to={login ? loginPath() : '/shop'} className="sorath-primary-btn sorath-bill-place">
           <span>{login ? 'Login' : 'Browse products'}</span>
           <span><FiArrowRight /></span>
-        </a>
+        </Link>
       </div>
     );
   }

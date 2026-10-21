@@ -4,6 +4,7 @@ import About from '../src/pages/About/About'
 import Shop from '../src/pages/Shop/Shop'
 import Product from '../src/pages/Product/Product'
 import Blog from '../src/pages/Blog/Blog'
+import BlogDetail from '../src/pages/Blog/BlogDetail'
 import Contact from '../src/pages/Contact/Contact'
 import GalleryPage from '../src/pages/Gallery/Gallery'
 import Cart from '../src/pages/Cart/Cart'
@@ -23,6 +24,7 @@ const AppRoutes = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/product/:slug?" element={<Product />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogDetail />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/cart" element={<Cart />} />

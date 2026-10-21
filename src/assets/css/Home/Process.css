@@ -659,28 +659,30 @@
   left: 50%;
 
   width: 640px;
-  height: 470px;
+  height: 400px;
 
   transform:
     translate(-50%, -50%)
-    scale(min(1, 100cqw / 660px, 100cqh / 490px));
+    scale(min(1, 100cqw / 660px, 100cqh / 420px));
 }
 
-.sorath-gallery-card {
+.sorath-process-gallery .sorath-gallery-card {
   position: absolute;
+  inset: auto;
 
-  width: 250px;
-  height: 165px;
+  width: 270px;
+  height: 170px;
 
   overflow: hidden;
 
-  border: 1px solid rgba(119, 165, 163, 0.45);
-  border-radius: 14px;
+  border-radius: 18px;
 
   background: #141a1c;
 }
 
-.sorath-gallery-card img {
+.sorath-process-gallery .sorath-gallery-card img {
+  position: static;
+
   width: 100%;
   height: 100%;
 
@@ -690,35 +692,35 @@
     sorath-gallery-pan 8s ease-in-out infinite alternate;
 }
 
-.sorath-gallery-1 {
+.sorath-process-gallery .sorath-gallery-1 {
   left: 0;
-  top: 20px;
+  top: 36px;
 }
 
-.sorath-gallery-2 {
+.sorath-process-gallery .sorath-gallery-2 {
   right: 0;
   top: 0;
 }
 
-.sorath-gallery-3 {
-  left: 65px;
+.sorath-process-gallery .sorath-gallery-3 {
+  left: 48px;
   bottom: 0;
 }
 
-.sorath-gallery-4 {
-  right: 40px;
-  bottom: 35px;
+.sorath-process-gallery .sorath-gallery-4 {
+  right: 20px;
+  bottom: 24px;
 }
 
-.sorath-gallery-2 img {
+.sorath-process-gallery .sorath-gallery-2 img {
   animation-delay: -2s;
 }
 
-.sorath-gallery-3 img {
+.sorath-process-gallery .sorath-gallery-3 img {
   animation-delay: -4s;
 }
 
-.sorath-gallery-4 img {
+.sorath-process-gallery .sorath-gallery-4 img {
   animation-delay: -6s;
 }
 
@@ -780,7 +782,7 @@
   padding: 12px;
 
   animation:
-    sorath-payment-add 5s ease infinite;
+    sorath-payment-add 3.2s ease infinite;
 }
 
 .sorath-design-card img {
@@ -843,11 +845,11 @@
 }
 
 .sorath-payment-arrow-1 {
-  animation: sorath-arrow-one 5s ease infinite;
+  animation: sorath-arrow-one 3.2s ease infinite;
 }
 
 .sorath-payment-arrow-2 {
-  animation: sorath-arrow-two 5s ease infinite;
+  animation: sorath-arrow-two 3.2s ease infinite;
 }
 
 .sorath-checkout-card {
@@ -855,7 +857,7 @@
   padding: 16px;
 
   animation:
-    sorath-payment-buy 5s ease infinite;
+    sorath-payment-buy 3.2s ease infinite;
 }
 
 .sorath-checkout-head {
@@ -923,7 +925,7 @@
     0 35px 80px rgba(0, 0, 0, 0.65);
 
   animation:
-    sorath-payment-success 5s ease infinite;
+    sorath-payment-success 3.2s ease infinite;
 }
 
 .sorath-payment-phone::before {
@@ -1087,25 +1089,35 @@
     scale(min(1, 100cqw / 480px, 100cqh / 260px));
 }
 
-.sorath-send-path {
+.sorath-send-curve {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
 
-  border-top: 3px solid var(--sorath-main);
-  border-radius: 50%;
+.sorath-send-curve path {
+  fill: none;
+  stroke: #77a5a3;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: sorath-send-draw 5.2s ease infinite;
+}
 
-  transform:
-    rotate(-15deg)
-    translateY(20px);
-
-  opacity: 0.7;
+.sorath-send-fly {
+  position: absolute;
+  left: 0;
+  top: 0;
+  offset-path: path("M70 180 C 180 180, 230 40, 390 78");
+  offset-rotate: 0deg;
+  offset-anchor: center;
+  animation: sorath-send-fly 5.2s ease infinite;
 }
 
 .sorath-send-box {
-  position: absolute;
-  left: 20px;
-  bottom: 15px;
-
   width: 96px;
   height: 52px;
 
@@ -1125,54 +1137,87 @@
   color: #12202b;
   font-weight: 800;
 
-  animation: sorath-send-box 4.8s ease infinite;
+  animation: sorath-send-shrink 5.2s ease infinite;
 }
 
 .sorath-send-mailbox {
   position: absolute;
   right: 20px;
-  top: 10px;
+  top: 28px;
 
   color: var(--sorath-light);
   font-size: 76px;
+  line-height: 1;
 
-  animation: sorath-mailbox 4.8s ease infinite;
+  animation: sorath-send-pop 5.2s ease infinite;
 }
 
-@keyframes sorath-send-box {
+@keyframes sorath-send-draw {
   0%,
-  8% {
-    opacity: 1;
-    transform: translate(0, 0) scale(1.4);
+  18% {
+    stroke-dashoffset: 100;
+    opacity: 0.7;
   }
 
-  52% {
-    opacity: 1;
-    transform: translate(280px, -130px) scale(0.25);
-  }
-
-  66%,
-  100% {
-    opacity: 0;
-    transform: translate(300px, -140px) scale(0.1);
-  }
-}
-
-@keyframes sorath-mailbox {
-  0%,
-  16% {
-    opacity: 0;
-    transform: scale(0.75);
-  }
-
-  32%,
-  80% {
-    opacity: 1;
-    transform: none;
+  55%,
+  82% {
+    stroke-dashoffset: 0;
+    opacity: 0.7;
   }
 
   100% {
+    stroke-dashoffset: 0;
+    opacity: 0.35;
+  }
+}
+
+@keyframes sorath-send-fly {
+  0%,
+  22% {
+    offset-distance: 0%;
+  }
+
+  68%,
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes sorath-send-shrink {
+  0%,
+  22% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+
+  68% {
+    opacity: 1;
+    transform: scale(0.28);
+  }
+
+  82%,
+  100% {
     opacity: 0;
+    transform: scale(0.15);
+  }
+}
+
+@keyframes sorath-send-pop {
+  0%,
+  28% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+
+  55%,
+  85% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
   }
 }
 
@@ -1422,7 +1467,7 @@
   .sorath-process-gallery {
     transform:
       translate(-50%, -50%)
-      scale(min(100cqw / 640px, 100cqh / 470px));
+      scale(min(100cqw / 640px, 100cqh / 400px));
   }
 
   .sorath-send-animation {

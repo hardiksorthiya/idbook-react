@@ -1,10 +1,10 @@
-.sorath-gallery {
+.sorath-gallery.sorath-home-gallery {
   padding: 100px 0 70px;
   overflow: hidden;
-  background: #f7f7f7;
+  background: transparent;
 }
 
-.sorath-gallery .sorath-section-heading {
+.sorath-home-gallery .sorath-section-heading {
   margin-bottom: 55px;
 }
 
@@ -118,15 +118,15 @@
 }
 
 @media (max-width: 767px) {
-  .sorath-gallery {
+  .sorath-gallery.sorath-home-gallery {
     padding: 70px 0 45px;
   }
 
-  .sorath-gallery .sorath-section-heading {
+  .sorath-home-gallery .sorath-section-heading {
     margin-bottom: 32px;
   }
 
-  .sorath-gallery-footer {
+  .sorath-home-gallery .sorath-gallery-footer {
     margin-top: 28px;
   }
 }

@@ -39,7 +39,7 @@
 }
 
 .sorath-newsletter-content h2 {
-  margin: 0 0 18px;
+  margin:18px 0;
   color: #1b1b1b;
   font-size: clamp(30px, 3vw, 38px);
   font-weight: 800;

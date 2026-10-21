@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter, useLocation } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -8,25 +8,15 @@ import ScrollTop from './pages/Common/ScrollTop';
 
 function Reveal() {
   const { pathname } = useLocation();
-  const started = useRef(false);
 
   useEffect(() => {
-    const start = () => {
-      AOS.init({
-        duration: 750,
-        once: true,
-        offset: 70,
-        easing: 'ease-out-cubic',
-      });
-    };
-
-    if (!started.current) {
-      started.current = true;
-      const timer = window.setTimeout(start, 2400);
-      return () => window.clearTimeout(timer);
-    }
-
-    start();
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 40,
+      easing: 'ease-out-cubic',
+    });
+    AOS.refresh();
   }, [pathname]);
 
   return null;

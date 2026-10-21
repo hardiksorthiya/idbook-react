@@ -10,7 +10,7 @@ const Wishlist = () => {
     <>
       <Header />
       <Breadcrumb title="Wishlist" background={Breadcrumbimage} />
-      <section className="sorath-wishlist" data-aos="zoom-in">
+      <section className="sorath-wishlist">
         <div className="container-fluid sorath-container-fluid">
           <WishlistGrid />
         </div>

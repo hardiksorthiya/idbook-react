@@ -32,7 +32,6 @@ const Newsletter = () => {
   return (
     <section
       className="sorath-newsletter"
-      data-aos="zoom-in"
       style={{ backgroundImage: `url(${NewsletterBg})` }}
     >
       <div className="container-fluid sorath-container-fluid">

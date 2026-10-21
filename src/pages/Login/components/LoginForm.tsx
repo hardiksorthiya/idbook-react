@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { loginUser } from '../../../../services/login';
@@ -50,7 +51,7 @@ const LoginForm = ({ stay = false }: { stay?: boolean }) => {
           Remember me
         </label>
 
-        <p className="sorath-auth-switch"><a href="/forgot">Forgot password?</a></p>
+        <p className="sorath-auth-switch"><Link to="/forgot">Forgot password?</Link></p>
 
         <button type="submit" className="sorath-primary-btn sorath-auth-submit" disabled={sending}>
           <span>{sending ? 'Please wait' : 'Login'}</span>
@@ -58,7 +59,7 @@ const LoginForm = ({ stay = false }: { stay?: boolean }) => {
         </button>
 
         {note && <p className="sorath-auth-note" role="status">{note}</p>}
-        <p className="sorath-auth-switch">New here? <a href="/register">Create an account</a></p>
+        <p className="sorath-auth-switch">New here? <Link to="/register">Create an account</Link></p>
       </form>
     </div>
   );

@@ -83,9 +83,31 @@
     letter-spacing: -1px;
 }
 
-.sorath-hero-title strong {
+.sorath-hero-letter {
+    display: inline-block;
+    color: var(--black-sorath-color);
+    opacity: 0;
+    transform: translateY(24px);
+    animation: sorath-hero-letter-in 0.9s ease forwards;
+}
+
+.sorath-hero-letter.is-accent {
     color: var(--white-sorath-color);
-    font-weight: 800;
+}
+
+@keyframes sorath-hero-letter-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sorath-hero-letter {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
 }
 
 /* Description */
@@ -98,52 +120,71 @@
 }
 
 /* Compass */
-.sorath-hero-compass {
-           position: absolute;
-    left: 30px;
+.sorath-hero-actions {
+    position: relative;
     display: flex;
     align-items: center;
+    gap: 16px;
+}
+
+.sorath-hero-compass {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
     text-decoration: none;
-    }
+    z-index: 2;
+    transition: width 0.3s ease;
+    left: -90px;
+}
+.sorath-hero-compass:hover {
+    width: 210px;
+}
 
-    .design-float-icon {
-        position: relative;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--primary-sorath-color), #5e8c8a);
-        color: var(--white-sorath-color);
-        font-size: 26px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 10px 25px rgba(119, 165, 163, .45);
-        transition: transform .3s ease;
-        z-index: 3;
-        border: 1px solid var(--white-sorath-color);
-    }
+.design-float-icon {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-sorath-color), #5e8c8a);
+    color: var(--white-sorath-color);
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(119, 165, 163, .45);
+    transition: transform .3s ease;
+    z-index: 3;
+    border: 1px solid var(--white-sorath-color);
+}
 
-    .design-float-icon:before,
-    .design-float-icon:after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: 50%;
-        background: var(--primary-sorath-color);
-        z-index: -1;
-        animation: designPulse 2.4s ease-out infinite;
-    }
+.design-float-icon:before,
+.design-float-icon:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--primary-sorath-color);
+    z-index: -1;
+    animation: designPulse 2.4s ease-out infinite;
+}
 
-    .design-float-icon:after {
-        animation-delay: 1.2s;
-    }
+.design-float-icon:after {
+    animation-delay: 1.2s;
+}
 
-    .design-float-icon i {
-        animation: designShake 4s ease-in-out infinite;
-    }
+.design-float-icon svg {
+    animation: designShake 4s ease-in-out infinite;
+}
 
-    .design-float-label {
-    margin-left: 50px;
+.design-float-label {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 2;
+    margin: 0 0 0 50px;
     padding: 10px 18px 10px 40px;
     background: var(--white-sorath-color);
     color: var(--primary-sorath-color);
@@ -153,20 +194,19 @@
     border-radius: 0 30px 30px 0;
     box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translate(-20px, -50%);
     pointer-events: none;
     transition: opacity .3s ease, transform .3s ease;
-    position: absolute;
-    z-index: 2;
 }
-    .sorath-hero-compass:hover .design-float-icon {
-        transform: scale(1.08) rotate(-8deg);
-    }
 
-    .sorath-hero-compass:hover .design-float-label {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.sorath-hero-compass:hover .design-float-icon {
+    transform: scale(1.08) rotate(-8deg);
+}
+
+.sorath-hero-compass:hover .design-float-label {
+    opacity: 1;
+    transform: translate(0, -50%);
+}
 
 /* Shop Button */
 
@@ -208,7 +248,7 @@
 
 .sorath-hero-image {
     width: 220px;
-    height: 260px;
+    /* height: 260px; */
     overflow: hidden;
     border-radius: 24px;
 }
@@ -238,7 +278,7 @@
 
     .sorath-hero-image {
         width: 45%;
-        height: 280px;
+        /* height: 280px; */
     }
 }
 
@@ -259,11 +299,15 @@
         font-size: 16px;
     }
 
-    .sorath-hero-compass {
-        width: 70px;
-        height: 70px;
-        position: relative;
-        left: 0;
+    .sorath-hero-compass,
+    .sorath-hero-compass:hover {
+        width: 60px;
+        height: 60px;
+    }
+
+    .sorath-hero-compass:hover .design-float-label {
+        display: none;
+        opacity: 0;
     }
 
     .sorath-hero-shop-btn {
@@ -282,6 +326,6 @@
 
     .sorath-hero-image {
         width: 50%;
-        height: 220px;
+        /* height: 220px; */
     }
 }

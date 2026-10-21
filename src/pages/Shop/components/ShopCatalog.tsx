@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { FiArrowRight, FiSliders } from 'react-icons/fi';
+import { createPortal } from 'react-dom';
+import { useSearchParams } from 'react-router-dom';
+import { FiArrowRight, FiSliders, FiX } from 'react-icons/fi';
 
 import '../../../assets/css/Home/Products.css';
 import '../../../assets/css/Shop/Shop.css';
@@ -29,7 +31,7 @@ type ShopProduct = {
   price: string;
   mrp: string;
   discount: number;
-  categories: string[];
+  categories: { name: string; slug: string }[];
   categorySlug: string;
   style: string;
   dimensions: string;
@@ -50,7 +52,9 @@ const toProduct = (item: ProductItem): ShopProduct => ({
   price: `₹${item.price.toLocaleString('en-IN')}`,
   mrp: item.mrp_price > item.price ? `₹${item.mrp_price.toLocaleString('en-IN')}` : '',
   discount: item.discount_percentage,
-  categories: item.primary_category ? [item.primary_category.name] : [],
+  categories: item.primary_category
+    ? [{ name: item.primary_category.name, slug: item.primary_category.slug }]
+    : [],
   categorySlug: item.primary_category?.slug || '',
   style: item.design_style || '',
   dimensions: item.room_dimensions,
@@ -63,7 +67,10 @@ const toProduct = (item: ProductItem): ShopProduct => ({
 });
 
 const ShopCatalog = () => {
+  const [searchParams] = useSearchParams();
   const sortRef = useRef<HTMLDivElement>(null);
+  const filterBtnRef = useRef<HTMLDivElement>(null);
+  const filterDrawerRef = useRef<HTMLDivElement>(null);
   const [products, setProducts] = useState<ShopProduct[]>([]);
   const [filters, setFilters] = useState<ProductFilters | null>(null);
   const [note, setNote] = useState('');
@@ -76,6 +83,7 @@ const ShopCatalog = () => {
   const [view, setView] = useState<'grid' | 'list'>('grid');
   const [page, setPage] = useState(1);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filtersMounted, setFiltersMounted] = useState(false);
 
   const minPrice = filters?.price_range.min ?? 0;
   const maxPrice = filters?.price_range.max ?? 0;
@@ -122,6 +130,11 @@ const ShopCatalog = () => {
   }, [search, selectedCategories, selectedStyles, priceLimit, sort]);
 
   useEffect(() => {
+    const category = searchParams.get('category');
+    if (category) setSelectedCategories([category]);
+  }, [searchParams]);
+
+  useEffect(() => {
     getProductFilters()
       .then((next) => {
         setFilters(next);
@@ -138,25 +151,42 @@ const ShopCatalog = () => {
       });
   }, []);
 
+  const openFilters = () => {
+    setSortOpen(false);
+    setFiltersMounted(true);
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => setFiltersOpen(true));
+    });
+  };
+
+  const closeFilters = () => {
+    setFiltersOpen(false);
+    window.setTimeout(() => setFiltersMounted(false), 320);
+  };
+
   useEffect(() => {
-    const closeSort = (event: MouseEvent) => {
-      if (!sortRef.current?.contains(event.target as Node)) {
-        setSortOpen(false);
-      }
+    const closeMenus = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (!sortRef.current?.contains(target)) setSortOpen(false);
+
+      const inFilter =
+        !!filterBtnRef.current?.contains(target) ||
+        !!filterDrawerRef.current?.contains(target);
+      if (!inFilter && filtersOpen) closeFilters();
     };
 
     const closeOnDesktop = () => {
-      if (window.innerWidth >= 992) setFiltersOpen(false);
+      if (window.innerWidth >= 992) closeFilters();
     };
 
-    document.addEventListener('mousedown', closeSort);
+    document.addEventListener('mousedown', closeMenus);
     window.addEventListener('resize', closeOnDesktop);
 
     return () => {
-      document.removeEventListener('mousedown', closeSort);
+      document.removeEventListener('mousedown', closeMenus);
       window.removeEventListener('resize', closeOnDesktop);
     };
-  }, []);
+  }, [filtersOpen]);
 
   const toggleCategory = (slug: string) => {
     setSelectedCategories((current) =>
@@ -174,26 +204,27 @@ const ShopCatalog = () => {
     );
   };
 
+  const filterProps = {
+    search,
+    onSearchChange: setSearch,
+    categories: filters?.categories || [],
+    selectedCategories,
+    onToggleCategory: toggleCategory,
+    styles: filters?.design_styles || [],
+    selectedStyles,
+    onToggleStyle: toggleStyle,
+    minPrice,
+    maxPrice: maxPrice || minPrice,
+    priceLimit,
+    onPriceLimitChange: setPriceLimit,
+  };
+
   return (
-    <section className="sorath-shop" data-aos="fade-up">
+    <section className="sorath-shop">
       <div className="container-fluid sorath-container-fluid">
         <div className="row">
-          <div className={`col-lg-3 sorath-shop-filter-col ${filtersOpen ? 'is-open' : ''}`}>
-            <h3 className="sorath-shop-drawer-title">Filters</h3>
-            <ShopFilter
-              search={search}
-              onSearchChange={setSearch}
-              categories={filters?.categories || []}
-              selectedCategories={selectedCategories}
-              onToggleCategory={toggleCategory}
-              styles={filters?.design_styles || []}
-              selectedStyles={selectedStyles}
-              onToggleStyle={toggleStyle}
-              minPrice={minPrice}
-              maxPrice={maxPrice || minPrice}
-              priceLimit={priceLimit}
-              onPriceLimitChange={setPriceLimit}
-            />
+          <div className="col-lg-3 sorath-shop-filter-col">
+            <ShopFilter {...filterProps} />
           </div>
 
           <div className="col-lg-9">
@@ -242,15 +273,47 @@ const ShopCatalog = () => {
               </div>
 
               <div className="sorath-shop-sort-wrap">
-                <button
-                  type="button"
-                  className="sorath-shop-filter-toggle"
-                  aria-label="Open filters"
-                  aria-expanded={filtersOpen}
-                  onClick={() => setFiltersOpen((open) => !open)}
-                >
-                  <FiSliders />
-                </button>
+                <div className="sorath-shop-filter-wrap" ref={filterBtnRef}>
+                  <button
+                    type="button"
+                    className={`sorath-shop-filter-toggle${filtersOpen ? ' is-open' : ''}`}
+                    aria-label="Open filters"
+                    aria-expanded={filtersOpen}
+                    onClick={() => (filtersOpen ? closeFilters() : openFilters())}
+                  >
+                    <FiSliders />
+                  </button>
+                </div>
+
+                {filtersMounted &&
+                  createPortal(
+                    <>
+                      <button
+                        type="button"
+                        className={`sorath-shop-filter-backdrop${filtersOpen ? ' is-open' : ''}`}
+                        aria-label="Close filters"
+                        onClick={closeFilters}
+                      />
+                      <div
+                        className={`sorath-shop-filter-dropdown${filtersOpen ? ' is-open' : ''}`}
+                        ref={filterDrawerRef}
+                      >
+                        <div className="sorath-shop-drawer-head">
+                          <h3 className="sorath-shop-drawer-title">Filters</h3>
+                          <button
+                            type="button"
+                            className="sorath-shop-filter-close"
+                            aria-label="Close filters"
+                            onClick={closeFilters}
+                          >
+                            <FiX />
+                          </button>
+                        </div>
+                        <ShopFilter {...filterProps} />
+                      </div>
+                    </>,
+                    document.body,
+                  )}
 
                 <div
                   className={`sorath-shop-select ${sortOpen ? 'is-open' : ''}`}
@@ -261,7 +324,10 @@ const ShopCatalog = () => {
                     className="sorath-shop-select-btn"
                     aria-haspopup="listbox"
                     aria-expanded={sortOpen}
-                    onClick={() => setSortOpen((open) => !open)}
+                    onClick={() => {
+                      closeFilters();
+                      setSortOpen((open) => !open);
+                    }}
                   >
                     {activeSort.label}
                   </button>
@@ -349,15 +415,6 @@ const ShopCatalog = () => {
           </div>
         </div>
       </div>
-
-      {filtersOpen && (
-        <button
-          type="button"
-          className="sorath-shop-filter-overlay"
-          aria-label="Close filters"
-          onClick={() => setFiltersOpen(false)}
-        />
-      )}
     </section>
   );
 };

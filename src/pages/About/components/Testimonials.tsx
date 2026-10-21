@@ -58,7 +58,7 @@ const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="sorath-testimonials" data-aos="fade-right">
+    <section className="sorath-testimonials">
       <div className="container-fluid sorath-container-fluid">
         <Heading
           badge="Our Clients Say"

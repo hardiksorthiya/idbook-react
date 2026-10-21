@@ -1,9 +1,15 @@
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { FiArrowRight, FiCheck, FiStar } from 'react-icons/fi';
+import { addProductReview } from '../../../../services/products';
+import { loginPath } from '../../../../utils/loginPath';
 import type { ProductDetail } from '../../../../types/product';
 
 const ProductTabs = ({ product }: { product: ProductDetail }) => {
   const [tab, setTab] = useState('description');
+  const [rating, setRating] = useState(5);
+  const [note, setNote] = useState('');
+  const [sending, setSending] = useState(false);
   const specs = Object.entries(product.specification || {});
   const reviews = product.reviews || [];
   const tabs = [
@@ -12,8 +18,37 @@ const ProductTabs = ({ product }: { product: ProductDetail }) => {
     { id: 'reviews', label: `Reviews (${product.reviews_count || reviews.length})` },
   ];
 
+  const sendReview = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    setSending(true);
+    setNote('');
+
+    addProductReview(product.slug, {
+      rating,
+      title: String(data.get('title') || ''),
+      details: String(data.get('details') || ''),
+    })
+      .then((result) => {
+        setNote(result.message || 'Thank you! Your review has been submitted for moderation.');
+        form.reset();
+        setRating(5);
+      })
+      .catch((error) => {
+        const message = error instanceof Error ? error.message : 'Could not submit this review.';
+        if (message === 'Please login first.') {
+          window.location.href = loginPath();
+          return;
+        }
+        setNote(message);
+      })
+      .finally(() => setSending(false));
+  };
+
   return (
-    <section className="sorath-pd-tabs" data-aos="fade-left">
+    <section className="sorath-pd-tabs">
       <div className="container-fluid sorath-container-fluid">
         <ul className="sorath-pd-nav">
           {tabs.map((item) => (
@@ -95,30 +130,34 @@ const ProductTabs = ({ product }: { product: ProductDetail }) => {
             </div>
 
             <div className="col-lg-7">
-              <form
-                className="sorath-pd-form"
-                onSubmit={(event) => event.preventDefault()}
-              >
+              <form className="sorath-pd-form" onSubmit={sendReview}>
                 <h4>Review this product</h4>
-                <p>Your email address will not be published. Required fields are marked *</p>
+                <p>Share your rating and a short note about this design. Required fields are marked *</p>
                 <div className="sorath-pd-form-rating">
                   <span>Your ratings :</span>
                   <span className="sorath-pd-stars">
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <FiStar key={index} />
-                    ))}
+                    {Array.from({ length: 5 }).map((_, index) => {
+                      const value = index + 1;
+                      return (
+                        <button
+                          key={value}
+                          type="button"
+                          className={value <= rating ? 'is-on' : ''}
+                          aria-label={`${value} star${value === 1 ? '' : 's'}`}
+                          onClick={() => setRating(value)}
+                        >
+                          <FiStar />
+                        </button>
+                      );
+                    })}
                   </span>
                 </div>
-                <input type="text" placeholder="Your Name" required />
-                <input type="email" placeholder="Your Email" required />
-                <textarea rows={5} placeholder="Comment" required />
-                <label>
-                  <input type="checkbox" />
-                  Save my name and email in this browser for the next time I comment.
-                </label>
-                <button type="submit" className="sorath-pd-btn sorath-pd-btn-fill">
-                  Submit <FiArrowRight />
+                <input type="text" name="title" placeholder="Review title *" required />
+                <textarea name="details" rows={5} placeholder="Your review details *" required />
+                <button type="submit" className="sorath-pd-btn sorath-pd-btn-fill" disabled={sending}>
+                  {sending ? 'Submitting...' : 'Submit'} <FiArrowRight />
                 </button>
+                {note && <p className="sorath-pd-form-note" role="status">{note}</p>}
               </form>
             </div>
           </div>

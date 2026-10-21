@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FiHeart, FiShoppingCart, FiX } from 'react-icons/fi';
 import { addToCart } from '../../../services/cart';
 import { loginPath } from '../../../utils/loginPath';
 import { toggleWishlist } from '../../../services/wishlist';
+
+type ProductCategory = {
+  name: string;
+  slug?: string;
+};
 
 type ProductCardProps = {
   image: string;
@@ -11,7 +17,7 @@ type ProductCardProps = {
   price: string;
   mrp?: string;
   discount?: number;
-  categories: string[];
+  categories: ProductCategory[];
   dimensions?: string;
   link: string;
   productId?: number;
@@ -65,7 +71,7 @@ const ProductCard = ({
 
   return (
     <div className="sorath-product-card">
-      <a href={link} className="sorath-product-card-link">
+      <Link to={link} className="sorath-product-card-link">
         <div
           className="sorath-product-image sorath-product-image-flip"
           onMouseMove={moveView}
@@ -87,12 +93,6 @@ const ProductCard = ({
           {!!discount && discount > 0 && (
             <span className="sorath-product-badge">-{discount}%</span>
           )}
-
-          <div className="sorath-product-categories">
-            {categories.map((category) => (
-              <span key={category}>{category}</span>
-            ))}
-          </div>
         </div>
 
         <div className="sorath-product-info">
@@ -111,7 +111,21 @@ const ProductCard = ({
             )}
           </div>
         </div>
-      </a>
+      </Link>
+
+      {categories.length > 0 && (
+        <div className="sorath-product-categories">
+          {categories.map((category) =>
+            category.slug ? (
+              <Link key={category.slug} to={`/shop?category=${category.slug}`}>
+                {category.name}
+              </Link>
+            ) : (
+              <span key={category.name}>{category.name}</span>
+            ),
+          )}
+        </div>
+      )}
 
       <div className={`sorath-product-actions${cartNote || wishNote ? ' is-open' : ''}`}>
         <div className="sorath-product-cart">

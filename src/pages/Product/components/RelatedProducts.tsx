@@ -7,7 +7,7 @@ const RelatedProducts = ({ items }: { items: RelatedProduct[] }) => {
   if (!items.length) return null;
 
   return (
-    <section className="sorath-pd-related" data-aos="zoom-in">
+    <section className="sorath-pd-related">
       <div className="container-fluid sorath-container-fluid">
         <h2>Related Products</h2>
         <div className="row gy-4">
@@ -18,7 +18,11 @@ const RelatedProducts = ({ items }: { items: RelatedProduct[] }) => {
                 hoverImage={product.main_image_url || product.thumb_url || Shop1}
                 name={product.name}
                 price={`₹${product.price.toLocaleString('en-IN')}`}
-                categories={product.primary_category ? [product.primary_category.name] : []}
+                categories={
+                  product.primary_category
+                    ? [{ name: product.primary_category.name, slug: product.primary_category.slug }]
+                    : []
+                }
                 dimensions={product.room_dimensions || ''}
                 link={`/product/${product.slug}`}
                 productId={product.id}

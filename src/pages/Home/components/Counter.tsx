@@ -86,7 +86,7 @@ const Counter = () => {
   }, [startCount]);
 
   return (
-    <section className="sorath-counter" ref={sectionRef} data-aos="fade-up">
+    <section className="sorath-counter" ref={sectionRef}>
       <div className="container-fluid sorath-container-fluid">
         <div className="row g-4">
           {counterData.map((item, index) => (

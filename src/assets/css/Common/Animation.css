@@ -54,10 +54,16 @@
         transform: rotate(10deg);
     }
 }
-
 .sorath-process[data-aos],
 .sorath-services[data-aos],
 .sorath-process[data-aos].aos-animate,
 .sorath-services[data-aos].aos-animate {
     transform: none !important;
+}
+
+/* Avoid blank page before AOS marks sections as ready */
+html:not(.aos-enabled) [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
 }

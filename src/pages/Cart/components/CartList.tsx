@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FiArrowRight, FiX } from 'react-icons/fi';
 
@@ -69,10 +70,10 @@ const CartList = () => {
       <div className="sorath-cart-empty">
         <h2>{note === 'Please login first.' ? 'Please login first' : 'Your cart'}</h2>
         <p>{note === 'Please login first.' ? 'Login to see the designs in your cart.' : note}</p>
-        <a href={note === 'Please login first.' ? loginPath() : '/shop'} className="sorath-primary-btn sorath-cart-checkout">
+        <Link to={note === 'Please login first.' ? loginPath() : '/shop'} className="sorath-primary-btn sorath-cart-checkout">
           <span>{note === 'Please login first.' ? 'Login' : 'Browse products'}</span>
           <span><FiArrowRight /></span>
-        </a>
+        </Link>
       </div>
     );
   }
@@ -82,10 +83,10 @@ const CartList = () => {
       <div className="sorath-cart-empty">
         <h2>Your cart is empty</h2>
         <p>Add a design and it will show up here.</p>
-        <a href="/shop" className="sorath-primary-btn sorath-cart-checkout">
+        <Link to="/shop" className="sorath-primary-btn sorath-cart-checkout">
           <span>Browse products</span>
           <span><FiArrowRight /></span>
-        </a>
+        </Link>
       </div>
     );
   }
@@ -114,13 +115,13 @@ const CartList = () => {
       <ul className="sorath-cart-list">
         {items.map((item) => (
           <li key={item.id}>
-            <a href={`/product/${item.slug}`} className="sorath-cart-product">
+            <Link to={`/product/${item.slug}`} className="sorath-cart-product">
               <img src={item.image_url || Shop1} alt={item.name} />
               <span>
                 <strong>{item.name}</strong>
                 <em>{item.category_name} · {money(item.subtotal)}</em>
               </span>
-            </a>
+            </Link>
             <div className="sorath-cart-qty">
               <button
                 type="button"
@@ -164,13 +165,13 @@ const CartList = () => {
           <button type="button" className="sorath-primary-btn primary-btn-2 sorath-cart-shop" onClick={clear}>
             <span>Clear cart</span>
           </button>
-          <a href="/shop" className="sorath-primary-btn primary-btn-2 sorath-cart-shop">
+          <Link to="/shop" className="sorath-primary-btn primary-btn-2 sorath-cart-shop">
             <span>Continue shopping</span>
-          </a>
-          <a href="/checkout" className="sorath-primary-btn sorath-cart-checkout">
+          </Link>
+          <Link to="/checkout" className="sorath-primary-btn sorath-cart-checkout">
             <span>Checkout</span>
             <span><FiArrowRight /></span>
-          </a>
+          </Link>
         </div>
       </div>
     </>

@@ -39,7 +39,7 @@ export type RelatedProduct = {
   thumb_url?: string | null;
   main_image_url?: string | null;
   room_dimensions?: string | null;
-  primary_category?: { name: string } | null;
+  primary_category?: { name: string; slug?: string } | null;
 };
 
 export type ProductDetail = {
@@ -63,7 +63,12 @@ export type ProductDetail = {
   categories: { name: string; slug: string }[];
   main_image_url?: string | null;
   thumb_url?: string | null;
-  gallery: Array<string | { url?: string | null; image_url?: string | null; thumb_url?: string | null }>;
+  gallery: Array<string | {
+    url?: string | null;
+    image_url?: string | null;
+    thumb_url?: string | null;
+    image_type?: string | null;
+  }>;
   deliverables: { code: string; label: string; available: boolean; details: string }[];
   reviews: { id: number; author: string; rating: number; review_text: string | null; created_at: string }[];
   related_products: RelatedProduct[];

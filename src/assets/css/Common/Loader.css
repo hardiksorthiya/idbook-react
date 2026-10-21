@@ -8,6 +8,13 @@
   overflow: hidden;
   background: #111;
   pointer-events: auto;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.sorath-preloader.is-leave {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Logo */
@@ -115,7 +122,7 @@
     width: 0;
   }
 
-  45% {
+  55% {
     width: 100%;
   }
 

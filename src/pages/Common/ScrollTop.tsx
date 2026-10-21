@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { FiArrowUp } from 'react-icons/fi';
 
 import '../../assets/css/Common/ScrollTop.css';
 
 const ScrollTop = () => {
+  const { pathname, search } = useLocation();
   const [percent, setPercent] = useState(0);
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname, search]);
 
   useEffect(() => {
     const update = () => {

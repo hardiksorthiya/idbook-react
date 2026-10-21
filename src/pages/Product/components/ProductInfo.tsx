@@ -2,20 +2,33 @@ import { useState } from 'react';
 import { FiHeart, FiStar } from 'react-icons/fi';
 import AddToCart from './AddToCart';
 import BuyNow from './BuyNow';
+import ViewCadPlan from './ViewCadPlan';
 import { toggleWishlist } from '../../../../services/wishlist';
 import Shop1 from '../../../assets/images/shop/shop-1.png';
 import type { ProductDetail } from '../../../../types/product';
 
 const money = (value: number) => `₹${value.toLocaleString('en-IN')}`;
 
+const photoUrl = (item: ProductDetail['gallery'][number]) => {
+  if (typeof item === 'string') return item;
+  return item.url || item.image_url || item.thumb_url || '';
+};
+
 const photosOf = (product: ProductDetail) => {
-  const gallery = (product.gallery || []).map((item) => {
-    if (typeof item === 'string') return item;
-    return item.url || item.image_url || item.thumb_url || '';
-  }).filter(Boolean);
+  const gallery = (product.gallery || [])
+    .filter((item) => typeof item === 'string' || item.image_type !== 'floor_plan_preview')
+    .map(photoUrl)
+    .filter(Boolean);
 
   if (gallery.length) return gallery;
   return [product.main_image_url, product.thumb_url, Shop1].filter(Boolean) as string[];
+};
+
+const cadPlanOf = (product: ProductDetail) => {
+  const item = (product.gallery || []).find(
+    (entry) => typeof entry !== 'string' && entry.image_type === 'floor_plan_preview',
+  );
+  return item ? photoUrl(item) : '';
 };
 
 const ProductInfo = ({ product }: { product: ProductDetail }) => {
@@ -23,15 +36,17 @@ const ProductInfo = ({ product }: { product: ProductDetail }) => {
   const [wishLabel, setWishLabel] = useState('Add to wishlist');
   const images = photosOf(product);
   const photo = images[active] || images[0];
+  const cadPlan = cadPlanOf(product);
 
   return (
-    <section className="sorath-pd" data-aos="fade-up">
+    <section className="sorath-pd">
       <div className="container-fluid sorath-container-fluid">
         <div className="row gy-4">
           <div className="col-lg-6">
             <div className="sorath-pd-gallery">
               <div className="sorath-pd-main">
                 <img src={photo} alt={product.name} />
+                {cadPlan && <ViewCadPlan image={cadPlan} name={product.name} />}
               </div>
               <div className="sorath-pd-thumbs">
                 {images.map((image, index) => (

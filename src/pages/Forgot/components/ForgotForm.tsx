@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { forgotPassword } from '../../../../services/forgot';
@@ -42,7 +43,7 @@ const ForgotForm = () => {
         </button>
 
         {note && <p className="sorath-auth-note" role="status">{note}</p>}
-        <p className="sorath-auth-switch">Remembered it? <a href="/login">Back to login</a></p>
+        <p className="sorath-auth-switch">Remembered it? <Link to="/login">Back to login</Link></p>
       </form>
     </div>
   );

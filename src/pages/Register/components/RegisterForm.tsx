@@ -1,7 +1,11 @@
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { FiArrowUpRight, FiCompass, FiUser } from 'react-icons/fi';
+import { loginUser } from '../../../../services/login';
 import { registerUser } from '../../../../services/register';
 import type { RegisterBody } from '../../../../types/register';
+import { pathAfterLogin } from '../../../../utils/loginPath';
+import { getToken, saveToken } from '../../../../utils/token';
 import PasswordField from '../../Common/PasswordField';
 
 const RegisterForm = () => {
@@ -42,11 +46,17 @@ const RegisterForm = () => {
     setNote('');
 
     try {
-      await registerUser(body);
-      setNote('Account created. You can login now.');
+      const data = await registerUser(body);
+      saveToken(data);
+
+      if (!getToken()) {
+        const login = await loginUser({ email: body.email, password: body.password });
+        saveToken(login);
+      }
+
+      window.location.href = pathAfterLogin();
     } catch (error) {
       setNote(error instanceof Error ? error.message : 'Could not create the account.');
-    } finally {
       setSending(false);
     }
   };
@@ -154,7 +164,7 @@ const RegisterForm = () => {
         </button>
 
         {note && <p className="sorath-auth-note" role="status">{note}</p>}
-        <p className="sorath-auth-switch">Already have an account? <a href="/login">Login</a></p>
+        <p className="sorath-auth-switch">Already have an account? <Link to="/login">Login</Link></p>
       </form>
     </div>
   );

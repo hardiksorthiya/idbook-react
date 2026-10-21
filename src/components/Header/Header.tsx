@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   FiHeart,
   FiSearch,
@@ -16,6 +16,7 @@ import '../../assets/css/Common/Header.css';
 
 const Header = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const isHome = pathname === '/';
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,7 +44,9 @@ const Header = () => {
 
   const goSearch = () => {
     const word = searchInputRef.current?.value.trim() ?? '';
-    window.location.href = word ? `/search?q=${encodeURIComponent(word)}` : '/search';
+    navigate(word ? `/search?q=${encodeURIComponent(word)}` : '/search');
+    setIsSearchOpen(false);
+    setSuggestions([]);
   };
 
   const findSuggestions = (value: string) => {
@@ -87,12 +90,12 @@ const Header = () => {
         <div className="d-flex justify-content-between align-items-center sorath-header-inner">
 
           {/* Logo */}
-          <a href="/" className="sorath-header-logo">
+          <Link to="/" className="sorath-header-logo">
             <img
               src={Logo}
               alt="IDBook"
             />
-          </a>
+          </Link>
 
           {/* Header Actions */}
           <div className="sorath-header-actions">
@@ -118,10 +121,16 @@ const Header = () => {
                 <ul className="sorath-search-list">
                   {suggestions.map((item) => (
                     <li key={item.id}>
-                      <a href={`/search?q=${encodeURIComponent(item.name)}`}>
+                      <Link
+                        to={`/search?q=${encodeURIComponent(item.name)}`}
+                        onClick={() => {
+                          setIsSearchOpen(false);
+                          setSuggestions([]);
+                        }}
+                      >
                         {item.name}
                         <small>{item.category_name} · ₹{item.price.toLocaleString('en-IN')}</small>
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -141,9 +150,9 @@ const Header = () => {
             </button>
 
             {/* Login */}
-            <a href={getToken() ? '/profile' : '/login'} className="sorath-header-btn" aria-label={getToken() ? 'Profile' : 'Login'}>
+            <Link to={getToken() ? '/profile' : '/login'} className="sorath-header-btn" aria-label={getToken() ? 'Profile' : 'Login'}>
               <FiUser />
-            </a>
+            </Link>
 
             {/* Menu */}
             <button
@@ -164,28 +173,36 @@ const Header = () => {
               }`}
             >
               <nav className="sorath-menu-list">
-
-                <a href="/">Home</a>
-
-                <a href="/about">About</a>
-
-                <a href="/shop">Shop</a>
-
-                <a href="/blog">Blog</a>
-
-                <a href="/contact">Contact</a>
-
+                {[
+                  { href: '/', label: 'Home' },
+                  { href: '/about', label: 'About' },
+                  { href: '/shop', label: 'Shop' },
+                  { href: '/blog', label: 'Blog' },
+                  { href: '/contact', label: 'Contact' },
+                ].map((item) => (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className={pathname === item.href ? 'is-active' : ''}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span className="sorath-menu-label">
+                      <span>{item.label}</span>
+                      <span>{item.label}</span>
+                    </span>
+                  </Link>
+                ))}
               </nav>
 
               <div className="d-flex align-items-center gap-2 sorath-menu-bottom">
 
-                <a href="/wishlist" className="sorath-menu-icon" aria-label="Wishlist">
+                <Link to="/wishlist" className="sorath-menu-icon" aria-label="Wishlist" onClick={() => setIsMenuOpen(false)}>
                   <FiHeart />
-                </a>
+                </Link>
 
-                <a href="/cart" className="sorath-menu-icon" aria-label="Cart">
+                <Link to="/cart" className="sorath-menu-icon" aria-label="Cart" onClick={() => setIsMenuOpen(false)}>
                   <FiShoppingCart />
-                </a>
+                </Link>
 
               </div>
             </div>
